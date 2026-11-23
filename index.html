@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>ABACUS360 · Drawing the plans</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* VOICE: formal, warm and unhurried, the voice of the ABACUS360 brochure.
+   IDEA: an architect's tracing board: the plans drawn before the first stone is laid.
+   PICTURE: the compass circle with an inscribed square, 36 beads that light up as answers come in, two columns.
+   COLOUR and TYPE: ABACUS navy #182750, gold #B8933E, paper #F8F5EE; Cinzel titles, Cormorant italic for mottos, Inter for reading.
+   LAYOUT: a navy opening plate, then seven parts on paper, one column, and a closing plate to send. */
+:root{color-scheme:light;--navy:#182750;--ink:#0F1B3D;--gold:#B8933E;--goldd:#7A5C17;--goldl:#EFE6D0;--paper:#F8F5EE;--line:#E4DCCB;--tx:#2A2F3A;--mut:#5A6070}
+*{box-sizing:border-box;min-width:0}
+html{scroll-padding-top:90px}
+body{margin:0;background:var(--paper);color:var(--tx);font:16px/1.6 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;overflow-x:clip;-webkit-font-smoothing:antialiased}
+button,input,textarea{font:inherit}
+button{cursor:pointer}
+.cinzel{font-family:Cinzel,Georgia,serif}
+.motto{font-family:"Cormorant Garamond",Georgia,serif;font-style:italic;color:var(--gold)}
+.mosaic{height:12px;background:repeating-conic-gradient(var(--navy) 0 25%,#fff 0 50%) 0 0/12px 12px;opacity:.9}
+/* opening plate */
+.plate{background:var(--navy);color:#fff;min-height:100vh;display:flex;flex-direction:column}
+.plate .bar{display:flex;justify-content:space-between;align-items:center;padding:20px max(5vw,18px);gap:12px}
+.brand{display:flex;align-items:center;gap:10px}
+.wm{letter-spacing:3px;font-weight:300;font-size:18px}
+.by{font-size:12.5px;color:#AEB9D8;white-space:nowrap}
+.hero{flex:1;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);align-items:center;padding:clamp(18px,3vw,40px) max(5vw,18px) 40px;max-width:1240px;margin:0 auto;width:100%}
+.art{position:relative;width:100%;max-width:470px;margin:0 auto;aspect-ratio:1/1}
+.art svg{position:absolute;inset:0;width:100%;height:100%}
+.eyebrow{font-family:Cinzel,Georgia,serif;color:var(--gold);font-size:14px;letter-spacing:1.5px}
+h1{font-family:Cinzel,Georgia,serif;font-weight:500;font-size:clamp(34px,5vw,52px);line-height:1.08;margin:10px 0 4px;letter-spacing:1px;text-wrap:balance}
+.sub{font-size:22px}
+.lead{color:#D9DFEE;font-size:17px;max-width:560px;margin:18px 0 0}
+.facts{display:flex;flex-wrap:wrap;gap:10px 22px;margin:22px 0 0;color:#C9D1E8;font-size:14px}
+.facts span{display:flex;align-items:center;gap:8px}.facts i{width:7px;height:7px;border-radius:50%;background:var(--gold);display:inline-block}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:10px;padding:12px 22px;font-size:15.5px;font-weight:500;min-height:48px;border:1px solid transparent;text-decoration:none}
+.btn.gold{background:var(--gold);color:#16120A;border-color:var(--gold)}
+.btn.gold:hover{background:#C9A44E}
+.btn.ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.35)}
+.btn.navy{background:var(--navy);color:#fff}
+.btn.line{background:#fff;color:var(--navy);border-color:var(--line)}
+.btn:focus-visible,.chip:focus-visible,.dot:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+.plate .motto{font-size:21px;text-align:center;padding:10px 18px 22px}
+/* work pages */
+.top{position:sticky;top:0;z-index:10;background:var(--navy);color:#fff}
+.top .in{max-width:1000px;margin:0 auto;display:flex;align-items:center;gap:14px;padding:10px 18px}
+.top .t{font-family:Cinzel,Georgia,serif;font-size:15px;letter-spacing:1px}
+.top .p{margin-left:auto;display:flex;align-items:center;gap:10px;font-size:13px;color:#C9D1E8;white-space:nowrap}
+.dots{max-width:1000px;margin:0 auto;display:flex;gap:6px;padding:0 18px 10px;overflow-x:auto}
+.dot{flex:1 0 auto;min-width:64px;min-height:40px;border-radius:8px;border:1px solid rgba(255,255,255,.18);background:transparent;color:#C9D1E8;font-family:Cinzel,Georgia,serif;font-size:14px;display:flex;align-items:center;justify-content:center;gap:6px}
+.dot.on{background:var(--gold);border-color:var(--gold);color:#16120A}
+.dot.done{color:#fff;border-color:rgba(184,147,62,.7)}
+main{max-width:800px;margin:0 auto;padding:34px 18px 60px}
+.sechead{display:grid;grid-template-columns:auto minmax(0,1fr);gap:18px;align-items:start;margin-bottom:22px}
+.num{font-family:Cinzel,Georgia,serif;font-size:56px;line-height:1;color:var(--gold);min-width:64px}
+.sechead h2{font-family:Cinzel,Georgia,serif;font-weight:500;font-size:clamp(24px,3.2vw,32px);color:var(--ink);margin:4px 0 2px;line-height:1.15}
+.sechead .motto{font-size:20px;color:var(--goldd)}
+.sechead p{margin:8px 0 0;color:var(--tx)}
+.q{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px 22px;margin-top:14px}
+.qh{display:flex;gap:12px}
+.qn{font-family:Cinzel,Georgia,serif;color:var(--gold);font-size:17px;min-width:22px;line-height:1.5}
+.ql{font-size:17px;font-weight:600;color:var(--ink);line-height:1.4}
+.qhint{font-size:14px;color:var(--mut);margin-top:3px}
+.opts{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0 34px}
+.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 16px;font-size:15px;min-height:44px;color:var(--tx);text-align:left;line-height:1.35}
+.chip:hover{border-color:var(--gold)}
+.chip[aria-pressed=true]{background:var(--navy);border-color:var(--navy);color:#fff}
+.chip[aria-pressed=true]::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--gold);margin-right:8px;vertical-align:1px}
+.counts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:14px 0 0 34px}
+.counts label{display:flex;flex-direction:column;gap:5px;font-size:14px;color:var(--mut)}
+input[type=number],input[type=text],textarea{border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:16px;color:var(--ink);background:#FDFCF9;width:100%}
+input:focus,textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px var(--goldl);background:#fff}
+textarea{min-height:96px;resize:vertical;line-height:1.5}
+.field{margin:14px 0 0 34px}
+.note{margin:10px 0 0 34px}
+.note input{font-size:15px}
+.nav{display:flex;justify-content:space-between;gap:10px;margin-top:28px;flex-wrap:wrap}
+.saved{font-size:13px;color:var(--mut);text-align:center;margin-top:16px}
+/* closing plate */
+.close{max-width:800px;margin:0 auto;padding:34px 18px 50px}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px}
+.sum{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-top:14px}
+.sum button{border:1px solid var(--line);background:#FDFCF9;border-radius:10px;padding:10px 12px;text-align:left;min-height:44px}
+.sum b{font-family:Cinzel,Georgia,serif;color:var(--gold);font-weight:500;margin-right:6px}
+.sum span{display:block;font-size:12.5px;color:var(--mut)}
+.preview{width:100%;min-height:220px;font-size:13.5px;font-family:ui-monospace,Menlo,Consolas,monospace;background:#FBFAF6}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:11px 18px;border-radius:10px;font-size:14px;z-index:50;max-width:calc(100vw - 32px)}
+.hide{display:none!important}
+@media(max-width:760px){.hero{grid-template-columns:minmax(0,1fr)}.art{max-width:300px;order:-1}.by{display:none}.counts{grid-template-columns:repeat(2,minmax(0,1fr))}.opts,.counts,.field,.note{margin-left:0}.num{font-size:44px;min-width:48px}.top .t{display:none}}
+@media(prefers-reduced-motion:no-preference){.bead{transition:fill .5s ease}}
+</style>
+</head>
+<body>
+
+<section class="plate" id="intro">
+  <div class="bar"><div class="brand"><span id="logo1"></span><span class="wm">ABACUS360</span></div><span class="by">Prepared by MIA Technology · confidential</span></div>
+  <div class="hero">
+    <div>
+      <div class="eyebrow">For Mr M. J. Liswaniso, FZICA</div>
+      <h1>Drawing the plans</h1>
+      <div class="motto sub">Before the first stone is laid</div>
+      <p class="lead">So that the demonstration is built for ABACUS360 and for nobody else, we would value your answers to the questions that follow. Skip anything you would rather discuss in person. There are no wrong answers, and no client names or confidential figures are needed.</p>
+      <div class="facts"><span><i></i>Seven short parts</span><span><i></i>About 15 minutes</span><span><i></i>Saved on this device as you go</span></div>
+      <div class="btns"><button class="btn gold" id="begin">Begin</button><button class="btn ghost hide" id="resume">Continue where I left off</button></div>
+    </div>
+    <div class="art" aria-hidden="true"><svg viewBox="0 0 400 400" id="art"></svg></div>
+  </div>
+  <div class="motto">Built on the level. Checked on the square.</div>
+  <div class="mosaic"></div>
+</section>
+
+<div id="work" class="hide">
+  <div class="top">
+    <div class="in"><span id="logo2"></span><span class="t">Drawing the plans</span><div class="p"><span id="count"></span><svg width="40" height="40" viewBox="0 0 400 400" id="mini" aria-hidden="true"></svg></div></div>
+    <div class="dots" id="dots"></div>
+  </div>
+  <main id="sec"></main>
+  <div class="mosaic"></div>
+</div>
+
+<div id="done" class="hide">
+  <div class="top"><div class="in"><span id="logo3"></span><span class="t">Drawing the plans</span><div class="p"><span id="count2"></span></div></div></div>
+  <div class="close">
+    <div style="text-align:center;margin-bottom:22px">
+      <svg width="120" height="120" viewBox="0 0 400 400" id="fin" aria-hidden="true"></svg>
+      <h2 class="cinzel" style="font-weight:500;font-size:clamp(26px,4vw,36px);color:var(--ink);margin:8px 0 2px">The plans are drawn</h2>
+      <div class="motto" style="font-size:21px;color:var(--goldd)">Thank you, Mr Liswaniso</div>
+    </div>
+    <div class="card">
+      <p style="margin:0">Press the button below and your answers go to Moshe on WhatsApp as one message. He will build the demonstration around them before you meet.</p>
+      <label style="display:block;margin-top:14px;font-size:14px;color:var(--mut)">Your name<input type="text" id="who" value="M. J. Liswaniso" style="margin-top:5px"></label>
+      <div class="btns" style="margin-top:16px"><a class="btn gold" id="wa" href="#" target="_blank" rel="noopener">Send to Moshe on WhatsApp</a><button class="btn line" id="copy">Copy my answers</button></div>
+      <p style="font-size:13.5px;color:var(--mut);margin:12px 0 0">WhatsApp opens with the message ready: press send there. Prefer email? Copy your answers and send them to 9591299@gmail.com.</p>
+    </div>
+    <div class="card" style="margin-top:14px">
+      <div style="font-weight:600;color:var(--ink)">Your answers, part by part</div>
+      <div class="sum" id="sum"></div>
+      <textarea class="preview" id="preview" readonly aria-label="Your answers as they will be sent" style="margin-top:14px"></textarea>
+    </div>
+    <p class="motto" style="text-align:center;font-size:20px;margin-top:26px">Built on the level. Checked on the square.</p>
+    <p style="text-align:center;font-size:13px;color:var(--mut);margin:0">Moshe Israel Ashtamkar · MIA Technology · WhatsApp +972 50 959 1299</p>
+  </div>
+  <div class="mosaic"></div>
+</div>
+
+<script>
+{
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII'];
+const SERVICES = ['Tax compliance', 'Tax advisory', 'Accounting and bookkeeping', 'Payroll', 'Statutory audit', 'Internal audit', 'Forensic and investigations', 'Company secretarial', 'Business advisory', 'Outsourced CFO', 'Training'];
+
+const SECTIONS = [
+  { t: 'The foundation', m: 'Your firm, as it stands', p: 'Every building starts with its ground plan. Tell us the shape of ABACUS360 today.', q: [
+    { id: 'team', type: 'counts', q: 'How many people work at the firm?', h: 'A rough number is fine.', f: ['Partners', 'Managers', 'Seniors and accountants', 'Trainees', 'Secretaries and admin', 'Other'] },
+    { id: 'offices', type: 'single', q: 'Where do you work from?', o: ['One office in Lusaka', 'Lusaka and other towns', 'Zambia and other countries'], note: 'Which towns or countries?' },
+    { id: 'clients', type: 'single', q: 'Roughly how many active clients do you have?', o: ['Under 100', '100 to 200', '200 to 400', 'Over 400'] },
+    { id: 'mix', type: 'multi', q: 'Who are your clients?', h: 'Choose all that apply.', o: ['Private companies', 'Listed companies', 'Small businesses', 'Individuals', 'NGOs and donor projects', 'Government and parastatals', 'Foreign-owned companies', 'Mining and energy'] },
+    { id: 'services', type: 'multi', q: 'Which services does the firm offer?', h: 'Choose all that apply.', o: SERVICES },
+    { id: 'focus', type: 'multi', max: 3, q: 'Which three should the demonstration show first?', h: 'Up to three.', o: SERVICES }
+  ] },
+  { t: 'The working tools', m: 'How the work is done today', p: 'Every craft has its tools. Which ones does your team rely on now?', q: [
+    { id: 'acc', type: 'multi', q: 'Which accounting software do you and your clients use?', o: ['Sage Pastel', 'QuickBooks', 'Xero', 'Odoo', 'Tally', 'Excel', 'Other'], note: 'Any other?' },
+    { id: 'jobs', type: 'single', q: 'How do you keep track of jobs and deadlines today?', o: ['Practice management software', 'Spreadsheets', 'Outlook calendar', 'Paper diaries', 'Each manager has their own way'], note: 'If software, which one?' },
+    { id: 'docs', type: 'single', q: 'Where are client documents kept?', o: ['Paper files', 'A shared drive on our server', 'OneDrive or SharePoint', 'Google Drive', 'Dropbox', 'A mix'] },
+    { id: 'email', type: 'single', q: 'Which email system does the firm use?', o: ['Microsoft 365 or Outlook', 'Google Workspace', 'Other'] },
+    { id: 'channels', type: 'multi', q: 'How do clients send you documents and messages?', o: ['WhatsApp', 'Email', 'Delivered to the office', 'Collected by our staff', 'A client portal'] },
+    { id: 'time', type: 'single', q: 'Do staff record their time?', o: ['Yes, in a system', 'Yes, on spreadsheets', 'Only on some jobs', 'No'] },
+    { id: 'billing', type: 'single', q: 'How are most clients billed?', o: ['Monthly retainers', 'Fixed fees per job', 'By time spent', 'A mix'] }
+  ] },
+  { t: 'Keeping the calendar', m: 'Statutory compliance', p: 'The calendar never moves. Tell us how much of it rests on your team each month.', q: [
+    { id: 'volumes', type: 'counts', q: 'Roughly how many of these does the firm handle each month?', f: ['VAT returns', 'PAYE, NAPSA and NHIMA', 'Withholding tax returns', 'Payroll runs', 'Bookkeeping clients'] },
+    { id: 'filing', type: 'single', q: 'Who submits returns on ZRA TaxOnline?', o: ['Our staff, with the client\'s login', 'The client, after we prepare', 'It depends on the client'] },
+    { id: 'logins', type: 'single', q: 'How are clients\' TaxOnline logins kept today?', o: ['In a protected file', 'On paper', 'Each staff member keeps their own', 'Clients keep them'] },
+    { id: 'smart', type: 'single', q: 'How far are your clients with ZRA Smart Invoice?', o: ['Most are on it', 'About half', 'Only a few', 'We are not sure'] },
+    { id: 'pains', type: 'multi', q: 'What causes the most trouble each month?', o: ['Clients send documents late', 'Chasing proof of payment', 'ZRA portal problems', 'Penalties and interest', 'Reviewing work in time', 'Staff leave or turnover', 'Knowing who is doing what'] },
+    { id: 'story', type: 'text', q: 'Is there a recent deadline that went wrong? What happened?', h: 'No names needed. One example tells us a great deal.' }
+  ] },
+  { t: 'Audit and assurance', m: 'Three degrees, then a signature', p: 'How does an audit move through the firm, from acceptance to the partner\'s signature?', q: [
+    { id: 'audits', type: 'single', q: 'How many audit reports do you sign a year?', o: ['Under 20', '20 to 50', '50 to 100', 'Over 100'] },
+    { id: 'frameworks', type: 'multi', q: 'Which frameworks do your audit clients report under?', o: ['IFRS', 'IFRS for SMEs', 'IPSAS', 'Donor or grant rules', 'Other'] },
+    { id: 'files', type: 'single', q: 'How are audit files kept?', o: ['Audit software', 'Our own Word and Excel templates', 'Paper files', 'A mix'], note: 'If software, which one?' },
+    { id: 'review', type: 'multi', q: 'Who reviews a file before you sign?', o: ['Senior', 'Manager', 'A second partner', 'Quality review on some files'] },
+    { id: 'peak', type: 'multi', q: 'When is your busiest audit season?', o: ['January to March', 'April to June', 'July to September', 'October to December'] },
+    { id: 'slow', type: 'multi', q: 'What slows audits down most?', o: ['Waiting for client information', 'Bank and debtor confirmations', 'Review notes going back and forth', 'Staff capacity in peak season', 'Finding the latest version of a work paper'] }
+  ] },
+  { t: 'Forensic and investigations', m: 'Work that may be read in court', p: 'Tell us how you run a case, so the workspace follows your method and not ours.', q: [
+    { id: 'fxtypes', type: 'multi', q: 'Which engagements do you take on?', o: ['Fraud investigations', 'Procurement reviews', 'Payroll audits', 'Asset tracing', 'Litigation support and expert evidence', 'Due diligence', 'Insurance claims', 'Whistleblower cases'] },
+    { id: 'fxwho', type: 'multi', q: 'Who usually instructs you?', o: ['Boards and audit committees', 'Law firms', 'Banks', 'Government bodies', 'The courts', 'Donors and NGOs'] },
+    { id: 'fxcount', type: 'single', q: 'How many cases a year?', o: ['Under 5', '5 to 15', '15 to 30', 'Over 30'] },
+    { id: 'fxtools', type: 'multi', q: 'Which tools do you use for the data work?', o: ['Excel', 'IDEA', 'ACL or Galvanize', 'Power BI', 'Python or R', 'None yet'] },
+    { id: 'fxhelp', type: 'multi', q: 'Where would the system help you most?', o: ['Ledger tests such as Benford and duplicates', 'Evidence register and chain of custody', 'Related-party and link charts', 'Case timeline', 'Drafting the expert report', 'Keeping the case to the case team'] },
+    { id: 'fxnote', type: 'text', q: 'Anything about confidentiality or court standards we must respect?' }
+  ] },
+  { t: 'The people', m: 'The hands that carry the work', p: 'A firm is only as strong as the people who build it. A few questions about your team and your trainees.', q: [
+    { id: 'trainees', type: 'single', q: 'How many trainees or students are with you now?', o: ['None', '1 to 5', '6 to 15', 'More than 15'] },
+    { id: 'logs', type: 'single', q: 'How are practical experience logs kept today?', o: ['ZICA forms on paper', 'Spreadsheets', 'The trainees keep them', 'Not as well as we would like'] },
+    { id: 'train', type: 'multi', q: 'How do you train your staff?', o: ['Weekly sessions', 'On the job', 'External courses', 'CPD events', 'Not formally'] },
+    { id: 'figures', type: 'single', q: 'Who should see fees and firm figures?', o: ['Partners only', 'Partners and managers', 'Each manager for their own clients'] },
+    { id: 'approve', type: 'text', q: 'Who must approve before anything leaves the firm?', h: 'For example a return, a letter to ZRA, a report or an invoice.' }
+  ] },
+  { t: 'The finished work', m: 'What the demonstration should show', p: 'Now picture the finished building. What should it do for you on a Monday morning?', q: [
+    { id: 'top3', type: 'text', q: 'If the system fixed three things in its first month, what would they be?' },
+    { id: 'screens', type: 'multi', q: 'Which screens would you most like to see built around ABACUS360?', o: ['Partner dashboard', 'Compliance radar', 'Statutory calendar', 'VAT with Smart Invoice checks', 'Audit files and sign-off', 'Forensic case workspace', 'Client app', 'Ask 360', 'Partner insights', 'Trainee mentoring'] },
+    { id: 'ai', type: 'single', q: 'How far should the AI agents go at first?', o: ['Draft only, a person approves everything', 'Do routine work and report back', 'Let us decide together'] },
+    { id: 'app', type: 'multi', q: 'What should your clients be able to do in their app?', o: ['See what is due', 'Upload documents', 'Approve returns', 'Pay invoices', 'Message their manager', 'Download certificates and reports'] },
+    { id: 'data', type: 'single', q: 'Where should the firm\'s data be kept?', o: ['In Zambia only', 'Anywhere secure', 'Let us discuss'] },
+    { id: 'meet', type: 'single', q: 'When could we meet once you are back?', o: ['Wednesday 9 December', 'Thursday 10 December', 'Another day'], note: 'Another day or a preferred time?' },
+    { id: 'else', type: 'text', q: 'Is there anything else we should know?' }
+  ] }
+];
+const ALLQ = SECTIONS.flatMap(s => s.q);
+
+/* ---------- state, saved on this device */
+const KEY = 'abacus360-plans-v1';
+let A = {}, cur = 0;
+try { const raw = localStorage.getItem(KEY); if (raw) { const d = JSON.parse(raw); A = d.a || {}; cur = d.i || 0; } } catch (e) {}
+function save() { try { localStorage.setItem(KEY, JSON.stringify({ a: A, i: cur })); } catch (e) {} }
+function answered(q) { const v = A[q.id]; if (!v) return false; if (q.type === 'counts') return Object.values(v).some(x => String(x).trim() !== ''); if (Array.isArray(v)) return v.length > 0; return String(v).trim() !== ''; }
+const doneCount = () => ALLQ.filter(answered).length;
+
+/* ---------- pictures */
+function logo(size) {
+  const c = size / 2, R = c - 3.4; let s = '';
+  for (let i = 0; i < 10; i++) { const a = -Math.PI / 2 + 2 * Math.PI * i / 10; s += `<circle cx="${(c + R * Math.cos(a)).toFixed(1)}" cy="${(c + R * Math.sin(a)).toFixed(1)}" r="${(1.2 + 1.7 * i / 9).toFixed(2)}" fill="#fff" opacity="${(0.55 + 0.45 * i / 9).toFixed(2)}"/>`; }
+  return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" aria-hidden="true">${s}</svg>`;
+}
+function column(x, y, h) {
+  let fl = ''; for (let i = 1; i < 5; i++) fl += `<line x1="${x + 3 + i * 3.6}" y1="${y + 14}" x2="${x + 3 + i * 3.6}" y2="${y + h - 14}" stroke="#B8933E" stroke-width=".8" opacity=".55"/>`;
+  return `<g fill="none" stroke="#B8933E" stroke-width="1.3"><rect x="${x - 3}" y="${y}" width="30" height="6" rx="1"/><rect x="${x}" y="${y + 6}" width="24" height="6"/><rect x="${x + 3}" y="${y + 12}" width="18" height="${h - 24}"/>${fl}<rect x="${x}" y="${y + h - 12}" width="24" height="6"/><rect x="${x - 3}" y="${y + h - 6}" width="30" height="6" rx="1"/></g>`;
+}
+function emblem(withCols, lit, big) {
+  const c = 200, R = 150; let s = '';
+  for (let i = 0; i < 72; i++) { const a = 2 * Math.PI * i / 72, r1 = R + 10, r2 = R + (i % 6 === 0 ? 22 : 16); s += `<line x1="${(c + r1 * Math.cos(a)).toFixed(1)}" y1="${(c + r1 * Math.sin(a)).toFixed(1)}" x2="${(c + r2 * Math.cos(a)).toFixed(1)}" y2="${(c + r2 * Math.sin(a)).toFixed(1)}" stroke="#B8933E" stroke-width="${i % 6 === 0 ? 1.4 : .8}" opacity=".7"/>`; }
+  const sq = R / Math.SQRT2;
+  s += `<circle cx="${c}" cy="${c}" r="${R}" fill="none" stroke="#B8933E" stroke-width="1.4"/>`;
+  s += `<rect x="${c - sq}" y="${c - sq}" width="${2 * sq}" height="${2 * sq}" fill="none" stroke="#B8933E" stroke-width="1.1" opacity=".75"/>`;
+  s += `<circle cx="${c}" cy="${c}" r="${sq}" fill="none" stroke="#B8933E" stroke-width=".7" opacity=".45"/>`;
+  for (let i = 0; i < 36; i++) { const a = -Math.PI / 2 + 2 * Math.PI * i / 36, r = R - 14; s += `<circle class="bead" cx="${(c + r * Math.cos(a)).toFixed(1)}" cy="${(c + r * Math.sin(a)).toFixed(1)}" r="${big ? 5 : 9}" fill="${i < lit ? '#B8933E' : 'rgba(184,147,62,.22)'}"/>`; }
+  if (big) s += `<text x="${c}" y="${c + 14}" text-anchor="middle" font-family="Cinzel, Georgia, serif" font-size="44" fill="#fff" letter-spacing="2">360°</text>`;
+  if (withCols) s += column(4, 130, 150) + column(372, 130, 150);
+  return s;
+}
+function lit() { return Math.round(doneCount() / ALLQ.length * 36); }
+$('#logo1').innerHTML = logo(30); $('#logo2').innerHTML = logo(26); $('#logo3').innerHTML = logo(26);
+$('#art').innerHTML = emblem(true, 36, true);
+
+/* ---------- rendering */
+function qHTML(q, n) {
+  const v = A[q.id];
+  let body = '';
+  if (q.type === 'single' || q.type === 'multi') body = `<div class="opts" role="group" aria-labelledby="l-${q.id}">${q.o.map(o => { const on = q.type === 'single' ? v === o : (v || []).includes(o); return `<button class="chip" data-q="${q.id}" data-o="${esc(o)}" aria-pressed="${on}">${esc(o)}</button>`; }).join('')}</div>`;
+  if (q.type === 'counts') body = `<div class="counts">${q.f.map((f, i) => `<label>${f}<input type="number" inputmode="numeric" min="0" data-c="${q.id}" data-f="${esc(f)}" value="${esc((v || {})[f] || '')}"></label>`).join('')}</div>`;
+  if (q.type === 'text') body = `<div class="field"><textarea data-t="${q.id}" aria-labelledby="l-${q.id}" placeholder="Write as much or as little as you like">${esc(v || '')}</textarea></div>`;
+  const note = q.note ? `<div class="note"><input type="text" data-t="${q.id}_note" placeholder="${esc(q.note)} (optional)" aria-label="${esc(q.note)}" value="${esc(A[q.id + '_note'] || '')}"></div>` : '';
+  return `<div class="q" id="q-${q.id}"><div class="qh"><div class="qn">${n}</div><div><div class="ql" id="l-${q.id}">${q.q}</div>${q.h ? `<div class="qhint">${q.h}</div>` : ''}</div></div>${body}${note}</div>`;
+}
+function renderDots() {
+  $('#dots').innerHTML = SECTIONS.map((s, i) => { const all = s.q.filter(answered).length === s.q.length; return `<button class="dot ${i === cur ? 'on' : ''} ${all && i !== cur ? 'done' : ''}" data-s="${i}" aria-label="Part ${ROMAN[i]}: ${s.t}">${ROMAN[i]}${all && i !== cur ? ' ✓' : ''}</button>`; }).join('');
+}
+function renderProgress() {
+  const t = `${doneCount()} of ${ALLQ.length} answered`;
+  $('#count').textContent = t; $('#count2').textContent = t;
+  $('#mini').innerHTML = emblem(false, lit(), false);
+}
+function renderSection() {
+  const s = SECTIONS[cur];
+  const next = cur < SECTIONS.length - 1 ? `Continue to ${ROMAN[cur + 1]} · ${SECTIONS[cur + 1].t}` : 'Finish and review';
+  $('#sec').innerHTML = `<div class="sechead"><div class="num">${ROMAN[cur]}</div><div><h2>${s.t}</h2><div class="motto">${s.m}</div><p>${s.p}</p></div></div>
+    ${s.q.map((q, i) => qHTML(q, i + 1)).join('')}
+    <div class="nav"><button class="btn line" id="back">${cur ? 'Back' : 'Back to the start'}</button><button class="btn navy" id="next">${next}</button></div>
+    <div class="saved">Your answers are saved on this device. You can close this page and come back.</div>`;
+  renderDots(); renderProgress();
+}
+function show(screen) {
+  $('#intro').classList.toggle('hide', screen !== 'intro');
+  $('#work').classList.toggle('hide', screen !== 'work');
+  $('#done').classList.toggle('hide', screen !== 'done');
+  if (screen === 'work') renderSection();
+  if (screen === 'done') renderDone();
+  window.scrollTo(0, 0);
+}
+
+/* ---------- the message */
+function fmt(q) {
+  const v = A[q.id];
+  let out = '';
+  if (q.type === 'counts') out = q.f.filter(f => v && String(v[f] || '').trim() !== '').map(f => `${f} ${v[f]}`).join(', ');
+  else if (Array.isArray(v)) out = v.join(', ');
+  else out = v || '';
+  const note = A[q.id + '_note'];
+  if (note && note.trim()) out += (out ? ' · ' : '') + 'Note: ' + note.trim();
+  return out.trim();
+}
+function message() {
+  const who = ($('#who') && $('#who').value.trim()) || 'M. J. Liswaniso';
+  let m = `ABACUS360 · Drawing the plans\nAnswers from ${who}\n`;
+  SECTIONS.forEach((s, i) => {
+    const lines = s.q.map(q => { const a = fmt(q); return a ? `- ${q.q}\n  ${a}` : ''; }).filter(Boolean);
+    if (lines.length) m += `\n${ROMAN[i]}. ${s.t}\n${lines.join('\n')}\n`;
+  });
+  return m.trim();
+}
+function renderDone() {
+  renderProgress();
+  $('#fin').innerHTML = emblem(false, lit(), false);
+  $('#sum').innerHTML = SECTIONS.map((s, i) => `<button data-s="${i}"><b>${ROMAN[i]}</b>${s.t}<span>${s.q.filter(answered).length} of ${s.q.length} answered · change</span></button>`).join('');
+  updateMsg();
+}
+function updateMsg() { const m = message(); $('#preview').value = m; $('#wa').href = 'https://wa.me/972509591299?text=' + encodeURIComponent(m); }
+function toast(t) { const d = document.createElement('div'); d.className = 'toast'; d.textContent = t; document.body.appendChild(d); setTimeout(() => d.remove(), 2600); }
+
+/* ---------- events */
+if (doneCount() > 0) { $('#resume').classList.remove('hide'); $('#begin').textContent = 'Start from part I'; }
+$('#begin').addEventListener('click', () => { cur = 0; save(); show('work'); });
+$('#resume').addEventListener('click', () => show('work'));
+document.addEventListener('click', e => {
+  const chip = e.target.closest('.chip');
+  if (chip) {
+    const q = ALLQ.find(x => x.id === chip.dataset.q), o = chip.dataset.o;
+    if (q.type === 'single') { A[q.id] = A[q.id] === o ? '' : o; }
+    else { const arr = A[q.id] || []; const i = arr.indexOf(o); if (i >= 0) arr.splice(i, 1); else { if (q.max && arr.length >= q.max) { toast('Up to ' + q.max + ' here. Unselect one first.'); return; } arr.push(o); } A[q.id] = arr; }
+    document.querySelectorAll(`.chip[data-q="${q.id}"]`).forEach(b => { b.setAttribute('aria-pressed', q.type === 'single' ? String(A[q.id] === b.dataset.o) : String((A[q.id] || []).includes(b.dataset.o))); });
+    save(); renderProgress(); renderDots(); return;
+  }
+  const d = e.target.closest('[data-s]');
+  if (d) { cur = +d.dataset.s; save(); show('work'); return; }
+  if (e.target.closest('#next')) { if (cur < SECTIONS.length - 1) { cur++; save(); renderSection(); window.scrollTo(0, 0); } else show('done'); return; }
+  if (e.target.closest('#back')) { if (cur) { cur--; save(); renderSection(); window.scrollTo(0, 0); } else show('intro'); return; }
+  if (e.target.closest('#copy')) {
+    const m = message();
+    const done = () => toast('Copied. Paste it into an email or a message.');
+    try { navigator.clipboard.writeText(m).then(done, () => { $('#preview').select(); toast('Select all in the box below and copy.'); }); } catch (err) { $('#preview').select(); toast('Select all in the box below and copy.'); }
+    return;
+  }
+  if (e.target.closest('#wa')) { updateMsg(); }
+});
+document.addEventListener('input', e => {
+  const t = e.target;
+  if (t.dataset.t) { A[t.dataset.t] = t.value; }
+  else if (t.dataset.c) { A[t.dataset.c] = A[t.dataset.c] || {}; A[t.dataset.c][t.dataset.f] = t.value; }
+  else if (t.id === 'who') { updateMsg(); return; }
+  else return;
+  save(); renderProgress();
+});
+document.addEventListener('focusout', e => { if (e.target.dataset && (e.target.dataset.t || e.target.dataset.c)) renderDots(); });
+}
+</script>
+</body>
+</html>
