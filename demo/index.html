@@ -45,6 +45,17 @@ a{color:var(--blue)}
 .top{height:60px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px;padding:0 24px;position:sticky;top:0;z-index:5}
 .search{flex:1;max-width:440px;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 12px;color:#8a90a0;font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .top .r{margin-left:auto;display:flex;gap:10px;align-items:center;color:var(--mut);font-size:13px;white-space:nowrap}
+.bell{position:relative;border:1px solid var(--line);background:#fff;border-radius:10px;width:40px;height:40px;display:grid;place-items:center;color:var(--ink)}
+.bell .dotn{position:absolute;top:-5px;right:-5px;background:var(--risk);color:#fff;border-radius:10px;font-size:10.5px;padding:1px 6px;font-weight:500}
+.npanel{position:absolute;right:24px;top:56px;width:min(380px,calc(100vw - 24px));background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 20px 50px rgba(10,20,50,.2);padding:8px;z-index:35;display:none}
+.npanel.on{display:block}
+.kbd{font-size:11px;color:var(--mut);border:1px solid var(--line);border-radius:5px;padding:1px 6px;white-space:nowrap}
+.pal{background:#fff;border-radius:14px;max-width:600px;width:100%;box-shadow:0 30px 80px rgba(0,0,0,.35);overflow:hidden;align-self:start;margin-top:10vh}
+.pal input{width:100%;border:0;border-bottom:1px solid var(--line);padding:16px 18px;font:inherit;font-size:16px;outline:none}
+.pal .res{max-height:50vh;overflow:auto;padding:6px}
+.pal .res button{display:flex;width:100%;justify-content:space-between;gap:10px;border:0;background:none;text-align:left;padding:10px 12px;border-radius:8px;font-size:14.5px;min-height:42px;color:var(--ink)}
+.pal .res button.sel,.pal .res button:hover{background:var(--revl)}
+.fs td{padding:6px 8px}.fs .tot td{font-weight:500;border-top:1.5px solid var(--ink)}.fs .sub td{color:var(--mut);font-size:12.5px;text-transform:uppercase;letter-spacing:.4px;padding-top:12px}
 .tourbtn{border:1px solid var(--gold);background:var(--goldl);color:#6b531b;border-radius:999px;padding:7px 14px;font-weight:500;font-size:13px;min-height:36px}
 .content{padding:22px 24px 90px;max-width:1360px;width:100%}
 h1{font-size:23px;font-weight:500;color:var(--ink);margin:0;line-height:1.2}
@@ -175,7 +186,7 @@ td.n,th.n{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
 @media(max-width:900px){.app{flex-direction:column}.side{width:auto;height:auto;position:sticky;top:0;z-index:20;flex-direction:row;align-items:center;padding:8px 10px;gap:8px}
 .brand{padding:0 4px 0 0;flex:none}.brand .sub,.brand .wm{display:none}.nav{flex:1;flex-direction:row;overflow-x:auto;gap:4px;scrollbar-width:none}.nav .sec,.me{display:none}.nav button{white-space:nowrap;padding:8px 10px;flex:none;color:#e4e9f6}
 .top{position:static;padding:0 14px}.top .date{display:none}.content{padding:16px 14px 110px}.foot{left:0;padding:7px 14px}}
-@media(max-width:600px){.kpis.k4{grid-template-columns:repeat(2,minmax(0,1fr))}.top{flex-wrap:wrap;height:auto;padding:8px 12px;gap:8px}.ask{order:3;flex-basis:100%;max-width:none}.role span{display:none}.tourbtn{padding:6px 10px}.meter .nm{width:96px}.tour{bottom:36px;padding:12px 14px}.tour h3{font-size:15.5px}.tour p{font-size:13.5px;margin-bottom:8px}.steps .s:not(.cur){font-size:0}.scroll>table{min-width:600px}.radar{min-width:0}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.agents{grid-template-columns:minmax(0,1fr)}.search{display:none}.wm{font-size:14px}.foot span:last-child{display:none}.phone{height:680px}}
+@media(max-width:600px){.bell{width:36px;height:36px}.npanel{right:8px}.kpis.k4{grid-template-columns:repeat(2,minmax(0,1fr))}.top{flex-wrap:wrap;height:auto;padding:8px 12px;gap:8px}.ask{order:3;flex-basis:100%;max-width:none}.role span{display:none}.tourbtn{padding:6px 10px}.meter .nm{width:96px}.tour{bottom:36px;padding:12px 14px}.tour h3{font-size:15.5px}.tour p{font-size:13.5px;margin-bottom:8px}.steps .s:not(.cur){font-size:0}.scroll>table{min-width:600px}.radar{min-width:0}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.agents{grid-template-columns:minmax(0,1fr)}.search{display:none}.wm{font-size:14px}.foot span:last-child{display:none}.phone{height:680px}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -189,7 +200,7 @@ td.n,th.n{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
   <div class="main">
     <header class="top"><div class="ask" id="ask"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B8933E" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/></svg><input id="askIn" type="text" placeholder="Ask 360 anything about your firm" aria-label="Ask 360" autocomplete="off"><button class="go" id="askGo">Ask</button><div class="sugg" id="sugg"></div></div>
       <label class="role" id="roleBox"><span>View as</span><select id="roleSel"><option value="partner">Partner</option><option value="manager">Client manager</option><option value="senior">Tax manager</option><option value="junior">Junior accountant</option><option value="secretary">Secretary</option><option value="billing">Billing officer</option><option value="admin">Office admin and IT</option><option value="trainee">Trainee</option></select></label>
-      <div class="r"><span class="date">Monday 14 December 2026</span><button class="tourbtn" id="tourStart">Guided tour</button></div></header>
+      <div class="r"><span class="date">Monday 14 December 2026</span><button class="bell" id="bell" aria-label="Notifications"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg><span class="dotn" id="ncount">4</span></button><button class="tourbtn" id="tourStart">Guided tour</button></div><div class="npanel" id="npanel"></div></header>
     <main class="content" id="view"></main>
   </div>
 </div>
@@ -257,7 +268,7 @@ const AGENTS = [
   ['Partner Brief', 'Weekly view of risk, profit and growth', 'L1']
 ];
 AGENTS.forEach(a => S.agents[a[0]] = true);
-S.role = 'partner'; S.auditSigned = false; S.ph = 'home'; S.asked2 = false; S.nc = 0; S.updDone = {};
+S.role = 'partner'; S.auditSigned = false; S.ph = 'home'; S.mapped = false; S.fsSent = false; S.asked2 = false; S.nc = 0; S.updDone = {};
 const LVL = { L1: ['Drafts · a person approves', 'rev'], L2: ['Acts and reports', 'ok'], L3: ['Routine · can be undone', 'ai'] };
 const FEED_POOL = [
   ['Intake', 'Filed “Stanbic statement Nov.pdf” to Kalimba Foods › VAT Nov › Bank'],
@@ -312,7 +323,7 @@ const TRAINEES = [
 ];
 
 /* ------------------------------------------------------------ helpers */
-function toast(msg) { const t = document.createElement('div'); t.className = 'toast'; t.textContent = msg; document.body.appendChild(t); setTimeout(() => t.remove(), 3200); }
+function toast(msg) { document.querySelectorAll('.toast').forEach(x => x.remove()); const t = document.createElement('div'); t.className = 'toast'; t.textContent = msg; document.body.appendChild(t); setTimeout(() => t.remove(), 3200); }
 function modal(html, wide) { $('#layer').innerHTML = `<div class="veil" id="veil"><div class="modal${wide ? ' wide' : ''}">${html}</div></div>`; $('#veil').addEventListener('click', e => { if (e.target.id === 'veil' || e.target.dataset.close !== undefined) closeModal(); }); }
 function closeModal() { $('#layer').innerHTML = ''; }
 function stepsBar() { return `<div class="card steps" style="padding:14px 16px">${STAGES.map((n, i) => `<div class="s ${i < S.stage ? 'done' : i === S.stage ? 'cur' : ''}"><i></i>${n}</div>`).join('')}</div>`; }
@@ -499,13 +510,13 @@ const ROLES = {
 };
 const ACCESS = {
   partner: null,
-  manager: ['today', 'updates', 'clients', 'calendar', 'jobs', 'job', 'audit', 'training', 'billing', 'frontdesk', 'team', 'client-app', 'verify', 'agents', 'security'],
-  senior: ['today', 'updates', 'clients', 'calendar', 'jobs', 'job', 'audit', 'training', 'team', 'client-app', 'verify', 'agents', 'security'],
-  junior: ['today', 'updates', 'clients', 'calendar', 'jobs', 'job', 'audit', 'training', 'client-app', 'verify', 'security'],
+  manager: ['today', 'updates', 'clients', 'calendar', 'jobs', 'job', 'accounts', 'audit', 'training', 'billing', 'frontdesk', 'team', 'client-app', 'verify', 'agents', 'security'],
+  senior: ['today', 'updates', 'clients', 'calendar', 'jobs', 'job', 'accounts', 'audit', 'training', 'team', 'quality', 'client-app', 'verify', 'agents', 'security'],
+  junior: ['today', 'updates', 'clients', 'calendar', 'jobs', 'job', 'accounts', 'audit', 'training', 'client-app', 'verify', 'security'],
   secretary: ['today', 'updates', 'clients', 'calendar', 'frontdesk', 'team', 'client-app', 'verify', 'security'],
   billing: ['today', 'clients', 'billing', 'client-app', 'verify', 'security'],
   admin: ['today', 'team', 'frontdesk', 'agents', 'security'],
-  trainee: ['today', 'updates', 'clients', 'calendar', 'jobs', 'job', 'audit', 'training', 'client-app', 'verify', 'security']
+  trainee: ['today', 'updates', 'clients', 'calendar', 'jobs', 'job', 'accounts', 'audit', 'training', 'client-app', 'verify', 'security']
 };
 const allowed = r => !ACCESS[S.role] || ACCESS[S.role].includes(r);
 function needs() {
@@ -837,8 +848,87 @@ V.frontdesk = () => `<div class="row"><div><h1>Front desk · Monday 14 December<
     <div class="it"><div class="ic wait">2</div><div><div class="t">Lilayi Farms · signed payroll changes</div><div class="d">Driver collects Tuesday · client reminded on WhatsApp</div></div></div>
     <div class="it"><div class="ic na">1</div><div><div class="t">Copperline · signed financial statements</div><div class="d">Courier to the bank after sign-off</div></div></div></div></div></div></div>`;
 
+
+/* ------------------------------------------------------------ accounts production */
+const FS_PL = [['Revenue', 18420000, 16950000], ['Cost of sales', -12710000, -11780000], ['Gross profit', 5710000, 5170000, 1], ['Administrative expenses', -3105000, -2860000], ['Distribution costs', -842000, -790000], ['Operating profit', 1763000, 1520000, 1], ['Finance costs', -214000, -236000], ['Profit before tax', 1549000, 1284000, 1], ['Income tax at 30%', -464700, -385200], ['Profit for the year', 1084300, 898800, 2]];
+const FS_BS = [['sub', 'Non-current assets'], ['Property, plant and equipment', 4210000, 3980000], ['sub', 'Current assets'], ['Inventories', 2140000, 1960000], ['Trade and other receivables', 1870000, 1640000], ['Cash and bank', 612000, 455000], ['Total assets', 8832000, 8035000, 2], ['sub', 'Equity'], ['Share capital', 500000, 500000], ['Retained earnings', 4492000, 3635000], ['Total equity', 4992000, 4135000, 1], ['sub', 'Liabilities'], ['Borrowings', 1650000, 1900000], ['Trade and other payables', 1980000, 1820000], ['Current tax payable', 210000, 180000], ['Total equity and liabilities', 8832000, 8035000, 2]];
+const fK = n => n < 0 ? '(' + Math.abs(n).toLocaleString('en-US') + ')' : n.toLocaleString('en-US');
+function fsTable(rows) { return `<table class="fs"><tr><th></th><th class="n">2026 · K</th><th class="n">2025 · K</th></tr>${rows.map(r => r[0] === 'sub' ? `<tr class="sub"><td colspan="3">${r[1]}</td></tr>` : `<tr class="${r[3] ? 'tot' : ''}"><td>${r[0]}</td><td class="n">${fK(r[1])}</td><td class="n">${fK(r[2])}</td></tr>`).join('')}</table>`; }
+V.accounts = () => {
+  const mapped = S.mapped;
+  return `<div class="row"><div><div class="subt">Accounts production ›</div><h1>Mukuni Traders Ltd · financial statements</h1>
+    <div class="chips"><span class="chip"><b>Year ended</b>30 September 2026</span><span class="chip"><b>Framework</b>IFRS for SMEs</span><span class="chip"><b>Trial balance</b>from Sage Pastel</span><span class="chip"><b>Prepared by</b>M. Zulu</span><span class="chip"><b>Reviewer</b>C. Mulenga</span></div></div>
+    <button class="btn" id="fs-send" ${mapped ? '' : 'disabled'}>${S.fsSent ? 'With the reviewer ✓' : mapped ? 'Send to review' : 'Map 2 accounts first'}</button></div>
+  <div class="card steps" style="padding:14px 16px;margin-top:14px">${['Trial balance in', 'Mapped', 'Lead schedules', 'Draft statements', 'Notes', 'Review', 'Signed'].map((n, i) => { const cur = S.fsSent ? 5 : mapped ? 4 : 1; return `<div class="s ${i < cur ? 'done' : i === cur ? 'cur' : ''}"><i></i>${n}</div>`; }).join('')}</div>
+  <div class="grid g2b" id="fs" style="margin-top:14px"><div class="grid" style="align-content:start">
+    <div class="card"><div class="hd"><h2>Statement of profit or loss</h2><small>draft · ${mapped ? 'all accounts mapped' : '2 accounts unmapped'}</small></div><div class="scroll">${fsTable(FS_PL)}</div></div>
+    <div class="card"><div class="hd"><h2>Statement of financial position</h2><small>at 30 September</small></div><div class="scroll">${fsTable(FS_BS)}</div></div></div>
+  <div class="grid" style="align-content:start">
+    <div class="card"><div class="hd"><h2>Checks</h2><small>run on every change</small></div><div class="list">
+      ${[['ok', 'Trial balance balances', '186 accounts · debits equal credits'], ['ok', 'Opening balances agree', 'To the signed 2025 statements'], [mapped ? 'ok' : 'wait', mapped ? 'Every account mapped' : '2 accounts need a person', mapped ? '186 of 186' : '184 of 186 mapped automatically'], ['ok', 'Balance sheet balances', 'K8,832,000 both sides'], ['ok', 'Retained earnings reconcile', 'K3,635,000 + profit K1,084,300 − dividends K227,300'], ['ok', 'Tax charge at 30%', 'Agrees to the tax computation'], [S.fsSent ? 'ok' : 'na', 'Notes', S.fsSent ? '16 of 16 drafted' : '14 of 16 drafted']].map(c => `<div class="it" style="padding:8px 0"><div class="ic ${c[0]}" style="width:24px;height:24px;font-size:12px">${c[0] === 'ok' ? '✓' : c[0] === 'wait' ? '!' : '·'}</div><div><div class="t">${c[1]}</div><div class="d">${c[2]}</div></div></div>`).join('')}</div></div>
+    ${mapped ? '' : `<div class="card" style="border-color:#f3d9a8"><div class="hd"><h2>Map 2 accounts</h2><small>suggested from last year</small></div><div class="list">
+      <div class="it"><div style="flex:1"><div class="t">7420 · Motor vehicle running</div><div class="d">Suggested: Distribution costs (used in 2025)</div></div></div>
+      <div class="it"><div style="flex:1"><div class="t">2290 · Director loan account</div><div class="d">Suggested: Trade and other payables · disclose as related party</div></div></div></div>
+      <div class="btns" style="margin-top:8px"><button class="btn" id="fs-map">Accept both suggestions</button></div></div>`}
+    <div class="card"><div class="d" style="font-size:13.5px">From trial balance to draft statements in minutes, with comparatives, checks and notes, then the same three degrees of review as every return.</div></div></div></div>`;
+};
+
+/* ------------------------------------------------------------ quality management */
+V.quality = () => `<div class="row"><div><h1>Quality management · ISQM 1</h1><div class="subt">The firm's system of quality management, kept current every day, ready for a practice review at any time</div></div><button class="btn o" data-toast="Annual evaluation of the system of quality management exported to PDF (demo)">Export the annual evaluation</button></div>
+  <div class="kpis k4"><div class="card kpi"><div class="l">Independence confirmed</div><div class="v g">41 of 41</div><div class="s">annual declarations 2026</div></div><div class="card kpi"><div class="l">CPD on track</div><div class="v">34 of 41</div><div class="s">against the firm's target</div></div><div class="card kpi"><div class="l">Quality reviews before sign-off</div><div class="v g">6 of 6</div><div class="s">engagements that need one</div></div><div class="card kpi"><div class="l">Complaints open</div><div class="v">0</div><div class="s">2 closed in 2026</div></div></div>
+  <div class="grid g2b" id="qm"><div class="grid" style="align-content:start">
+    <div class="card"><div class="hd"><h2>Independence and conflicts</h2></div><div class="list">
+      <div class="it"><div class="ic ok">✓</div><div><div class="t">Annual declarations · 41 of 41 signed</div><div class="d">Collected in January, with financial interests and family relationships</div></div></div>
+      <div class="it"><div class="ic ok">✓</div><div><div class="t">Copperline audit team · 5 of 5 confirmed</div><div class="d">Confirmed per engagement, before fieldwork</div></div></div>
+      <div class="it"><div class="ic wait">!</div><div><div class="t">27 conflict checks this year · 1 declined</div><div class="d">A prospect linked to a forensic case. Declined by the partners, reason recorded</div></div></div></div></div>
+    <div class="card"><div class="hd"><h2>Monitoring · file inspections 2026</h2><small>cold reviews by a partner not on the file</small></div>
+      <div class="mini"><div><div class="big">8</div><div class="subt">files inspected</div></div><div><div class="big" style="color:var(--ok)">7</div><div class="subt">satisfactory</div></div><div><div class="big" style="color:var(--wait)">1</div><div class="subt">improvement needed</div></div></div>
+      <div class="d">Finding: stock count attendance not fully documented on one audit. Root cause recorded, checklist updated, training given on 18 November. Closed.</div></div>
+    <div class="card"><div class="hd"><h2>CPD · selected members</h2><small>hours this year</small></div>
+      ${[['J. M. Liswaniso', 46], ['A. Nkhoma', 41], ['C. Mulenga', 38], ['N. Phiri', 29], ['W. Simwanza', 24]].map(([n, h]) => `<div class="meter"><div class="nm">${n}</div><div class="bar"><i style="width:${Math.min(100, Math.round(h / 46 * 100))}%;background:var(--${h >= 40 ? 'ok' : h >= 30 ? 'blue' : 'wait'})"></i></div><div class="vl">${h} h</div></div>`).join('')}
+      <div class="d" style="margin-top:6px">Hours are logged from the weekly training and from courses, with the certificates attached.</div></div></div>
+  <div class="grid" style="align-content:start">
+    <div class="card"><div class="hd"><h2>Practice review readiness</h2></div><div class="mini"><div><div class="big" style="color:var(--ok)">92%</div><div class="subt">of the checklist evidenced</div></div></div><div class="list">
+      ${[['ok', 'Quality policies and responsibilities documented'], ['ok', 'Independence and ethics'], ['ok', 'Acceptance and continuance of clients'], ['ok', 'Engagement performance and review'], ['ok', 'Monitoring and remediation'], ['wait', 'CPD: 7 members behind target'], ['ok', 'Customer due diligence: 184 of 186 clients'], ['ok', 'Data protection register']].map(c => `<div class="it" style="padding:7px 0"><div class="ic ${c[0]}" style="width:24px;height:24px;font-size:12px">${c[0] === 'ok' ? '✓' : '!'}</div><div class="t" style="font-weight:400">${c[1]}</div></div>`).join('')}</div></div>
+    <div class="card"><div class="hd"><h2>Registers</h2></div><div class="list">
+      <div class="it"><div class="ic na">C</div><div><div class="t">Complaints and incidents</div><div class="d">0 open · 2 closed in 2026, each with its response and lessons</div></div></div>
+      <div class="it"><div class="ic na">M</div><div><div class="t">Money laundering reporting</div><div class="d">A sealed register, open only to the firm's reporting officer</div></div></div>
+      <div class="it"><div class="ic na">G</div><div><div class="t">Gifts and hospitality</div><div class="d">3 entries in 2026, each approved by a partner</div></div></div></div></div></div></div>`;
+
+/* ------------------------------------------------------------ notifications and command palette */
+const NOTES = [
+  ['risk', 'Mutende Logistics · WHT due today', 'Proof of payment still missing', 'jobs'],
+  ['rev', 'Copperline audit ready for your signature', 'Every section reviewed', 'audit'],
+  ['wait', 'Kabwe Grain Traders invoice', '90-day Smart Invoice limit tomorrow', 'job'],
+  ['ai', 'New ZRA practice note summarised', 'Matched to 63 clients', 'updates']
+];
+function notesHTML() { return `<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 8px"><b style="font-weight:500;color:var(--ink)">Notifications</b><span class="d">for ${ROLES[S.role].who}</span></div>` + NOTES.filter(n => allowed(n[3])).map(n => `<button class="jc" style="margin:0 0 6px" data-go="${n[3]}"><div style="display:flex;gap:8px;align-items:center"><span class="pill ${n[0]}" style="padding:2px 7px">•</span><span class="t">${n[1]}</span></div><div class="d" style="margin-left:30px">${n[2]}</div></button>`).join(''); }
+const PAL = () => NAV.filter(n => n[0] !== 'sec' && allowed(n[0])).map(n => ['Go to ' + n[1], () => go(n[0])]).concat([
+  ['New client', () => { go('clients'); setTimeout(() => { S.nc = 0; ncStep(); }, 50); }],
+  ['Ask 360: which clients could miss a deadline?', () => runAsk('risk')],
+  ['Ask 360: input VAT at risk', () => runAsk('vat')],
+  ['Ask 360: new rules this month', () => runAsk('law')],
+  ['Start the guided tour', () => startTour()]
+]);
+let palSel = 0, palList = [];
+function openPal() {
+  $('#layer').innerHTML = `<div class="veil" id="veil" style="align-items:start"><div class="pal"><input id="palIn" placeholder="Search screens and actions" aria-label="Search screens and actions" autocomplete="off"><div class="res" id="palRes"></div></div></div>`;
+  $('#veil').addEventListener('click', e => { if (e.target.id === 'veil') closeModal(); });
+  const inp = $('#palIn'); palSel = 0; renderPal(''); inp.focus();
+  inp.addEventListener('input', () => { palSel = 0; renderPal(inp.value); });
+  inp.addEventListener('keydown', e => {
+    if (e.key === 'ArrowDown') { palSel = Math.min(palSel + 1, palList.length - 1); renderPal(inp.value, true); e.preventDefault(); }
+    if (e.key === 'ArrowUp') { palSel = Math.max(palSel - 1, 0); renderPal(inp.value, true); e.preventDefault(); }
+    if (e.key === 'Enter' && palList[palSel]) { const f = palList[palSel][1]; closeModal(); f(); }
+  });
+}
+function renderPal(q, keep) {
+  q = q.toLowerCase(); palList = PAL().filter(x => x[0].toLowerCase().includes(q)).slice(0, 12);
+  $('#palRes').innerHTML = palList.map((x, i) => `<button data-pi="${i}" class="${i === palSel ? 'sel' : ''}"><span>${esc(x[0])}</span>${i === palSel ? '<span class="kbd">Enter</span>' : ''}</button>`).join('') || '<div class="d" style="padding:10px">Nothing found</div>';
+}
+
 /* ------------------------------------------------------------ security */
-const PAGE_NAMES = { jobs: 'Opened the work board', team: 'Opened team and access', billing: 'Opened billing and collections', frontdesk: 'Opened the front desk', today: 'Opened the firm overview', updates: 'Opened law and practice updates', clients: 'Opened client file · Kalimba Foods Ltd', calendar: 'Opened the statutory calendar', job: 'Opened VAT job · Kalimba Foods, Nov 2026', audit: 'Opened audit file · Copperline Engineering', forensic: 'Opened case FX-2026-014 · sealed', training: 'Opened trainee logs', insights: 'Opened partner insights', 'client-app': 'Viewed My 360 as the client', verify: 'Opened the verification page', agents: 'Opened AI agents', security: 'Opened security and confidentiality' };
+const PAGE_NAMES = { accounts: 'Opened accounts production · Mukuni Traders', quality: 'Opened quality management', jobs: 'Opened the work board', team: 'Opened team and access', billing: 'Opened billing and collections', frontdesk: 'Opened the front desk', today: 'Opened the firm overview', updates: 'Opened law and practice updates', clients: 'Opened client file · Kalimba Foods Ltd', calendar: 'Opened the statutory calendar', job: 'Opened VAT job · Kalimba Foods, Nov 2026', audit: 'Opened audit file · Copperline Engineering', forensic: 'Opened case FX-2026-014 · sealed', training: 'Opened trainee logs', insights: 'Opened partner insights', 'client-app': 'Viewed My 360 as the client', verify: 'Opened the verification page', agents: 'Opened AI agents', security: 'Opened security and confidentiality' };
 S.log = [
   ['06:58', 'Second Eyes (agent)', 'Read VAT job · Zed Solar Systems', 'Automatic, within its task'],
   ['07:41', 'C. Mulenga', 'Used TaxOnline login · Bwalya Pharmacy', 'Reason: file PAYE Nov · vault'],
@@ -878,7 +968,7 @@ V.security = () => {
 };
 
 /* ------------------------------------------------------------ nav and routing */
-const NAV = [['today', 'Today', ''], ['updates', 'Updates', '2'], ['clients', 'Clients', ''], ['calendar', 'Calendar', ''], ['jobs', 'Work board', ''], ['job', 'VAT job', '9'], ['audit', 'Audit', '1'], ['forensic', 'Forensic', '2'], ['training', 'Training', '5'], ['billing', 'Billing', ''], ['frontdesk', 'Front desk', ''], ['team', 'Team', ''], ['insights', 'Insights', ''], ['sec', 'For clients'], ['client-app', 'My 360', ''], ['verify', 'Verify', ''], ['sec', 'Automation'], ['agents', 'AI agents', '9'], ['security', 'Security', '']];
+const NAV = [['today', 'Today', ''], ['updates', 'Updates', '2'], ['clients', 'Clients', ''], ['calendar', 'Calendar', ''], ['jobs', 'Work board', ''], ['job', 'VAT job', '9'], ['accounts', 'Accounts', ''], ['audit', 'Audit', '1'], ['forensic', 'Forensic', '2'], ['training', 'Training', '5'], ['billing', 'Billing', ''], ['frontdesk', 'Front desk', ''], ['team', 'Team', ''], ['quality', 'Quality', ''], ['insights', 'Insights', ''], ['sec', 'For clients'], ['client-app', 'My 360', ''], ['verify', 'Verify', ''], ['sec', 'Automation'], ['agents', 'AI agents', '9'], ['security', 'Security', '']];
 const LOCK = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
 function badge(k, b) { if (k === 'training') return (TRAINEES.length - Object.keys(S.signed).length) || '✓'; if (k === 'audit') return S.auditSigned ? '✓' : b; return b; }
 function renderNav(r) {
@@ -899,10 +989,11 @@ document.addEventListener('click', e => {
   if (t.dataset.q) { runAsk(t.dataset.q); return; }
   if (t.dataset.ph) { S.ph = t.dataset.ph; render(); return; }
   if (t.dataset.jf) { S.jf = t.dataset.jf; render(); return; }
+  if (t.dataset.pi) { const f = palList[+t.dataset.pi][1]; closeModal(); f(); return; }
   if (t.dataset.np) { S.np = t.dataset.np; addPersonModal(); return; }
   if (t.dataset.upd) { updNotice(t.dataset.upd); return; }
   if (t.dataset.role) { S.role = t.dataset.role; $('#roleSel').value = S.role; render(); return; }
-  if (t.dataset.go) { closeModal(); go(t.dataset.go); return; }
+  if (t.dataset.go) { closeModal(); $('#npanel').classList.remove('on'); go(t.dataset.go); return; }
   if (t.dataset.toast) { toast(t.dataset.toast); return; }
   if (t.dataset.ctab) { S.ctab = t.dataset.ctab; render(); return; }
   if (t.dataset.ftab) { S.ftab = t.dataset.ftab; render(); return; }
@@ -922,6 +1013,9 @@ document.addEventListener('click', e => {
     case 'addf': if (!S.findings.includes(S.test)) S.findings.push(S.test); render(); toast('Added to the expert report, section 4'); break;
     case 'draft-btn': $('#draft-out').innerHTML = `<div class="draft"><b style="font-weight:500">Draft · for the examiner's review</b><br>${S.findings.length ? '' : 'No findings added yet, so the draft uses the high-risk results. '}Between March 2025 and January 2026, Zed Star Supplies, Copperway Trading and Kafue Allied Traders received K2,876,300. Each shares a bank account, a telephone number or a residential address with one of two employees in procurement and stores (EV-001, EV-003, EV-004). Ten of these payments were split into amounts just below the K50,000 approval limit. The examiner should confirm each match against the original bank mandates before drawing a conclusion.</div>`; break;
     case 'tourStart': startTour(); break;
+    case 'bell': { const pn = $('#npanel'); pn.innerHTML = notesHTML(); pn.classList.toggle('on'); $('#ncount').style.display = 'none'; break; }
+    case 'fs-map': S.mapped = true; render(); toast('Both accounts mapped. The statements and checks are updated.'); break;
+    case 'fs-send': S.fsSent = true; render(); S.log.push([nowT(), ROLES[S.role].who, 'Sent Mukuni Traders statements to review', 'With C. Mulenga']); toast('Sent to C. Mulenga for review, with every check attached.'); break;
     case 'ask2': S.asked2 = true; render(); break;
     case 'upd-ok': S.updDone[t.dataset.u] = true; closeModal(); render(); S.log.push([nowT(), ROLES[S.role].who, 'Approved a client notice', 'Sent in ABACUS360\'s name']); toast('Approved. Sent to the affected clients in ABACUS360\'s name (demo).'); break;
     case 'newclient': S.nc = 0; ncStep(); break;
@@ -934,11 +1028,12 @@ document.addEventListener('click', e => {
     case 'do-audit-sign': S.auditSigned = true; S.log.push([nowT(), ROLES[S.role].who, 'Signed audit report · Copperline Engineering', 'File locked']); closeModal(); render(); toast('Signed. File locked and verification code A360-FS-26-0431 issued.'); break;
   }
 });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); $('#sugg').classList.remove('on'); } if ((e.key === 'Enter' || e.key === ' ') && e.target.dataset && e.target.dataset.test) { e.preventDefault(); e.target.click(); } });
+document.addEventListener('keydown', e => { if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); openPal(); return; } if (e.key === 'Escape') { closeModal(); $('#sugg').classList.remove('on'); $('#npanel').classList.remove('on'); } if ((e.key === 'Enter' || e.key === ' ') && e.target.dataset && e.target.dataset.test) { e.preventDefault(); e.target.click(); } });
 
+try { $('#askIn').placeholder = 'Ask 360 anything about your firm · ' + (/Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent) ? '⌘K' : 'Ctrl+K') + ' for any screen'; } catch (e) {}
 $('#askIn').addEventListener('focus', () => { $('#sugg').innerHTML = suggHTML(); $('#sugg').classList.add('on'); });
 $('#askIn').addEventListener('keydown', e => { if (e.key === 'Enter') { const v = e.target.value.trim(); if (v) runAsk(matchQ(v), v); } });
-document.addEventListener('click', e => { if (!e.target.closest('#ask')) $('#sugg').classList.remove('on'); });
+document.addEventListener('click', e => { if (!e.target.closest('#ask')) $('#sugg').classList.remove('on'); if (!e.target.closest('#npanel') && !e.target.closest('#bell')) $('#npanel').classList.remove('on'); });
 $('#roleSel').addEventListener('change', e => { S.role = e.target.value; S.jf = ''; render(); toast('Now viewing as ' + ROLES[S.role].label + ': ' + ROLES[S.role].who); });
 
 /* live agent feed */
@@ -965,6 +1060,8 @@ const TOUR = [
   ['job', '#signoff', 'Three degrees of review', 'Preparer, reviewer, client. Press "Sign off review" at the top, and the job moves to the client.'],
   ['client-app', '#phone', 'The client approves from her phone', 'This is My 360. Press Approve, then go back to the VAT job and file it: a person submits, and the payment reference is saved.'],
   ['audit', '#wp', 'Audit files, ready for your signature', 'Materiality, work papers, review notes and misstatements in one file. When every section is reviewed, the partner signs, the file locks and a verification code goes on the report.'],
+  ['accounts', '#fs', 'From trial balance to statements', 'The trial balance comes in from the accounting software, is mapped from last year, and becomes draft statements with comparatives and checks. Press "Accept both suggestions" to finish the mapping.'],
+  ['quality', '#qm', 'Quality management, always current', 'Independence, conflicts, file inspections, CPD and the registers a practice review asks for, kept current every day rather than prepared in a rush.'],
   ['forensic', '#benford', 'Forensic work, built in', 'A case workspace for your investigations. Benford\'s first-digit test on 18,432 payments shows a spike just below the K50,000 approval limit.'],
   ['forensic', '#network', 'Related parties, drawn for you', 'Two employees share a bank account, a phone number and an address with three vendors.'],
   ['forensic', '#evidence', 'Evidence that stands up', 'Every item is hashed on receipt and every access is logged. Press Custody on any line to see its chain of custody.'],
@@ -1006,7 +1103,7 @@ function welcome() {
     <div class="bd"><div style="font-size:22px;color:var(--ink);font-weight:500;line-height:1.25">${hello()}, Mr Liswaniso</div>
     <p style="margin:10px 0 0">This is a working demonstration of the system we would build for ABACUS360, with a sample firm and sample clients. Click anything. Nothing you do here leaves this page.</p>
     <p class="d" style="margin:8px 0 18px">Prepared for J. M. Liswaniso, FZICA · by MIA Technology</p>
-    <div class="btns"><button class="btn gd" id="w-tour">Take the guided tour · 12 minutes</button><button class="btn o" id="w-free">Explore on my own</button></div>
+    <div class="btns"><button class="btn gd" id="w-tour">Take the guided tour · 15 minutes</button><button class="btn o" id="w-free">Explore on my own</button></div>
     <div class="motto">Built on the level. Checked on the square.</div></div></div></div>`;
   $('#w-tour').onclick = () => { closeModal(); startTour(); };
   $('#w-free').onclick = closeModal;
