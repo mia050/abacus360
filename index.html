@@ -101,10 +101,10 @@ textarea{min-height:96px;resize:vertical;line-height:1.5}
   <div class="bar"><div class="brand"><span id="logo1"></span><span class="wm">ABACUS360</span></div><span class="by">Prepared by MIA Technology · confidential</span></div>
   <div class="hero">
     <div>
-      <div class="eyebrow">For Mr M. J. Liswaniso, FZICA</div>
+      <div class="eyebrow" id="eyebrow">For Mr M. J. Liswaniso, FZICA</div>
       <h1>Drawing the plans</h1>
       <div class="motto sub">Before the first stone is laid</div>
-      <p class="lead">So that the demonstration is built for ABACUS360 and for nobody else, we would value your answers to the questions that follow. Skip anything you would rather discuss in person. There are no wrong answers, and no client names or confidential figures are needed.</p>
+      <p class="lead" id="lead">So that the demonstration is built for ABACUS360 and for nobody else, we would value your answers to the questions that follow. Skip anything you would rather discuss in person. There are no wrong answers, and no client names or confidential figures are needed.</p>
       <div class="facts"><span><i></i>Seven short parts</span><span><i></i>About 15 minutes</span><span><i></i>Saved on this device as you go</span></div>
       <div class="btns"><button class="btn gold" id="begin">Begin</button><button class="btn ghost hide" id="resume">Continue where I left off</button></div>
     </div>
@@ -129,13 +129,19 @@ textarea{min-height:96px;resize:vertical;line-height:1.5}
     <div style="text-align:center;margin-bottom:22px">
       <svg width="120" height="120" viewBox="0 0 400 400" id="fin" aria-hidden="true"></svg>
       <h2 class="cinzel" style="font-weight:500;font-size:clamp(26px,4vw,36px);color:var(--ink);margin:8px 0 2px">The plans are drawn</h2>
-      <div class="motto" style="font-size:21px;color:var(--goldd)">Thank you, Mr Liswaniso</div>
+      <div class="motto" id="thanks" style="font-size:21px;color:var(--goldd)">Thank you, Mr Liswaniso</div>
     </div>
     <div class="card">
       <p style="margin:0">Press the button below and your answers go to Moshe on WhatsApp as one message. He will build the demonstration around them before you meet.</p>
-      <label style="display:block;margin-top:14px;font-size:14px;color:var(--mut)">Your name<input type="text" id="who" value="M. J. Liswaniso" style="margin-top:5px"></label>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:14px"><label style="display:block;font-size:14px;color:var(--mut)">Your name<input type="text" id="who" value="M. J. Liswaniso" style="margin-top:5px"></label><label style="display:block;font-size:14px;color:var(--mut)">Your role<input type="text" id="role" value="Partner" placeholder="For example partner, manager, IT" style="margin-top:5px"></label></div>
+      <label style="display:none"></label>
       <div class="btns" style="margin-top:16px"><a class="btn gold" id="wa" href="#" target="_blank" rel="noopener">Send to Moshe on WhatsApp</a><button class="btn line" id="copy">Copy my answers</button></div>
       <p style="font-size:13.5px;color:var(--mut);margin:12px 0 0">WhatsApp opens with the message ready: press send there. Prefer email? Copy your answers and send them to 9591299@gmail.com.</p>
+    </div>
+    <div class="card" id="sharebox" style="margin-top:14px;border-color:#D9C79C;background:#FFFCF4">
+      <div style="font-weight:600;color:var(--ink)">Would your partners or team like to add their view?</div>
+      <p style="margin:6px 0 0;font-size:14.5px">The more voices from the firm, the more precisely the system fits. Forward this link to a partner, a manager, or whoever looks after IT. Each person answers the parts they know best, and their answers come to Moshe separately.</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;align-items:center"><input type="text" id="teamlink" readonly value="https://mia050.github.io/abacus360/?team" style="flex:1;min-width:220px"><button class="btn line" id="copyteam">Copy link</button></div>
     </div>
     <div class="card" style="margin-top:14px">
       <div style="font-weight:600;color:var(--ink)">Your answers, part by part</div>
@@ -206,18 +212,28 @@ const SECTIONS = [
   ] },
   { t: 'The finished work', m: 'What the demonstration should show', p: 'Now picture the finished building. What should it do for you on a Monday morning?', q: [
     { id: 'top3', type: 'text', q: 'If the system fixed three things in its first month, what would they be?' },
-    { id: 'screens', type: 'multi', q: 'Which screens would you most like to see built around ABACUS360?', o: ['Partner dashboard', 'Compliance radar', 'Statutory calendar', 'VAT with Smart Invoice checks', 'Audit files and sign-off', 'Forensic case workspace', 'Client app', 'Ask 360', 'Partner insights', 'Trainee mentoring'] },
+    { id: 'screens', type: 'multi', q: 'Which screens would you most like to see built around ABACUS360?', o: ['Partner dashboard', 'Compliance radar', 'Statutory calendar', 'VAT with Smart Invoice checks', 'Audit files and sign-off', 'Forensic case workspace', 'Client app', 'Ask 360', 'Partner insights', 'Trainee mentoring', 'Law and practice updates', 'New client in one sitting', 'Security and access log'] },
     { id: 'ai', type: 'single', q: 'How far should the AI agents go at first?', o: ['Draft only, a person approves everything', 'Do routine work and report back', 'Let us decide together'] },
     { id: 'app', type: 'multi', q: 'What should your clients be able to do in their app?', o: ['See what is due', 'Upload documents', 'Approve returns', 'Pay invoices', 'Message their manager', 'Download certificates and reports'] },
     { id: 'data', type: 'single', q: 'Where should the firm\'s data be kept?', o: ['In Zambia only', 'Anywhere secure', 'Let us discuss'] },
     { id: 'meet', type: 'single', q: 'When could we meet once you are back?', o: ['Wednesday 9 December', 'Thursday 10 December', 'Another day'], note: 'Another day or a preferred time?' },
+    { id: 'security', type: 'text', q: 'What would you need to know about security and confidentiality to be fully comfortable?', h: 'Every question here will be answered in writing before anything is shared.' },
+    { id: 'involve', type: 'text', q: 'Who else in the firm should we involve, and in what?', h: 'For example a partner for audit, a manager for tax compliance, or whoever looks after IT.' },
     { id: 'else', type: 'text', q: 'Is there anything else we should know?' }
   ] }
 ];
 const ALLQ = SECTIONS.flatMap(s => s.q);
 
 /* ---------- state, saved on this device */
-const KEY = 'abacus360-plans-v1';
+const TEAM = /[?&]team\b/.test(location.search) || location.hash === '#team';
+const KEY = 'abacus360-plans-v1' + (TEAM ? '-team' : '');
+if (TEAM) {
+  $('#eyebrow').textContent = 'For the partners and team of ABACUS360';
+  $('#lead').textContent = 'You are invited to help shape a new system for ABACUS360. Answer the parts you know best and skip the rest. There are no wrong answers, and no client names or confidential figures are needed.';
+  $('#thanks').textContent = 'Thank you for your time';
+  $('#who').value = ''; $('#who').placeholder = 'Your name'; $('#role').value = '';
+  $('#sharebox').classList.add('hide');
+}
 let A = {}, cur = 0;
 try { const raw = localStorage.getItem(KEY); if (raw) { const d = JSON.parse(raw); A = d.a || {}; cur = d.i || 0; } } catch (e) {}
 function save() { try { localStorage.setItem(KEY, JSON.stringify({ a: A, i: cur })); } catch (e) {} }
@@ -298,8 +314,9 @@ function fmt(q) {
   return out.trim();
 }
 function message() {
-  const who = ($('#who') && $('#who').value.trim()) || 'M. J. Liswaniso';
-  let m = `ABACUS360 · Drawing the plans\nAnswers from ${who}\n`;
+  const who = ($('#who') && $('#who').value.trim()) || (TEAM ? 'a member of the team' : 'M. J. Liswaniso');
+  const role = ($('#role') && $('#role').value.trim());
+  let m = `ABACUS360 · Drawing the plans\nAnswers from ${who}${role ? ' (' + role + ')' : ''}\n`;
   SECTIONS.forEach((s, i) => {
     const lines = s.q.map(q => { const a = fmt(q); return a ? `- ${q.q}\n  ${a}` : ''; }).filter(Boolean);
     if (lines.length) m += `\n${ROMAN[i]}. ${s.t}\n${lines.join('\n')}\n`;
@@ -339,12 +356,13 @@ document.addEventListener('click', e => {
     return;
   }
   if (e.target.closest('#wa')) { updateMsg(); }
+  if (e.target.closest('#copyteam')) { const v = $('#teamlink').value; try { navigator.clipboard.writeText(v).then(() => toast('Link copied. Send it to your colleagues.'), () => { $('#teamlink').select(); toast('Select the link and copy it.'); }); } catch (err) { $('#teamlink').select(); toast('Select the link and copy it.'); } return; }
 });
 document.addEventListener('input', e => {
   const t = e.target;
   if (t.dataset.t) { A[t.dataset.t] = t.value; }
   else if (t.dataset.c) { A[t.dataset.c] = A[t.dataset.c] || {}; A[t.dataset.c][t.dataset.f] = t.value; }
-  else if (t.id === 'who') { updateMsg(); return; }
+  else if (t.id === 'who' || t.id === 'role') { updateMsg(); return; }
   else return;
   save(); renderProgress();
 });

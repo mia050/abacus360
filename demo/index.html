@@ -250,7 +250,7 @@ const AGENTS = [
   ['Partner Brief', 'Weekly view of risk, profit and growth', 'L1']
 ];
 AGENTS.forEach(a => S.agents[a[0]] = true);
-S.role = 'partner'; S.auditSigned = false;
+S.role = 'partner'; S.auditSigned = false; S.ph = 'home'; S.asked2 = false; S.nc = 0; S.updDone = {};
 const LVL = { L1: ['Drafts · a person approves', 'rev'], L2: ['Acts and reports', 'ok'], L3: ['Routine · can be undone', 'ai'] };
 const FEED_POOL = [
   ['Intake', 'Filed “Stanbic statement Nov.pdf” to Kalimba Foods › VAT Nov › Bank'],
@@ -363,7 +363,7 @@ V.clients = () => {
   if (S.ctab === 'billing') body = `<div class="card"><div class="hd"><h2>Billing</h2><small>retainer client</small></div><div class="mini"><div><div class="big">K9,500</div><div class="subt">monthly retainer</div></div><div><div class="big">K0</div><div class="subt">overdue</div></div><div><div class="big">31.5 h</div><div class="subt">time this month · budget 34 h</div></div><div><div class="big" style="color:var(--ok)">+24%</div><div class="subt">margin on this client</div></div></div></div>`;
   return `<div class="row"><div><div class="subt">Clients ›</div><h1>Kalimba Foods Ltd</h1>
     <div class="chips"><span class="chip"><b>TPIN</b>100•••4821</span><span class="chip"><b>PACRA</b>1201•••773</span><span class="chip"><b>VAT</b>Registered</span><span class="chip"><b>Year end</b>31 Dec</span><span class="chip"><b>Framework</b>IFRS for SMEs</span><span class="chip"><b>Manager</b>N. Phiri</span><span class="chip"><b>Partner</b>J. M. Liswaniso</span></div></div>
-    <div class="btns"><button class="btn o" data-toast="Message drafted in the inbox (demo)">Message client</button><button class="btn" data-go="job">VAT job</button></div></div>
+    <div class="btns"><button class="btn o" data-toast="Message drafted in the inbox (demo)">Message client</button><button class="btn" data-go="job">VAT job</button><button class="btn gd" id="newclient">New client</button></div></div>
     <div class="tabs">${tabs.map(t => `<button class="${S.ctab === t ? 'on' : ''}" data-ctab="${t}">${t[0].toUpperCase() + t.slice(1)}</button>`).join('')}</div>${body}`;
 };
 
@@ -454,13 +454,21 @@ V['client-app'] = () => {
   if (S.stage < 6) action = `<div class="mr"><div><div class="t">VAT return · November</div><div class="d">Being reviewed by your accountant</div></div><span class="pill rev">In review</span></div>`;
   else if (!S.approved) action = `<div class="mr"><div><div class="t">VAT return · November</div><div class="d">K64,514.40 payable by 18 Dec</div></div><button class="btn" id="approve-btn" style="min-height:38px;padding:6px 12px">Approve</button></div>`;
   else action = `<div class="mr"><div><div class="t">VAT return · November</div><div class="d">${S.stage >= 7 ? 'Filed · pay K64,514.40 by 18 Dec · ref ' + S.prn : 'Approved by you · being filed'}</div></div><span class="pill ok">${S.stage >= 7 ? 'Filed' : 'Approved'}</span></div>`;
-  return `<div class="row"><div><h1>My 360 · your clients' app</h1><div class="subt">What Mutale K., the finance lead at Kalimba Foods, sees on her phone. ${S.stage < 6 ? 'Sign off the VAT review first, then approve here.' : 'Approve the return as the client.'}</div></div><button class="btn o" data-go="job">Back to the VAT job</button></div>
+  let body = '';
+  if (S.ph === 'home') body = `<div class="mc"><h4>How much do I pay?</h4>${action}<div class="mr"><div><div class="t">PAYE, NAPSA, NHIMA · Dec</div><div class="d">Amounts to approve on 5 Jan · due 10 Jan</div></div><span class="pill na">Next</span></div></div>
+    <div class="mc"><h4>We need from you · 2</h4><div class="mr"><div><div class="t">December payroll changes</div><div class="d">2 new employees · by 16 Dec</div></div><button class="btn o" style="min-height:34px;padding:5px 10px" data-toast="Camera opens on the client's phone (demo)">Upload</button></div><div class="mr"><div><div class="t">Q4 profit estimate</div><div class="d">For the provisional return · by 20 Dec</div></div><button class="btn o" style="min-height:34px;padding:5px 10px" data-toast="Opens the estimate for review (demo)">Open</button></div></div>`;
+  if (S.ph === 'filed') body = `<div class="mc"><h4>Did you file?</h4>${[['VAT · Nov', S.stage >= 7 ? 'Filed 14 Dec · ref ' + S.prn : 'In progress · due 18 Dec', S.stage >= 7 ? 'ok' : 'rev'], ['PAYE, NAPSA, NHIMA · Nov', 'Filed 9 Dec · receipts saved', 'ok'], ['WHT · Nov', 'Filed 11 Dec · receipt saved', 'ok'], ['VAT · Oct', 'Filed 16 Nov · paid 17 Nov', 'ok'], ['Annual return 2025', 'Filed 12 Jun · acknowledged', 'ok']].map(([a, b, k]) => `<div class="mr"><div><div class="t">${a}</div><div class="d">${b}</div></div><span class="pill ${k}">${k === 'ok' ? 'Filed' : 'Open'}</span></div>`).join('')}</div>`;
+  if (S.ph === 'letters') body = `<div class="mc"><h4>Where is my letter?</h4>${[['Tax clearance certificate 2026', 'Valid to 31 Dec 2026'], ['Financial statements 2025', 'Signed 28 Mar 2026 · with QR code'], ['NAPSA compliance certificate', 'Issued Oct 2026'], ['Engagement letter 2026', 'Signed Jan 2026']].map(([a, b]) => `<div class="mr"><div><div class="t">${a}</div><div class="d">${b}</div></div><button class="btn o" style="min-height:34px;padding:5px 10px" data-toast="Shared as a secure link with a QR code (demo)">Share</button></div>`).join('')}</div>`;
+  if (S.ph === 'ask') body = `<div class="mc"><h4>Ask ABACUS360</h4><div class="d" style="margin-bottom:8px">Answered by a person at ABACUS360, usually the same day.</div>
+    <div style="background:#F4F6FA;border-radius:10px;padding:9px 11px;font-size:13px"><b style="font-weight:500">N. Phiri · Mon 09:20</b><br>Your PAYE for December is due by 10 January, with NAPSA and NHIMA. We will send you the amounts to approve on 5 January.</div>
+    ${S.asked2 ? `<div style="background:var(--revl);border-radius:10px;padding:9px 11px;font-size:13px;margin-top:8px"><b style="font-weight:500">You · just now</b><br>Can you send our tax clearance certificate to Zanaco?</div><div style="background:var(--goldl);border-radius:10px;padding:9px 11px;font-size:13px;margin-top:8px">With N. Phiri. You will get an answer here today.</div>` : `<button class="btn" id="ask2" style="width:100%;justify-content:center;margin-top:10px">Ask a new question</button>`}</div>`;
+  const tabs = [['home', 'Home'], ['filed', 'Filed'], ['letters', 'Letters'], ['ask', 'Ask']];
+  return `<div class="row"><div><h1>My 360 · your clients' app</h1><div class="subt">What Mutale K., the finance lead at Kalimba Foods, sees on her phone. It answers the four questions clients ask most: how much do I pay, did you file, where is my letter, and a question for you. ${S.stage < 6 ? 'Sign off the VAT review first, then approve here.' : ''}</div></div><button class="btn o" data-go="job">Back to the VAT job</button></div>
   <div style="margin-top:18px"><div class="phone" id="phone"><div class="scr">
     <div class="ph-h"><div style="display:flex;align-items:center;gap:8px">${logo(24)}<span style="letter-spacing:2px;font-weight:300">ABACUS360</span><span style="margin-left:auto;font-size:11px;color:#9fb0dc">My 360</span></div><div style="font-size:19px;margin-top:12px">${hello()}, Mutale</div><div style="font-size:12px;color:#b9c4e6">Kalimba Foods Ltd · all returns on track</div></div>
-    <div class="mc"><h4>${S.stage >= 7 ? 'Done this week' : 'Ready for your approval'}</h4>${action}</div>
-    <div class="mc"><h4>We need from you · 2</h4><div class="mr"><div><div class="t">December payroll changes</div><div class="d">2 new employees · by 16 Dec</div></div><button class="btn o" style="min-height:34px;padding:5px 10px" data-toast="Camera opens on the client's phone (demo)">Upload</button></div><div class="mr"><div><div class="t">Q4 profit estimate</div><div class="d">For the provisional return · by 20 Dec</div></div><button class="btn o" style="min-height:34px;padding:5px 10px" data-toast="Opens the estimate for review (demo)">Open</button></div></div>
-    <div class="mc"><h4>Done for you</h4><div class="mr"><div><div class="t">PAYE, NAPSA, NHIMA · Nov</div><div class="d">Filed 9 Dec · receipts in Documents</div></div><span class="pill ok">Filed</span></div></div>
-    <div class="tb"><span style="color:var(--blue);font-weight:500">Home</span><span>Documents</span><span>Messages</span><span>Invoices</span></div></div></div></div>`;
+    <div style="flex:1;overflow:auto;padding-bottom:10px">${body}</div>
+    <div class="tb">${tabs.map(([k, l]) => `<button data-ph="${k}" style="border:0;background:none;min-height:44px;font-size:12px;color:${S.ph === k ? 'var(--blue)' : 'var(--mut)'};font-weight:${S.ph === k ? 500 : 400}">${l}</button>`).join('')}</div></div></div>
+    <p class="d" style="text-align:center;margin-top:10px">Clients do not need to install anything: it opens from a WhatsApp link, in ABACUS360's name.</p></div>`;
 };
 
 V.verify = () => `<div class="row"><div><h1>Verify financial statements</h1><div class="subt">Every signed set of financial statements carries a QR code. A bank, landlord or tender board scans it and sees this page, without seeing the contents.</div></div></div>
@@ -480,9 +488,9 @@ const ROLES = {
 };
 const ACCESS = {
   partner: null,
-  manager: ['today', 'clients', 'calendar', 'job', 'audit', 'training', 'client-app', 'verify', 'agents'],
-  secretary: ['today', 'clients', 'calendar', 'client-app', 'verify'],
-  trainee: ['today', 'clients', 'calendar', 'job', 'audit', 'training', 'client-app', 'verify']
+  manager: ['today', 'updates', 'clients', 'calendar', 'job', 'audit', 'training', 'client-app', 'verify', 'agents', 'security'],
+  secretary: ['today', 'updates', 'clients', 'calendar', 'client-app', 'verify', 'security'],
+  trainee: ['today', 'updates', 'clients', 'calendar', 'job', 'audit', 'training', 'client-app', 'verify', 'security']
 };
 const allowed = r => !ACCESS[S.role] || ACCESS[S.role].includes(r);
 function needs() {
@@ -513,6 +521,7 @@ const ASKQ = [
   ['kal', 'Brief me on Kalimba Foods for a 10:00 meeting'],
   ['staff', 'Who on the team is over capacity this month?'],
   ['zra', 'Draft a reply to the ZRA letter for Mutende Logistics'],
+  ['law', 'Which new rules affect our clients this month?'],
   ['fees', 'How are fees doing against last year?']
 ];
 const STEPS = {
@@ -522,10 +531,12 @@ const STEPS = {
   staff: ['Reading timesheets and job budgets', 'Comparing hours with capacity', 'Writing the answer'],
   zra: ['Reading the ZRA letter', 'Finding payment references in the WHT jobs', 'Drafting the reply'],
   fees: ['Reading billing, WIP and debtors', 'Comparing with January to November 2025', 'Writing the answer'],
+  law: ['Reading the update feed', 'Matching updates to clients', 'Writing the answer'],
   fx: ['Opening case FX-2026-014', 'Reading test results', 'Writing the summary']
 };
 function matchQ(q) {
   q = q.toLowerCase();
+  if (/law|legislat|update|gazette|budget|news/.test(q)) return 'law';
   if (/forensic|fraud|case|investig/.test(q)) return 'fx';
   if (/zra|letter|reply|objection|assessment/.test(q)) return 'zra';
   if (/kalimba|meeting|brief|summar/.test(q)) return 'kal';
@@ -576,6 +587,7 @@ function answer(id) {
       <li>3 fixed-fee clients cost more in time than they pay. Worth reviewing at renewal.</li></ul>
       <div class="btns"><button class="btn o" data-go="insights">Open partner insights</button></div>
       <div class="src">From billing, WIP and debtors · 14 Dec 08:00</div>`,
+    law: `<p><b>Two updates need action this month.</b></p><ul><li><b>Input VAT only on Smart Invoice invoices:</b> 6 clients, K38,400 at risk. Supplier requests are drafted.</li><li><b>Data Protection Act, 2021:</b> 14 clients hold staff or customer records and may need to register with the Data Protection Commissioner.</li></ul><div class="btns"><button class="btn o" data-go="updates">Open the updates</button></div><div class="src">From the update feed: ZRA, PACRA, NAPSA, NHIMA, Bank of Zambia, ZICA, Government Gazette</div>`,
     fx: S.role !== 'partner' ? `<p><b>Forensic cases are visible to the case team only.</b></p>` : `<p><b>FX-2026-014 · Mwembeshi Haulage Ltd</b></p><ul><li>6 tests run on 18,432 payments, K214.6m. 3 high-risk results.</li><li>K2,876,300 paid to three vendors that share a bank account, phone or address with two employees.</li><li>Expert report due to counsel on 22 January 2027.</li></ul>
       <div class="btns"><button class="btn o" data-go="forensic">Open the case</button></div><div class="src">From case FX-2026-014 and its evidence register</div>`
   };
@@ -654,12 +666,98 @@ V.insights = () => {
   <div class="card"><div class="hd"><h2>Team capacity · December</h2><small>chargeable hours against available</small></div>
     ${UT.map(([n, v, k]) => `<div class="meter"><div class="nm">${n}</div><div class="bar"><i style="width:${Math.round(v / 120 * 100)}%;background:var(--${k})"></i></div><div class="vl">${v}%</div></div>`).join('')}
     <div class="btns" style="margin-top:8px"><button class="btn o" data-toast="Proposed to N. Phiri: move 3 VAT returns from T. Banda to M. Zulu.">Rebalance the work</button></div></div></div>
+  <div class="card" style="margin-top:14px;border-color:#D9C79C;background:#FFFCF4"><div class="hd"><h2>A new line for the firm · systems for your clients</h2><span class="pill ai">Partner option</span></div><div class="d" style="font-size:14px">Many of your clients run on notebooks and spreadsheets. Under ABACUS360's name, MIA Technology can build and run systems for them, from bookings to stock to payroll, with a share for the firm. Your clients get better records, and your team gets cleaner books to work from.</div></div>
   <div class="card" style="margin-top:14px"><div class="hd"><h2>Fixed fees below cost</h2><small>monthly fee against time cost</small></div><div class="scroll"><table><tr><th>Client</th><th class="n">Monthly fee</th><th class="n">Time cost</th><th class="n">Margin</th><th>Suggestion</th></tr>
     ${[['Nsima House Restaurants', 4000, 4720, -18, 'Review the fee at renewal in January'], ['Lilayi Farms Ltd', 6500, 6890, -6, 'Agree a cut-off for payroll changes'], ['Mukuni Traders', 5000, 5200, -4, 'Move bookkeeping to monthly uploads']].map(r => `<tr><td>${r[0]}</td><td class="n">${K(r[1])}</td><td class="n">${K(r[2])}</td><td class="n" style="color:var(--risk)">${r[3]}%</td><td>${r[4]}</td></tr>`).join('')}</table></div></div>`;
 };
 
+
+
+/* ------------------------------------------------------------ law and practice updates */
+const UPD = [
+  { id: 'si', src: 'ZRA', when: 'In force since 1 January 2025', t: 'Input VAT only on Smart Invoice invoices', d: 'Input VAT can be claimed only on purchase invoices issued through Smart Invoice, with narrow exceptions.', aff: '6 clients · K38,400 at risk', ex: false },
+  { id: 'dpa', src: 'Data Protection Commissioner', when: 'Data Protection Act, 2021', t: 'Registration of data controllers', d: 'Organisations that process personal data must register with the Data Protection Commissioner. Clients that hold staff or customer records may need help to comply.', aff: '14 clients to check', ex: false },
+  { id: 'pt', src: 'ZRA', when: 'Example', t: 'Practice note on provisional tax estimates', d: 'An example of how a new practice note appears: summarised in two lines, matched to the clients it affects, with the jobs it changes.', aff: '63 clients', ex: true },
+  { id: 'cpd', src: 'ZICA', when: 'Example', t: 'CPD declaration reminder for members', d: 'An example of a professional notice for your own people, sent to each member with their hours so far.', aff: '12 members of staff', ex: true }
+];
+V.updates = () => `<div class="row"><div><h1>Law and practice updates</h1><div class="subt">New laws, ZRA notices and professional updates, read for you and matched to the clients they affect</div></div><button class="btn o" data-toast="Watch list saved (demo)">Watch list</button></div>
+  <div class="chips" style="margin:12px 0 4px"><span class="chip"><b>Watching</b>ZRA</span><span class="chip">PACRA</span><span class="chip">NAPSA</span><span class="chip">NHIMA</span><span class="chip">Bank of Zambia</span><span class="chip">ZICA</span><span class="chip">Government Gazette</span><span class="chip">Data Protection Commissioner</span><span class="chip"><b>Summary</b>daily at 07:00, urgent items at once</span></div>
+  <div class="grid" id="upd" style="margin-top:12px">${UPD.map(u => `<div class="card"><div class="hd" style="margin-bottom:6px"><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><span class="pill ${u.ex ? 'na' : 'rev'}">${u.src}</span><span class="d">${u.when}</span></div><span class="pill ${u.ex ? 'na' : 'wait'}">${u.aff}</span></div>
+    <h2 style="font-size:16.5px">${u.t}</h2><div class="d" style="font-size:14px;margin-top:4px">${u.d}</div>
+    <div class="btns" style="margin-top:10px"><button class="btn o" data-upd="${u.id}">Draft a client notice</button><button class="btn o" data-toast="Added to Wednesday's team training (demo)">Brief the team</button><button class="btn o" data-toast="${u.id === 'si' ? 'Supplier requests drafted for 6 clients (demo)' : 'Jobs opened for the affected clients (demo)'}">Open the jobs</button>${S.updDone[u.id] ? '<span class="pill ok">Notice drafted ✓</span>' : ''}</div></div>`).join('')}</div>
+  <div class="d" style="margin-top:12px">Every update links to its source. Nothing goes to a client until a partner approves it.</div>`;
+function updNotice(id) {
+  const u = UPD.find(x => x.id === id);
+  const txt = id === 'si' ? 'Dear client, from 1 January 2025 input VAT can be claimed only on purchase invoices issued through ZRA Smart Invoice, with narrow exceptions. Please ask your suppliers to issue their invoices through Smart Invoice. We check every purchase invoice for you each month and will tell you at once if one is missing.'
+    : id === 'dpa' ? 'Dear client, under the Data Protection Act, 2021, organisations that process personal data, such as staff or customer records, must register with the Data Protection Commissioner. We can help you check whether this applies to you and prepare the registration.'
+    : 'Example of a client notice, written in plain language and signed by your firm. A partner approves it before it is sent.';
+  modal(`<h2 style="font-size:18px">Client notice · drafted</h2><div class="d" style="margin-bottom:10px">${u.t} · to ${u.aff.split('·')[0].trim()} · on WhatsApp and email, from ABACUS360</div><div class="draft">${txt}<br><br>ABACUS360</div><div class="d" style="margin-top:10px">Drafted by the Tax Letters agent from the source. Waiting for a partner to approve.</div><div class="btns" style="margin-top:14px;justify-content:flex-end"><button class="btn o" data-close>Close</button><button class="btn" id="upd-ok" data-u="${id}">Approve for sending</button></div>`);
+}
+
+/* ------------------------------------------------------------ new client in one sitting */
+function ncStep() {
+  const steps = ['Documents', 'Checks', 'Engagement', 'Ready'];
+  const bar = `<div class="steps" style="margin:10px 0 14px">${steps.map((n, i) => `<div class="s ${i < S.nc ? 'done' : i === S.nc ? 'cur' : ''}"><i></i>${n}</div>`).join('')}</div>`;
+  const bodies = [
+    `<div class="d" style="margin-bottom:8px">Upload what the client sends: PACRA printout, TPIN certificate, IDs of directors and owners. Intake reads them.</div>
+     <div class="list"><div class="it"><div class="ic ok">✓</div><div><div class="t">Chisamba Agro Ltd</div><div class="d">Private company · incorporated 2019 · 2 directors · 1 beneficial owner</div></div></div>
+     <div class="it"><div class="ic ok">✓</div><div><div class="t">TPIN 100•••8817 · VAT registered</div><div class="d">Read from the TPIN certificate</div></div></div>
+     <div class="it"><div class="ic ok">✓</div><div><div class="t">3 identity documents</div><div class="d">Matched to the directors and the owner</div></div></div></div>`,
+    `<div class="list"><div class="it"><div class="ic ok">✓</div><div><div class="t">Customer due diligence complete</div><div class="d">Identity, beneficial owner and source of funds recorded</div></div></div>
+     <div class="it"><div class="ic ok">✓</div><div><div class="t">Conflict check: clear</div><div class="d">No link to any forensic case, audit client or related party</div></div></div>
+     <div class="it"><div class="ic wait">!</div><div><div class="t">Risk rating: medium</div><div class="d">Cash-heavy sector · review yearly · approved by the partner</div></div></div></div>`,
+    `<div class="d" style="margin-bottom:8px">Services chosen, fee and engagement letter in one step.</div>
+     <div class="chips">${['VAT monthly', 'PAYE, NAPSA, NHIMA', 'Bookkeeping', 'Annual financial statements', 'Provisional tax'].map(x => `<span class="chip" style="background:var(--revl);border-color:#c9d3f3">${x}</span>`).join('')}</div>
+     <div class="draft" style="margin-top:10px">Engagement letter for Chisamba Agro Ltd · retainer K7,500 a month · from 1 January 2027 · sent for e-signature to both directors.</div>`,
+    `<div class="list"><div class="it"><div class="ic ok">✓</div><div><div class="t">9 obligations set from the registrations</div><div class="d">They appear on the radar and the calendar</div></div></div>
+     <div class="it"><div class="ic ok">✓</div><div><div class="t">First jobs open · N. Phiri assigned</div><div class="d">January VAT and payroll</div></div></div>
+     <div class="it"><div class="ic ok">✓</div><div><div class="t">Invited to My 360 on WhatsApp</div><div class="d">The client sees ABACUS360's name, not ours</div></div></div></div>`
+  ];
+  modal(`<h2 style="font-size:18px">New client · in one sitting</h2>${bar}${bodies[S.nc]}<div class="btns" style="margin-top:14px;justify-content:flex-end"><button class="btn o" data-close>Close</button>${S.nc < 3 ? `<button class="btn" id="nc-next">${['Run the checks', 'Prepare the engagement', 'Sign and set up'][S.nc]}</button>` : `<button class="btn gd" data-close>Done · about ten minutes</button>`}</div>`, true);
+}
+
+/* ------------------------------------------------------------ security */
+const PAGE_NAMES = { today: 'Opened the firm overview', updates: 'Opened law and practice updates', clients: 'Opened client file · Kalimba Foods Ltd', calendar: 'Opened the statutory calendar', job: 'Opened VAT job · Kalimba Foods, Nov 2026', audit: 'Opened audit file · Copperline Engineering', forensic: 'Opened case FX-2026-014 · sealed', training: 'Opened trainee logs', insights: 'Opened partner insights', 'client-app': 'Viewed My 360 as the client', verify: 'Opened the verification page', agents: 'Opened AI agents', security: 'Opened security and confidentiality' };
+S.log = [
+  ['06:58', 'Second Eyes (agent)', 'Read VAT job · Zed Solar Systems', 'Automatic, within its task'],
+  ['07:41', 'C. Mulenga', 'Used TaxOnline login · Bwalya Pharmacy', 'Reason: file PAYE Nov · vault'],
+  ['08:12', 'G. Mwansa', 'Tried to open case FX-2026-014', 'Refused · not on the case team'],
+  ['08:40', 'J. M. Liswaniso', 'Viewed evidence EV-001', 'Case team · hash checked']
+];
+let lastRoute = '';
+function nowT() { const d = new Date(); return String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0'); }
+function logEv(what, note) { S.log.push([nowT(), ROLES[S.role].who, what, note || 'This browser · just now']); const l = $('#seclog .list'); if (l) l.innerHTML = logHTML(); }
+function logHTML() { return S.log.slice(-9).reverse().map(([t, w, a, n]) => `<div class="it"><div class="ic ${/Refused|Tried/.test(n + a) ? 'risk' : /agent/.test(w) ? 'ai' : 'na'}" style="font-size:11px">${t}</div><div><div class="t">${esc(w)}</div><div class="d">${esc(a)} · ${esc(n)}</div></div></div>`).join(''); }
+V.security = () => {
+  const M = [['Client files', 'All', 'Own clients', 'Contact details', 'Assigned jobs'], ['Fees and firm figures', 'All', '—', '—', '—'], ['Forensic cases', 'Case team only', 'Case team only', '—', '—'], ['Audit sign-off', 'Sign', 'Review', '—', 'Prepare'], ['Client tax logins (vault)', 'Use, logged', 'Use, logged', '—', '—'], ['Security settings', 'Change', '—', '—', '—']];
+  const cls = v => v === '—' ? 'na' : /All|Sign|Change/.test(v) ? 'ok' : /team/.test(v) ? 'risk' : 'rev';
+  const CARDS = [
+    ['Your own private environment', 'ABACUS360\'s data sits in its own environment, never shared with another firm, backed up daily, under a data processing agreement with MIA Technology.'],
+    ['Rules that never bend', 'No agent files with any authority. Nothing reaches a client without a person\'s approval. The person who prepares a return can never approve it.'],
+    ['Your name, not ours', 'Clients see ABACUS360 on every screen, message and document: your WhatsApp number, your email, your domain.'],
+    ['Sealed forensic cases', 'Only the named case team can open a case, other partners included. Requests to join are approved by the case lead and recorded.'],
+    ['Tax logins in a vault', 'Clients\' TaxOnline logins are stored encrypted and never shown in full. Every use is recorded with its reason.'],
+    ['AI agents on a short lead', 'Each agent sees only what its task needs, and every action it takes is in the log. Client data is not used to train outside AI models.'],
+    ['Data Protection Act, 2021', 'Consent records, a register of what is processed and why, and a clear process for client data requests and for reporting a breach.'],
+    ['Devices and sessions', 'Sign-in with a code on your phone. Idle sessions close after 30 minutes, and a lost laptop can be signed out from anywhere.'],
+    ['If you ever leave', 'A full export of your data in standard formats, then deletion with a written certificate. The data belongs to ABACUS360.']
+  ];
+  return `<div class="row"><div><h1>Security and confidentiality</h1><div class="subt">Built for a firm that holds its clients' tax affairs and forensic evidence</div></div><div class="btns"><button class="btn o" data-toast="Access log exported for the period 1 to 14 December (demo)">Export the access log</button><button class="btn red" data-toast="All other devices signed out. Staff sign in again with their phone code (demo)">Sign out all other devices</button></div></div>
+  <div class="kpis k4">
+    <div class="card kpi"><div class="l">Two-step sign-in</div><div class="v g">41 of 41</div><div class="s">staff, every device</div></div>
+    <div class="card kpi"><div class="l">Data kept in</div><div class="v">Zambia</div><div class="s">or the region you choose</div></div>
+    <div class="card kpi"><div class="l">Encryption</div><div class="v b">Always on</div><div class="s">in transit and at rest</div></div>
+    <div class="card kpi"><div class="l">Backups</div><div class="v">Daily</div><div class="s">restore tested every month</div></div></div>
+  <div class="grid g2b"><div class="card" id="secmatrix"><div class="hd"><h2>Who can see what</h2><small>set by the partners, per person</small></div><div class="scroll"><table><tr><th>Area</th><th>Partner</th><th>Manager</th><th>Secretary</th><th>Trainee</th></tr>
+    ${M.map(r => `<tr><td>${r[0]}</td>${r.slice(1).map(v => `<td><span class="pill ${cls(v)}">${v}</span></td>`).join('')}</tr>`).join('')}</table></div>
+    <div class="d" style="margin-top:10px">Try it: switch "View as" at the top to Secretary, then open Forensic or Insights.</div></div>
+  <div class="card" id="seclog"><div class="hd"><h2>Access log · live</h2><small>every view and every use, kept for six years</small></div><div class="list">${logHTML()}</div>
+    <div class="d" style="margin-top:8px">What you open in this demonstration is recorded here as you go, just as it would be in the live system.</div></div></div>
+  <div class="agents" style="margin-top:14px">${CARDS.map(([t, d]) => `<div class="card" style="padding:16px"><div style="display:flex;gap:10px;align-items:center"><div class="ic ok" style="width:28px;height:28px">✓</div><div class="t">${t}</div></div><div class="d" style="margin-top:8px;font-size:13.5px">${d}</div></div>`).join('')}</div>`;
+};
+
 /* ------------------------------------------------------------ nav and routing */
-const NAV = [['today', 'Today', ''], ['clients', 'Clients', ''], ['calendar', 'Calendar', ''], ['job', 'VAT job', '9'], ['audit', 'Audit', '1'], ['forensic', 'Forensic', '2'], ['training', 'Training', '5'], ['insights', 'Insights', ''], ['sec', 'For clients'], ['client-app', 'My 360', ''], ['verify', 'Verify', ''], ['sec', 'Automation'], ['agents', 'AI agents', '9']];
+const NAV = [['today', 'Today', ''], ['updates', 'Updates', '2'], ['clients', 'Clients', ''], ['calendar', 'Calendar', ''], ['job', 'VAT job', '9'], ['audit', 'Audit', '1'], ['forensic', 'Forensic', '2'], ['training', 'Training', '5'], ['insights', 'Insights', ''], ['sec', 'For clients'], ['client-app', 'My 360', ''], ['verify', 'Verify', ''], ['sec', 'Automation'], ['agents', 'AI agents', '9'], ['security', 'Security', '']];
 const LOCK = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
 function badge(k, b) { if (k === 'training') return (TRAINEES.length - Object.keys(S.signed).length) || '✓'; if (k === 'audit') return S.auditSigned ? '✓' : b; return b; }
 function renderNav(r) {
@@ -669,7 +767,7 @@ function renderNav(r) {
 }
 function lockedView(r) { return `<div class="card" style="max-width:560px;margin:48px auto;text-align:center;padding:30px"><div style="width:52px;height:52px;border-radius:50%;background:var(--na);display:grid;place-items:center;margin:0 auto;color:var(--mut)">${LOCK.replace(/12/g, '22')}</div><h2 style="margin-top:12px;font-size:18px">Not available to a ${ROLES[S.role].label.toLowerCase()}</h2><div class="d" style="font-size:14px;margin-top:6px">The partners decide who sees what. Fees, forensic cases and partner insights stay with the people who need them.</div><div class="btns" style="justify-content:center;margin-top:16px"><button class="btn" data-role="partner">Switch back to Partner</button></div></div>`; }
 function route() { const h = location.hash.slice(1); return V[h] ? h : 'today'; }
-function render() { const r = route(); renderNav(r); $('#view').innerHTML = allowed(r) ? V[r]() : lockedView(r); }
+function render() { const r = route(); if (r !== lastRoute) { lastRoute = r; if (allowed(r)) S.log.push([nowT(), ROLES[S.role].who, PAGE_NAMES[r] || r, 'This browser · just now']); else S.log.push([nowT(), ROLES[S.role].who, 'Tried to open ' + (PAGE_NAMES[r] || r).replace(/^Opened /, ''), 'Refused · not allowed for this role']); } renderNav(r); $('#view').innerHTML = allowed(r) ? V[r]() : lockedView(r); }
 window.addEventListener('hashchange', () => { render(); window.scrollTo(0, 0); if (S.tourI >= 0) highlight(); });
 function go(r) { if (location.hash.slice(1) === r) render(); else location.hash = r; }
 
@@ -678,6 +776,8 @@ document.addEventListener('click', e => {
   const t = e.target.closest('button,[data-test]');
   if (!t) return;
   if (t.dataset.q) { runAsk(t.dataset.q); return; }
+  if (t.dataset.ph) { S.ph = t.dataset.ph; render(); return; }
+  if (t.dataset.upd) { updNotice(t.dataset.upd); return; }
   if (t.dataset.role) { S.role = t.dataset.role; $('#roleSel').value = S.role; render(); return; }
   if (t.dataset.go) { closeModal(); go(t.dataset.go); return; }
   if (t.dataset.toast) { toast(t.dataset.toast); return; }
@@ -693,15 +793,19 @@ document.addEventListener('click', e => {
     case 'signoff-btn': S.stage = 6; render(); toast('Review signed off. Sent to the client for approval in My 360.'); break;
     case 'approve-btn': S.approved = true; render(); toast('Approved and e-signed by the client. Your team can now file.'); break;
     case 'file-btn': modal(`<h2 style="font-size:18px">Assisted filing · ZRA TaxOnline</h2><div class="list"><div class="it"><div class="ic ok">1</div><div><div class="t">Return file prepared in ZRA's upload format</div></div></div><div class="it"><div class="ic ok">2</div><div><div class="t">TaxOnline opened with the client's credentials from the vault</div><div class="d">Access recorded · approved by the client in writing</div></div></div><div class="it"><div class="ic rev">3</div><div><div class="t">A person checks and presses Submit</div><div class="d">The acknowledgement and payment reference are captured automatically</div></div></div></div><div class="btns" style="margin-top:14px;justify-content:flex-end"><button class="btn o" data-close>Cancel</button><button class="btn" id="do-file">Submit as C. Mulenga</button></div>`); break;
-    case 'do-file': S.stage = 7; S.prn = '1100 2612 4471 0098'; closeModal(); render(); toast('Filed. Acknowledgement and payment reference saved to the file.'); break;
+    case 'do-file': S.log.push([nowT(), 'C. Mulenga', 'Used TaxOnline login · Kalimba Foods', 'Reason: file VAT Nov · vault']); S.stage = 7; S.prn = '1100 2612 4471 0098'; closeModal(); render(); toast('Filed. Acknowledgement and payment reference saved to the file.'); break;
     case 'paid-btn': S.stage = 8; S.paid = true; render(); toast('Payment proof uploaded by the client. Job closed with evidence.'); break;
     case 'pause-btn': S.paused = !S.paused; render(); toast(S.paused ? 'All agents paused. Nothing runs until a partner resumes them.' : 'Agents resumed at their approved levels.'); break;
     case 'addf': if (!S.findings.includes(S.test)) S.findings.push(S.test); render(); toast('Added to the expert report, section 4'); break;
     case 'draft-btn': $('#draft-out').innerHTML = `<div class="draft"><b style="font-weight:500">Draft · for the examiner's review</b><br>${S.findings.length ? '' : 'No findings added yet, so the draft uses the high-risk results. '}Between March 2025 and January 2026, Zed Star Supplies, Copperway Trading and Kafue Allied Traders received K2,876,300. Each shares a bank account, a telephone number or a residential address with one of two employees in procurement and stores (EV-001, EV-003, EV-004). Ten of these payments were split into amounts just below the K50,000 approval limit. The examiner should confirm each match against the original bank mandates before drawing a conclusion.</div>`; break;
     case 'tourStart': startTour(); break;
+    case 'ask2': S.asked2 = true; render(); break;
+    case 'upd-ok': S.updDone[t.dataset.u] = true; closeModal(); render(); S.log.push([nowT(), ROLES[S.role].who, 'Approved a client notice', 'Sent in ABACUS360\'s name']); toast('Approved. Sent to the affected clients in ABACUS360\'s name (demo).'); break;
+    case 'newclient': S.nc = 0; ncStep(); break;
+    case 'nc-next': S.nc++; ncStep(); if (S.nc === 3) S.log.push([nowT(), ROLES[S.role].who, 'Opened new client · Chisamba Agro Ltd', 'Due diligence and conflict check recorded']); break;
     case 'askGo': { const v = $('#askIn').value.trim(); if (v) runAsk(matchQ(v), v); else $('#sugg').classList.toggle('on'); break; }
     case 'audit-sign': modal(`<h2 style="font-size:18px">Sign the audit report</h2><div class="d" style="margin:6px 0 12px">Copperline Engineering Ltd · year ended 30 June 2026</div><div class="list"><div class="it"><div class="ic rev">1</div><div><div class="t">You sign as J. M. Liswaniso, FZICA, engagement partner</div><div class="d">Unmodified opinion</div></div></div><div class="it"><div class="ic rev">2</div><div><div class="t">The report, the statements and the work papers are locked</div></div></div><div class="it"><div class="ic rev">3</div><div><div class="t">A verification code goes on the report as a QR code</div></div></div></div><div class="btns" style="margin-top:14px;justify-content:flex-end"><button class="btn o" data-close>Cancel</button><button class="btn gd" id="do-audit-sign">Sign</button></div>`); break;
-    case 'do-audit-sign': S.auditSigned = true; closeModal(); render(); toast('Signed. File locked and verification code A360-FS-26-0431 issued.'); break;
+    case 'do-audit-sign': S.auditSigned = true; S.log.push([nowT(), ROLES[S.role].who, 'Signed audit report · Copperline Engineering', 'File locked']); closeModal(); render(); toast('Signed. File locked and verification code A360-FS-26-0431 issued.'); break;
   }
 });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); $('#sugg').classList.remove('on'); } if ((e.key === 'Enter' || e.key === ' ') && e.target.dataset && e.target.dataset.test) { e.preventDefault(); e.target.click(); } });
@@ -727,6 +831,8 @@ const TOUR = [
   ['today', '#ask', 'Ask 360, in plain English', 'Ask the firm a question the way you would ask a senior manager. Try "Which clients could miss a deadline this week?" Every answer shows where its numbers come from.'],
   ['today', '#radar', 'Compliance radar', 'Every client against every obligation, sorted by risk. Press Kalimba Foods\' blue VAT cell to open the job behind it.'],
   ['calendar', '#cal', 'The statutory calendar, worked for you', 'Every ZRA, NAPSA, NHIMA and PACRA date for every client. Ten days before each deadline the jobs open themselves, so nothing starts late.'],
+  ['updates', '#upd', 'New laws, read for you', 'ZRA notices, new laws and professional updates are summarised, matched to the clients they affect, and turned into client notices for a partner to approve.'],
+  ['clients', '#newclient', 'A new client in one sitting', 'Documents read, due diligence and a conflict check against your forensic and audit work, then the engagement letter and every obligation set. Press New client to try it.'],
   ['clients', '#ring', 'Every client, seen from 360°', 'The ring is the client\'s year. Each bead is an obligation: green filed, blue in review, amber waiting on the client.'],
   ['job', '#si-card', 'A guard on every VAT claim', 'Since January 2025 input VAT is claimed only on Smart Invoice invoices. The system checks every purchase and flags the gaps. Try "Ask suppliers".'],
   ['job', '#signoff', 'Three degrees of review', 'Preparer, reviewer, client. Press "Sign off review" at the top, and the job moves to the client.'],
@@ -737,9 +843,10 @@ const TOUR = [
   ['forensic', '#evidence', 'Evidence that stands up', 'Every item is hashed on receipt and every access is logged. Press Custody on any line to see its chain of custody.'],
   ['training', '#mentor', 'Your trainees, mentored on real work', 'Practical experience logged from real jobs, waiting for your sign-off as their mentor.'],
   ['insights', '#lines', 'The partner\'s view of the business', 'Fees by service line, unbilled work, debtors, team capacity and the fixed fees that cost more than they pay. Partners only.'],
+  ['security', '#seclog', 'Security you can see', 'Who can see what, sealed forensic cases, a vault for client tax logins, and a record of every view. Everything you have opened in this demo is already in this log.'],
   ['agents', '#agents-grid', 'Nine agents do the groundwork', 'Each has one job, its own level and its own log. One button pauses them all.'],
   ['today', '#roleBox', 'Everyone sees their own 360', 'Partner, client manager, secretary, trainee: each sees their own day, and only what their role allows. Switch the view and see.'],
-  ['', '', 'See it live, in your office', 'This was a demonstration with sample data. The real system is built around ABACUS360: your clients, your team, your workflow.']
+  ['', '', 'Now, the plans', 'This was a demonstration with sample data. The real system is built from your answers and your team\'s. <a href="https://mia050.github.io/abacus360/" target="_blank" rel="noopener">Your questionnaire</a> · <a href="https://mia050.github.io/abacus360/?team" target="_blank" rel="noopener">a link for your partners and team</a>.']
 ];
 function startTour() { S.role = 'partner'; $('#roleSel').value = 'partner'; S.tourI = 0; showStep(); }
 function showStep() {
@@ -771,7 +878,7 @@ function welcome() {
     <div class="bd"><div style="font-size:22px;color:var(--ink);font-weight:500;line-height:1.25">${hello()}, Mr Liswaniso</div>
     <p style="margin:10px 0 0">This is a working demonstration of the system we would build for ABACUS360, with a sample firm and sample clients. Click anything. Nothing you do here leaves this page.</p>
     <p class="d" style="margin:8px 0 18px">Prepared for J. M. Liswaniso, FZICA · by MIA Technology</p>
-    <div class="btns"><button class="btn gd" id="w-tour">Take the guided tour · 8 minutes</button><button class="btn o" id="w-free">Explore on my own</button></div>
+    <div class="btns"><button class="btn gd" id="w-tour">Take the guided tour · 10 minutes</button><button class="btn o" id="w-free">Explore on my own</button></div>
     <div class="motto">Built on the level. Checked on the square.</div></div></div></div>`;
   $('#w-tour').onclick = () => { closeModal(); startTour(); };
   $('#w-free').onclick = closeModal;
