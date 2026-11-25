@@ -25,8 +25,15 @@ a{color:var(--blue)}
 .brand{display:flex;align-items:center;gap:10px;padding:4px 8px 20px}
 .wm{color:#fff;font-weight:300;letter-spacing:2.5px;font-size:17px}
 .sub{font-size:10px;letter-spacing:1.6px;color:#9fb0dc;text-transform:uppercase}
-.nav{display:flex;flex-direction:column;gap:2px}
-.nav button{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 11px;border-radius:8px;border:0;background:none;color:#cfd6ea;text-align:left;font-size:14px;min-height:42px}
+.nav{display:flex;flex-direction:column;gap:1px;overflow-y:auto;flex:1 1 auto;min-height:0;scrollbar-width:thin}
+.board{display:grid;grid-template-columns:repeat(6,minmax(170px,1fr));gap:10px;min-width:1080px}
+.bcol{background:#EEF0F5;border-radius:12px;padding:10px;min-height:200px}
+.bcol h3{font-size:12.5px;font-weight:500;color:var(--mut);margin:2px 2px 8px;display:flex;justify-content:space-between}
+.jc{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px;margin-bottom:8px;width:100%;text-align:left;display:block}
+.jc:hover{border-color:var(--blue)}
+.jc .t{font-size:13.5px}
+.who{display:inline-flex;width:22px;height:22px;border-radius:50%;background:var(--revl);color:var(--blue);font-size:10px;font-weight:500;align-items:center;justify-content:center;margin-right:4px}
+.nav button{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 11px;border-radius:8px;border:0;background:none;color:#cfd6ea;text-align:left;font-size:14px;min-height:42px}
 .nav button:hover{background:rgba(255,255,255,.06)}
 .nav button.on{background:rgba(255,255,255,.12);color:#fff;font-weight:500}
 .nav .b{background:#2c4385;color:#fff;font-size:11px;border-radius:10px;padding:1px 7px}
@@ -181,7 +188,7 @@ td.n,th.n{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
   </aside>
   <div class="main">
     <header class="top"><div class="ask" id="ask"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B8933E" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/></svg><input id="askIn" type="text" placeholder="Ask 360 anything about your firm" aria-label="Ask 360" autocomplete="off"><button class="go" id="askGo">Ask</button><div class="sugg" id="sugg"></div></div>
-      <label class="role" id="roleBox"><span>View as</span><select id="roleSel"><option value="partner">Partner</option><option value="manager">Client manager</option><option value="secretary">Secretary</option><option value="trainee">Trainee</option></select></label>
+      <label class="role" id="roleBox"><span>View as</span><select id="roleSel"><option value="partner">Partner</option><option value="manager">Client manager</option><option value="senior">Tax manager</option><option value="junior">Junior accountant</option><option value="secretary">Secretary</option><option value="billing">Billing officer</option><option value="admin">Office admin and IT</option><option value="trainee">Trainee</option></select></label>
       <div class="r"><span class="date">Monday 14 December 2026</span><button class="tourbtn" id="tourStart">Guided tour</button></div></header>
     <main class="content" id="view"></main>
   </div>
@@ -327,10 +334,10 @@ V.today = () => {
     <div class="card kpi"><div class="l">VAT returns due 18 Dec</div><div class="v">41</div><div class="s">26 filed · 11 in review</div></div>
     <div class="card kpi"><div class="l">Waiting on clients</div><div class="v">17</div><div class="s">documents · reminders sent</div></div>
     <div class="card kpi"><div class="l">Input VAT at risk</div><div class="v r">K38,400</div><div class="s">6 clients · Smart Invoice gaps</div></div>
-    <div class="card kpi"><div class="l">Open forensic cases</div><div class="v b">2</div><div class="s">1 expert report due 22 Jan</div></div>
+    ${allowed('forensic') ? '' : `<div class="card kpi"><div class="l">Your jobs today</div><div class="v b">${S.role === 'secretary' ? 9 : S.role === 'billing' ? 144 : 6}</div><div class="s">on the work board</div></div>`}<div class="card kpi" style="${allowed('forensic') ? '' : 'display:none'}"><div class="l">Open forensic cases</div><div class="v b">2</div><div class="s">1 expert report due 22 Jan</div></div>
   </div>
   <div class="grid g2">
-    <div class="card" id="radar"><div class="hd"><h2>Compliance radar</h2><small>9 of 186 clients · sorted by risk · click Kalimba's VAT</small></div>
+    <div class="card" id="radar" style="${['billing', 'admin'].includes(S.role) ? 'display:none' : ''}"><div class="hd"><h2>Compliance radar</h2><small>9 of 186 clients · sorted by risk · click Kalimba's VAT</small></div>
       <div class="scroll"><table class="radar"><tr><th>Client · manager</th>${RADAR_COLS.map(c => `<th>${c}</th>`).join('')}</tr>${rows}</table></div>
       <div class="legend"><span><i style="background:var(--okl)"></i>Filed</span><span><i style="background:var(--revl)"></i>In review</span><span><i style="background:var(--waitl)"></i>Waiting on client</span><span><i style="background:var(--riskl)"></i>At risk</span><span><i style="background:var(--na)"></i>Not yet due</span></div></div>
     <div class="grid" style="align-content:start">
@@ -483,14 +490,22 @@ V.verify = () => `<div class="row"><div><h1>Verify financial statements</h1><div
 const ROLES = {
   partner: { name: 'Mr Liswaniso', who: 'J. M. Liswaniso', title: 'Partner · FZICA', init: 'JL', label: 'Partner', sub: 'Firm overview · December 2026 · every client, every obligation, seen from 360°' },
   manager: { name: 'Natasha', who: 'N. Phiri', title: 'Client manager', init: 'NP', label: 'Client manager', sub: 'Your portfolio · 46 clients · what needs you this week' },
-  secretary: { name: 'Grace', who: 'G. Mwansa', title: 'Secretary', init: 'GM', label: 'Secretary', sub: 'Front office · calls, documents and meetings' },
+  senior: { name: 'Chanda', who: 'C. Mulenga', title: 'Tax manager · reviewer', init: 'CM', label: 'Tax manager', sub: 'Your review queue · second degree of every return' },
+  junior: { name: 'Thandiwe', who: 'T. Banda', title: 'Junior accountant', init: 'TB', label: 'Junior accountant', sub: 'Your jobs today · prepare, check, hand over for review' },
+  secretary: { name: 'Grace', who: 'G. Mwansa', title: 'Secretary · front office', init: 'GM', label: 'Secretary', sub: 'Front office · calls, post, visitors and meetings' },
+  billing: { name: 'Lydia', who: 'L. Tembo', title: 'Billing and credit control', init: 'LT', label: 'Billing officer', sub: 'Invoices, payments and debtors' },
+  admin: { name: 'Samuel', who: 'S. Musonda', title: 'Office admin and IT', init: 'SM', label: 'Office admin and IT', sub: 'People, devices and access' },
   trainee: { name: 'Kondwani', who: 'K. Mwale', title: 'Trainee accountant', init: 'KM', label: 'Trainee', sub: 'Your work today · jobs, checklists and learning' }
 };
 const ACCESS = {
   partner: null,
-  manager: ['today', 'updates', 'clients', 'calendar', 'job', 'audit', 'training', 'client-app', 'verify', 'agents', 'security'],
-  secretary: ['today', 'updates', 'clients', 'calendar', 'client-app', 'verify', 'security'],
-  trainee: ['today', 'updates', 'clients', 'calendar', 'job', 'audit', 'training', 'client-app', 'verify', 'security']
+  manager: ['today', 'updates', 'clients', 'calendar', 'jobs', 'job', 'audit', 'training', 'billing', 'frontdesk', 'team', 'client-app', 'verify', 'agents', 'security'],
+  senior: ['today', 'updates', 'clients', 'calendar', 'jobs', 'job', 'audit', 'training', 'team', 'client-app', 'verify', 'agents', 'security'],
+  junior: ['today', 'updates', 'clients', 'calendar', 'jobs', 'job', 'audit', 'training', 'client-app', 'verify', 'security'],
+  secretary: ['today', 'updates', 'clients', 'calendar', 'frontdesk', 'team', 'client-app', 'verify', 'security'],
+  billing: ['today', 'clients', 'billing', 'client-app', 'verify', 'security'],
+  admin: ['today', 'team', 'frontdesk', 'agents', 'security'],
+  trainee: ['today', 'updates', 'clients', 'calendar', 'jobs', 'job', 'audit', 'training', 'client-app', 'verify', 'security']
 };
 const allowed = r => !ACCESS[S.role] || ACCESS[S.role].includes(r);
 function needs() {
@@ -499,10 +514,26 @@ function needs() {
     ['rev', 'V', 'Review VAT Nov · Kalimba Foods', 'Prepared by T. Banda · 3 invoices flagged · <a href="#job">open job</a>'],
     ['risk', '!', 'Chongwe Builders: 2 deadlines at risk', 'VAT Nov and PACRA annual return · documents missing'],
     ['wait', 'P', 'Lilayi Farms payroll changes', 'Client reminded twice · due 16 Dec']];
+  if (S.role === 'senior') return [
+    ['rev', '11', 'Returns waiting for your review', 'VAT Nov · Kalimba Foods first, due to ZRA on 18 Dec · <a href="#job">open</a>'],
+    ['risk', '!', 'Smart Invoice gaps at 6 clients', 'K38,400 input VAT at risk · supplier requests drafted'],
+    ['wait', '3', 'Notes returned to preparers', 'T. Banda 2 · M. Zulu 1 · answers expected today']];
+  if (S.role === 'junior') return [
+    ['rev', 'V', 'Prepare VAT Nov · Kafue Lodge', 'Checklist inside the job · our cut-off 15 Dec · <a href="#jobs">work board</a>'],
+    ['wait', '2', 'Review notes from C. Mulenga', 'Zed Solar: confirm the new distributor contract · fuel receipt'],
+    ['na', '6h', 'Timesheet today', '6.5 h logged · 1.5 h left to allocate']];
+  if (S.role === 'billing') return [
+    ['rev', '142', 'December retainer invoices ready', 'Drafted from the engagement letters · <a href="#billing">review and send</a>'],
+    ['risk', '7', 'Clients over 90 days', 'K412,300 · polite reminders drafted for approval'],
+    ['wait', '1', 'Unmatched deposit', 'K3,200 by Airtel Money · reference missing']];
+  if (S.role === 'admin') return [
+    ['rev', '1', 'New starter on 4 January', 'Junior accountant · laptop, sign-in and access to prepare · <a href="#team">team</a>'],
+    ['ok', '41', 'Two-step sign-in', '41 of 41 staff, every device'],
+    ['wait', '2', 'Devices to review', 'A laptop not used for 30 days · a phone reported lost, already signed out']];
   if (S.role === 'secretary') return [
     ['rev', '4', 'Clients to call back', 'Front Desk logged each call with the reason · numbers in the client files'],
     ['wait', '7', 'Documents need a person', 'Intake could not read them clearly · <a href="#clients">open</a>'],
-    ['ok', 'M', 'Book the Copperline closing meeting', 'Partner free Wed 16 Dec 10:00 or Thu 17 Dec 14:00']];
+    ['ok', 'M', 'Book the Copperline closing meeting', 'Partner free Wed 16 Dec 10:00 or Thu 17 Dec 14:00 · <a href="#frontdesk">front desk</a>']];
   if (S.role === 'trainee') return [
     ['rev', 'P', 'Prepare payroll Dec · Lilayi Farms', 'Checklist and last month\'s file are inside the task'],
     ['wait', '6h', 'Log waiting for your mentor', '6 h on the Copperline audit · sent to J. M. Liswaniso'],
@@ -716,8 +747,98 @@ function ncStep() {
   modal(`<h2 style="font-size:18px">New client · in one sitting</h2>${bar}${bodies[S.nc]}<div class="btns" style="margin-top:14px;justify-content:flex-end"><button class="btn o" data-close>Close</button>${S.nc < 3 ? `<button class="btn" id="nc-next">${['Run the checks', 'Prepare the engagement', 'Sign and set up'][S.nc]}</button>` : `<button class="btn gd" data-close>Done · about ten minutes</button>`}</div>`, true);
 }
 
+
+/* ------------------------------------------------------------ work board */
+const PEOPLE = [
+  ['J. M. Liswaniso', 'Partner', 'Audit, forensic and advisory', '38 clients', 86, 'In office'],
+  ['A. Nkhoma', 'Partner', 'Tax and accounting', '52 clients', 91, 'In office'],
+  ['N. Phiri', 'Client manager', 'Tax compliance portfolio', '46 clients', 104, 'In office'],
+  ['C. Mulenga', 'Tax manager', 'Review and sign-off', '61 clients', 92, 'In office'],
+  ['E. Mbewe', 'Forensic analyst', 'Case FX-2026-014', '2 cases', 88, 'Remote'],
+  ['W. Simwanza', 'Audit senior', 'Copperline audit', '6 audits', 84, 'At client'],
+  ['T. Banda', 'Junior accountant', 'VAT and payroll', '24 clients', 118, 'In office'],
+  ['M. Zulu', 'Junior accountant', 'Bookkeeping and VAT', '19 clients', 71, 'In office'],
+  ['F. Daka', 'Payroll officer', 'Payroll, PAYE, NAPSA, NHIMA', '31 clients', 79, 'In office'],
+  ['L. Tembo', 'Billing and credit control', 'Invoices and debtors', 'All clients', 76, 'In office'],
+  ['G. Mwansa', 'Secretary', 'Front office and post', '—', 80, 'In office'],
+  ['S. Musonda', 'Office admin and IT', 'People, devices and access', '—', 65, 'In office'],
+  ['K. Mwale', 'Trainee accountant', 'Audit and tax rotations', '8 clients', 64, 'Study leave, 2 days']
+];
+const ini = n => n.split(' ').filter(x => x.length > 1 || /[A-Z]/.test(x)).map(x => x[0]).join('').slice(0, 2);
+function jobsData() {
+  const kal = S.stage >= 7 ? 'filed' : S.stage === 6 ? 'client' : 'review';
+  return [
+    ['wait', 'Chongwe Builders', 'VAT · Nov', 'N. Phiri', '18 Dec', 'Purchase invoices missing', 'risk'],
+    ['wait', 'Mutende Logistics', 'WHT · Nov', 'N. Phiri', 'Today', 'Proof of payment missing', 'risk'],
+    ['wait', 'Lilayi Farms', 'VAT · Nov', 'T. Banda', '18 Dec', 'Bank statement requested', ''],
+    ['wait', 'Lilayi Farms', 'Payroll · Dec', 'F. Daka', '16 Dec', '2 new employees to confirm', ''],
+    ['prep', 'Kafue Lodge', 'VAT · Nov', 'T. Banda', '15 Dec', 'Checklist 6 of 9', ''],
+    ['prep', 'Lumbadzi Transport', 'VAT · Nov', 'M. Zulu', '15 Dec', 'Checklist 4 of 9', ''],
+    ['prep', 'Mukuni Traders', 'Bookkeeping · Nov', 'M. Zulu', '20 Dec', 'Bank reconciled', ''],
+    ['check', 'Copperline Engineering', 'Payroll · Dec', 'F. Daka', '24 Dec', 'Second Eyes: 1 note', 'ai'],
+    ['review', 'Zed Solar Systems', 'VAT · Nov', 'T. Banda', '18 Dec', 'With C. Mulenga · 2 notes', ''],
+    ['review', 'Nsima House Restaurants', 'VAT · Nov', 'M. Zulu', '18 Dec', 'With C. Mulenga', ''],
+    [kal, 'Kalimba Foods', 'VAT · Nov', 'T. Banda', '18 Dec', kal === 'review' ? 'With C. Mulenga · 3 invoices flagged' : kal === 'client' ? 'Waiting for Mutale K. to approve' : 'Filed · ref ' + S.prn, 'link'],
+    ['filed', 'Copperline Engineering', 'VAT · Nov', 'T. Banda', '18 Dec', 'Filed 12 Dec', ''],
+    ['filed', 'Mukuni Traders', 'VAT · Nov', 'M. Zulu', '18 Dec', 'Filed 11 Dec', ''],
+    ['filed', 'Bwalya Pharmacy', 'PAYE, NAPSA, NHIMA · Nov', 'F. Daka', '10 Dec', 'Filed 9 Dec', '']
+  ];
+}
+V.jobs = () => {
+  const mine = ROLES[S.role].who;
+  const f = S.jf || (['junior', 'trainee'].includes(S.role) ? 'mine' : 'all');
+  const cols = [['wait', 'Waiting on client'], ['prep', 'Preparing'], ['check', 'Pre-check by Second Eyes'], ['review', 'Review'], ['client', 'With the client'], ['filed', 'Filed this week']];
+  const J = jobsData().filter(j => f === 'all' || j[3] === mine || (f === 'mine' && S.role === 'senior' && j[0] === 'review'));
+  return `<div class="row"><div><h1>Work board · December</h1><div class="subt">Every job in the firm, from the request to the filing. Each card has one owner, a due date and its checklist inside.</div></div>
+    <div class="btns"><button class="btn ${f === 'mine' ? '' : 'o'}" data-jf="mine">My jobs</button><button class="btn ${f === 'all' ? '' : 'o'}" data-jf="all">Whole firm</button></div></div>
+    <div class="card" id="jobs" style="margin-top:14px"><div class="scroll"><div class="board">${cols.map(([k, l]) => { const cs = J.filter(j => j[0] === k); return `<div class="bcol"><h3><span>${l}</span><span>${cs.length}</span></h3>${cs.map(j => `<button class="jc" ${j[6] === 'link' ? 'data-go="job"' : `data-toast="${esc(j[1] + ' · ' + j[2] + ': opens the job with its checklist (demo)')}"`}><div class="t">${j[1]}</div><div class="d">${j[2]}</div><div class="d" style="margin-top:6px"><span class="who">${ini(j[3])}</span>${j[3]} · due ${j[4]}</div><div style="margin-top:6px"><span class="pill ${j[6] === 'risk' ? 'risk' : j[6] === 'ai' ? 'ai' : k === 'filed' ? 'ok' : 'na'}" style="white-space:normal">${j[5]}</span></div></button>`).join('') || '<div class="d" style="padding:6px">Nothing here</div>'}</div>`; }).join('')}</div></div>
+    <div class="d" style="margin-top:8px">Jobs open themselves ten days before each deadline. Nothing moves to Filed without a reviewer's sign-off and the client's approval.</div></div>`;
+};
+
+/* ------------------------------------------------------------ team and access */
+V.team = () => `<div class="row"><div><h1>Team and access</h1><div class="subt">41 people · each with their own role, their own day and only the access their work needs</div></div>
+  <div class="btns"><button class="btn" id="addperson">Add a person</button><button class="btn red" data-toast="Every access for this person was removed at once. Their record of work stays in the log (demo)">Someone leaves</button></div></div>
+  <div class="card" id="team" style="margin-top:14px"><div class="scroll"><table><tr><th>Person</th><th>Role</th><th>Works on</th><th>Load</th><th>Capacity · Dec</th><th>Two-step</th><th>Today</th></tr>
+  ${PEOPLE.map(([n, r, w, l, c, t]) => `<tr><td><span class="who">${ini(n)}</span>${n}</td><td>${r}</td><td>${w}</td><td style="white-space:nowrap">${l}</td><td style="min-width:140px"><div class="bar"><i style="width:${Math.min(100, Math.round(c / 120 * 100))}%;background:var(--${c > 100 ? 'risk' : c > 95 ? 'wait' : 'blue'})"></i></div><div class="d">${c}%</div></td><td><span class="pill ok">On</span></td><td class="d" style="white-space:nowrap">${t}</td></tr>`).join('')}</table></div>
+  <div class="d" style="margin-top:8px">13 of 41 people shown. Partners approve every new access, and the log keeps everything each person did.</div></div>`;
+function addPersonModal() {
+  const r = S.np || 'junior';
+  const pages = { today: 'Their own day', updates: 'Law updates', clients: 'Client files', calendar: 'Calendar', jobs: 'Work board', job: 'Jobs', audit: 'Audit files', training: 'Training', billing: 'Billing', frontdesk: 'Front desk', team: 'Team', 'client-app': 'Client app view', verify: 'Verify', agents: 'AI agents', security: 'Security' };
+  const acc = (ACCESS[r] || Object.keys(pages)).map(k => pages[k]).filter(Boolean);
+  modal(`<h2 style="font-size:18px">Add a person</h2><div class="d" style="margin-bottom:10px">Starts on 4 January 2027 · set up by S. Musonda · approved by a partner</div>
+    <div class="chips">${Object.entries(ROLES).filter(([k]) => k !== 'partner').map(([k, v]) => `<button class="chip" data-np="${k}" style="cursor:pointer;${k === r ? 'background:var(--navy);color:#fff;border-color:var(--navy)' : ''}">${v.label}</button>`).join('')}</div>
+    <div class="card" style="margin-top:12px;padding:12px"><div class="t">What a ${ROLES[r].label.toLowerCase()} can open</div><div class="chips">${acc.map(a => `<span class="chip">${a}</span>`).join('')}</div>
+    <div class="d" style="margin-top:8px">Sign-in link sent to their phone · two-step sign-in from day one · checklists and training for the role assigned automatically.</div></div>
+    <div class="btns" style="margin-top:14px;justify-content:flex-end"><button class="btn o" data-close>Close</button><button class="btn" id="np-ok">Send for partner approval</button></div>`, true);
+}
+
+/* ------------------------------------------------------------ billing */
+V.billing = () => `<div class="row"><div><h1>Billing and collections</h1><div class="subt">Invoices from the engagement letters, payments matched as they arrive, and debtors followed up politely</div></div>
+  <button class="btn" id="sendinv" ${S.invSent ? 'disabled' : ''}>${S.invSent ? 'December invoices sent ✓' : 'Send 142 December invoices'}</button></div>
+  <div class="kpis k4"><div class="card kpi"><div class="l">Invoiced · November</div><div class="v">K1.42m</div><div class="s">168 invoices</div></div><div class="card kpi"><div class="l">Collected · November</div><div class="v g">K1.31m</div><div class="s">92% within 30 days</div></div><div class="card kpi"><div class="l">Unbilled work</div><div class="v b">K1.92m</div><div class="s">across 74 jobs</div></div><div class="card kpi"><div class="l">Over 90 days</div><div class="v r">K412,300</div><div class="s">7 clients</div></div></div>
+  <div class="grid g2b"><div class="card" id="debtors"><div class="hd"><h2>Debtors over 90 days</h2><small>reminders drafted, a partner approves</small></div><div class="scroll"><table><tr><th>Client</th><th class="n">31–60</th><th class="n">61–90</th><th class="n">Over 90</th><th></th></tr>
+    ${[['Chongwe Builders Ltd', 12000, 18500, 96400], ['Lumbadzi Transport', 0, 9500, 88000], ['Nsima House Restaurants', 4000, 4000, 61500], ['Kafue Lodge', 0, 6000, 54900], ['3 other clients', 7500, 0, 111500]].map(r => `<tr><td>${r[0]}</td><td class="n">${r[1] ? K(r[1]) : '—'}</td><td class="n">${r[2] ? K(r[2]) : '—'}</td><td class="n" style="color:var(--risk)">${K(r[3])}</td><td><button class="btn o" style="min-height:32px;padding:4px 10px" data-toast="Reminder to ${esc(r[0])} drafted in a polite tone, waiting for a partner (demo)">Remind</button></td></tr>`).join('')}
+    <tr><td><b style="font-weight:500">Total</b></td><td></td><td></td><td class="n"><b style="font-weight:500">K412,300</b></td><td></td></tr></table></div></div>
+  <div class="card"><div class="hd"><h2>Payments matched today</h2><small>from bank and mobile money statements</small></div><div class="list">
+    ${[['Kalimba Foods Ltd', 'K9,500', 'Bank transfer · Stanbic', 'Matched to INV-11-0418', 'ok'], ['Bwalya Pharmacy', 'K6,000', 'MTN Mobile Money', 'Matched to INV-11-0402', 'ok'], ['Mukuni Traders', 'K5,000', 'Airtel Money', 'Matched to INV-11-0377', 'ok'], ['Unknown sender', 'K3,200', 'Airtel Money', 'No reference · needs a person', 'wait']].map(p => `<div class="it"><div class="ic ${p[4]}">${p[4] === 'ok' ? '✓' : '?'}</div><div style="flex:1"><div class="t">${p[0]} · ${p[1]}</div><div class="d">${p[2]} · ${p[3]}</div></div></div>`).join('')}</div></div></div>`;
+
+/* ------------------------------------------------------------ front desk */
+V.frontdesk = () => `<div class="row"><div><h1>Front desk · Monday 14 December</h1><div class="subt">Calls, post, visitors and meetings, with every item filed to the right client and the right person</div></div></div>
+  <div class="grid g2b" id="fdesk" style="margin-top:14px"><div class="grid" style="align-content:start">
+  <div class="card"><div class="hd"><h2>Calls to return</h2><small>logged by Front Desk with the reason</small></div><div class="list">
+    ${[['Lilayi Farms · Mr Hamoonga', 'About the payroll changes for December', 'For F. Daka'], ['Chongwe Builders · Director', 'Wants to discuss the PACRA annual return', 'For N. Phiri'], ['Kafue Lodge · Accounts', 'Asked for a copy of the November invoice', 'For L. Tembo'], ['Prospect · Chisamba Agro', 'New client enquiry, referred by Kalimba Foods', 'For J. M. Liswaniso']].map(c => `<div class="it"><div class="ic rev">☎</div><div style="flex:1"><div class="t">${c[0]}</div><div class="d">${c[1]} · ${c[2]}</div></div><button class="btn o" style="min-height:32px;padding:4px 10px" data-toast="Marked as called back. The note is saved to the client file (demo)">Done</button></div>`).join('')}</div></div>
+  <div class="card"><div class="hd"><h2>Post received today</h2><small>scanned, filed and routed</small></div><div class="list">
+    ${[['ZRA letter · Mutende Logistics', 'Additional assessment, WHT on rent', 'Filed · sent to N. Phiri · reply by 13 Jan'], ['PACRA notice · Chongwe Builders', 'Annual return reminder', 'Filed · sent to N. Phiri'], ['Stanbic statement · Kalimba Foods', 'November', 'Filed to VAT Nov · Intake read it']].map(c => `<div class="it"><div class="ic na">✉</div><div><div class="t">${c[0]}</div><div class="d">${c[1]} · ${c[2]}</div></div></div>`).join('')}</div></div></div>
+  <div class="grid" style="align-content:start">
+  <div class="card"><div class="hd"><h2>Visitors and meetings</h2></div><div class="list">
+    ${[['10:00', 'Copperline Engineering · two directors', 'Meeting room 1 · with J. M. Liswaniso · audit closing'], ['11:30', 'ZRA officer · Mutende Logistics file', 'Meeting room 2 · with N. Phiri'], ['14:30', 'Chisamba Agro · new client', 'Meeting room 1 · with J. M. Liswaniso · documents checklist sent']].map(v => `<div class="it"><div class="ic ok" style="font-size:11px">${v[0]}</div><div><div class="t">${v[1]}</div><div class="d">${v[2]}</div></div></div>`).join('')}</div>
+    <div class="btns" style="margin-top:8px"><button class="btn o" data-toast="Meeting booked and confirmed to the client on WhatsApp (demo)">Book a meeting</button></div></div>
+  <div class="card"><div class="hd"><h2>Documents to collect</h2></div><div class="list">
+    <div class="it"><div class="ic wait">2</div><div><div class="t">Lilayi Farms · signed payroll changes</div><div class="d">Driver collects Tuesday · client reminded on WhatsApp</div></div></div>
+    <div class="it"><div class="ic na">1</div><div><div class="t">Copperline · signed financial statements</div><div class="d">Courier to the bank after sign-off</div></div></div></div></div></div></div>`;
+
 /* ------------------------------------------------------------ security */
-const PAGE_NAMES = { today: 'Opened the firm overview', updates: 'Opened law and practice updates', clients: 'Opened client file · Kalimba Foods Ltd', calendar: 'Opened the statutory calendar', job: 'Opened VAT job · Kalimba Foods, Nov 2026', audit: 'Opened audit file · Copperline Engineering', forensic: 'Opened case FX-2026-014 · sealed', training: 'Opened trainee logs', insights: 'Opened partner insights', 'client-app': 'Viewed My 360 as the client', verify: 'Opened the verification page', agents: 'Opened AI agents', security: 'Opened security and confidentiality' };
+const PAGE_NAMES = { jobs: 'Opened the work board', team: 'Opened team and access', billing: 'Opened billing and collections', frontdesk: 'Opened the front desk', today: 'Opened the firm overview', updates: 'Opened law and practice updates', clients: 'Opened client file · Kalimba Foods Ltd', calendar: 'Opened the statutory calendar', job: 'Opened VAT job · Kalimba Foods, Nov 2026', audit: 'Opened audit file · Copperline Engineering', forensic: 'Opened case FX-2026-014 · sealed', training: 'Opened trainee logs', insights: 'Opened partner insights', 'client-app': 'Viewed My 360 as the client', verify: 'Opened the verification page', agents: 'Opened AI agents', security: 'Opened security and confidentiality' };
 S.log = [
   ['06:58', 'Second Eyes (agent)', 'Read VAT job · Zed Solar Systems', 'Automatic, within its task'],
   ['07:41', 'C. Mulenga', 'Used TaxOnline login · Bwalya Pharmacy', 'Reason: file PAYE Nov · vault'],
@@ -729,8 +850,8 @@ function nowT() { const d = new Date(); return String(d.getHours()).padStart(2, 
 function logEv(what, note) { S.log.push([nowT(), ROLES[S.role].who, what, note || 'This browser · just now']); const l = $('#seclog .list'); if (l) l.innerHTML = logHTML(); }
 function logHTML() { return S.log.slice(-9).reverse().map(([t, w, a, n]) => `<div class="it"><div class="ic ${/Refused|Tried/.test(n + a) ? 'risk' : /agent/.test(w) ? 'ai' : 'na'}" style="font-size:11px">${t}</div><div><div class="t">${esc(w)}</div><div class="d">${esc(a)} · ${esc(n)}</div></div></div>`).join(''); }
 V.security = () => {
-  const M = [['Client files', 'All', 'Own clients', 'Contact details', 'Assigned jobs'], ['Fees and firm figures', 'All', '—', '—', '—'], ['Forensic cases', 'Case team only', 'Case team only', '—', '—'], ['Audit sign-off', 'Sign', 'Review', '—', 'Prepare'], ['Client tax logins (vault)', 'Use, logged', 'Use, logged', '—', '—'], ['Security settings', 'Change', '—', '—', '—']];
-  const cls = v => v === '—' ? 'na' : /All|Sign|Change/.test(v) ? 'ok' : /team/.test(v) ? 'risk' : 'rev';
+  const M = [['Client files', 'All', 'Own clients', 'All', 'Assigned jobs', 'Contact details', 'Billing only', 'Assigned jobs'], ['Fees and firm figures', 'All', 'Own clients', '—', '—', '—', 'Invoices and debtors', '—'], ['Forensic cases', 'Case team only', '—', '—', '—', '—', '—', '—'], ['Audit sign-off', 'Sign', 'Review', 'Review', 'Prepare', '—', '—', 'Prepare'], ['Client tax logins (vault)', 'Use, logged', 'Use, logged', 'Use, logged', 'Use, logged', '—', '—', '—'], ['People and access', 'Approve', '—', '—', '—', '—', '—', 'Set up, partner approves']];
+  const cls = v => v === '—' ? 'na' : /^All|Sign|Approve/.test(v) ? 'ok' : /team/.test(v) ? 'risk' : 'rev';
   const CARDS = [
     ['Your own private environment', 'ABACUS360\'s data sits in its own environment, never shared with another firm, backed up daily, under a data processing agreement with MIA Technology.'],
     ['Rules that never bend', 'No agent files with any authority. Nothing reaches a client without a person\'s approval. The person who prepares a return can never approve it.'],
@@ -748,7 +869,7 @@ V.security = () => {
     <div class="card kpi"><div class="l">Data kept in</div><div class="v">Zambia</div><div class="s">or the region you choose</div></div>
     <div class="card kpi"><div class="l">Encryption</div><div class="v b">Always on</div><div class="s">in transit and at rest</div></div>
     <div class="card kpi"><div class="l">Backups</div><div class="v">Daily</div><div class="s">restore tested every month</div></div></div>
-  <div class="grid g2b"><div class="card" id="secmatrix"><div class="hd"><h2>Who can see what</h2><small>set by the partners, per person</small></div><div class="scroll"><table><tr><th>Area</th><th>Partner</th><th>Manager</th><th>Secretary</th><th>Trainee</th></tr>
+  <div class="grid g2b"><div class="card" id="secmatrix"><div class="hd"><h2>Who can see what</h2><small>set by the partners, per person</small></div><div class="scroll"><table><tr><th>Area</th><th>Partner</th><th>Client manager</th><th>Tax manager</th><th>Junior / trainee</th><th>Secretary</th><th>Billing</th><th>Admin and IT</th></tr>
     ${M.map(r => `<tr><td>${r[0]}</td>${r.slice(1).map(v => `<td><span class="pill ${cls(v)}">${v}</span></td>`).join('')}</tr>`).join('')}</table></div>
     <div class="d" style="margin-top:10px">Try it: switch "View as" at the top to Secretary, then open Forensic or Insights.</div></div>
   <div class="card" id="seclog"><div class="hd"><h2>Access log · live</h2><small>every view and every use, kept for six years</small></div><div class="list">${logHTML()}</div>
@@ -757,7 +878,7 @@ V.security = () => {
 };
 
 /* ------------------------------------------------------------ nav and routing */
-const NAV = [['today', 'Today', ''], ['updates', 'Updates', '2'], ['clients', 'Clients', ''], ['calendar', 'Calendar', ''], ['job', 'VAT job', '9'], ['audit', 'Audit', '1'], ['forensic', 'Forensic', '2'], ['training', 'Training', '5'], ['insights', 'Insights', ''], ['sec', 'For clients'], ['client-app', 'My 360', ''], ['verify', 'Verify', ''], ['sec', 'Automation'], ['agents', 'AI agents', '9'], ['security', 'Security', '']];
+const NAV = [['today', 'Today', ''], ['updates', 'Updates', '2'], ['clients', 'Clients', ''], ['calendar', 'Calendar', ''], ['jobs', 'Work board', ''], ['job', 'VAT job', '9'], ['audit', 'Audit', '1'], ['forensic', 'Forensic', '2'], ['training', 'Training', '5'], ['billing', 'Billing', ''], ['frontdesk', 'Front desk', ''], ['team', 'Team', ''], ['insights', 'Insights', ''], ['sec', 'For clients'], ['client-app', 'My 360', ''], ['verify', 'Verify', ''], ['sec', 'Automation'], ['agents', 'AI agents', '9'], ['security', 'Security', '']];
 const LOCK = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
 function badge(k, b) { if (k === 'training') return (TRAINEES.length - Object.keys(S.signed).length) || '✓'; if (k === 'audit') return S.auditSigned ? '✓' : b; return b; }
 function renderNav(r) {
@@ -777,6 +898,8 @@ document.addEventListener('click', e => {
   if (!t) return;
   if (t.dataset.q) { runAsk(t.dataset.q); return; }
   if (t.dataset.ph) { S.ph = t.dataset.ph; render(); return; }
+  if (t.dataset.jf) { S.jf = t.dataset.jf; render(); return; }
+  if (t.dataset.np) { S.np = t.dataset.np; addPersonModal(); return; }
   if (t.dataset.upd) { updNotice(t.dataset.upd); return; }
   if (t.dataset.role) { S.role = t.dataset.role; $('#roleSel').value = S.role; render(); return; }
   if (t.dataset.go) { closeModal(); go(t.dataset.go); return; }
@@ -802,6 +925,9 @@ document.addEventListener('click', e => {
     case 'ask2': S.asked2 = true; render(); break;
     case 'upd-ok': S.updDone[t.dataset.u] = true; closeModal(); render(); S.log.push([nowT(), ROLES[S.role].who, 'Approved a client notice', 'Sent in ABACUS360\'s name']); toast('Approved. Sent to the affected clients in ABACUS360\'s name (demo).'); break;
     case 'newclient': S.nc = 0; ncStep(); break;
+    case 'addperson': S.np = 'junior'; addPersonModal(); break;
+    case 'np-ok': closeModal(); S.log.push([nowT(), ROLES[S.role].who, 'Requested access for a new ' + ROLES[S.np || 'junior'].label.toLowerCase(), 'Waiting for partner approval']); toast('Sent to the partners for approval. Access starts on the first day (demo).'); break;
+    case 'sendinv': S.invSent = true; render(); S.log.push([nowT(), ROLES[S.role].who, 'Sent 142 December invoices', 'From the engagement letters']); toast('142 invoices sent by email and WhatsApp, in ABACUS360\'s name (demo).'); break;
     case 'nc-next': S.nc++; ncStep(); if (S.nc === 3) S.log.push([nowT(), ROLES[S.role].who, 'Opened new client · Chisamba Agro Ltd', 'Due diligence and conflict check recorded']); break;
     case 'askGo': { const v = $('#askIn').value.trim(); if (v) runAsk(matchQ(v), v); else $('#sugg').classList.toggle('on'); break; }
     case 'audit-sign': modal(`<h2 style="font-size:18px">Sign the audit report</h2><div class="d" style="margin:6px 0 12px">Copperline Engineering Ltd · year ended 30 June 2026</div><div class="list"><div class="it"><div class="ic rev">1</div><div><div class="t">You sign as J. M. Liswaniso, FZICA, engagement partner</div><div class="d">Unmodified opinion</div></div></div><div class="it"><div class="ic rev">2</div><div><div class="t">The report, the statements and the work papers are locked</div></div></div><div class="it"><div class="ic rev">3</div><div><div class="t">A verification code goes on the report as a QR code</div></div></div></div><div class="btns" style="margin-top:14px;justify-content:flex-end"><button class="btn o" data-close>Cancel</button><button class="btn gd" id="do-audit-sign">Sign</button></div>`); break;
@@ -813,7 +939,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal
 $('#askIn').addEventListener('focus', () => { $('#sugg').innerHTML = suggHTML(); $('#sugg').classList.add('on'); });
 $('#askIn').addEventListener('keydown', e => { if (e.key === 'Enter') { const v = e.target.value.trim(); if (v) runAsk(matchQ(v), v); } });
 document.addEventListener('click', e => { if (!e.target.closest('#ask')) $('#sugg').classList.remove('on'); });
-$('#roleSel').addEventListener('change', e => { S.role = e.target.value; render(); toast('Now viewing as ' + ROLES[S.role].label + ': ' + ROLES[S.role].who); });
+$('#roleSel').addEventListener('change', e => { S.role = e.target.value; S.jf = ''; render(); toast('Now viewing as ' + ROLES[S.role].label + ': ' + ROLES[S.role].who); });
 
 /* live agent feed */
 let fi = 0;
@@ -830,6 +956,7 @@ const TOUR = [
   ['today', '#kpis', 'Your firm this morning', 'The partner\'s view: what was filed on time, what is due, what waits on clients, and the money at risk. Five numbers, no Monday meeting.'],
   ['today', '#ask', 'Ask 360, in plain English', 'Ask the firm a question the way you would ask a senior manager. Try "Which clients could miss a deadline this week?" Every answer shows where its numbers come from.'],
   ['today', '#radar', 'Compliance radar', 'Every client against every obligation, sorted by risk. Press Kalimba Foods\' blue VAT cell to open the job behind it.'],
+  ['jobs', '#jobs', 'The work board', 'Every job in the firm, from the request to the filing, each with one owner and a due date. Juniors see their own jobs, managers see the whole firm.'],
   ['calendar', '#cal', 'The statutory calendar, worked for you', 'Every ZRA, NAPSA, NHIMA and PACRA date for every client. Ten days before each deadline the jobs open themselves, so nothing starts late.'],
   ['updates', '#upd', 'New laws, read for you', 'ZRA notices, new laws and professional updates are summarised, matched to the clients they affect, and turned into client notices for a partner to approve.'],
   ['clients', '#newclient', 'A new client in one sitting', 'Documents read, due diligence and a conflict check against your forensic and audit work, then the engagement letter and every obligation set. Press New client to try it.'],
@@ -845,7 +972,8 @@ const TOUR = [
   ['insights', '#lines', 'The partner\'s view of the business', 'Fees by service line, unbilled work, debtors, team capacity and the fixed fees that cost more than they pay. Partners only.'],
   ['security', '#seclog', 'Security you can see', 'Who can see what, sealed forensic cases, a vault for client tax logins, and a record of every view. Everything you have opened in this demo is already in this log.'],
   ['agents', '#agents-grid', 'Nine agents do the groundwork', 'Each has one job, its own level and its own log. One button pauses them all.'],
-  ['today', '#roleBox', 'Everyone sees their own 360', 'Partner, client manager, secretary, trainee: each sees their own day, and only what their role allows. Switch the view and see.'],
+  ['team', '#team', 'The whole firm, each in their place', 'Partners, client managers, the tax manager, junior accountants, payroll, billing, the secretary, office admin and trainees: each with their own role, their own load and only the access their work needs.'],
+  ['today', '#roleBox', 'Everyone sees their own 360', 'Switch the view to a junior accountant, the secretary or the billing officer: each sees their own day, their own work, and nothing their role does not need.'],
   ['', '', 'Now, the plans', 'This was a demonstration with sample data. The real system is built from your answers and your team\'s. <a href="https://mia050.github.io/abacus360/" target="_blank" rel="noopener">Your questionnaire</a> · <a href="https://mia050.github.io/abacus360/?team" target="_blank" rel="noopener">a link for your partners and team</a>.']
 ];
 function startTour() { S.role = 'partner'; $('#roleSel').value = 'partner'; S.tourI = 0; showStep(); }
@@ -878,7 +1006,7 @@ function welcome() {
     <div class="bd"><div style="font-size:22px;color:var(--ink);font-weight:500;line-height:1.25">${hello()}, Mr Liswaniso</div>
     <p style="margin:10px 0 0">This is a working demonstration of the system we would build for ABACUS360, with a sample firm and sample clients. Click anything. Nothing you do here leaves this page.</p>
     <p class="d" style="margin:8px 0 18px">Prepared for J. M. Liswaniso, FZICA · by MIA Technology</p>
-    <div class="btns"><button class="btn gd" id="w-tour">Take the guided tour · 10 minutes</button><button class="btn o" id="w-free">Explore on my own</button></div>
+    <div class="btns"><button class="btn gd" id="w-tour">Take the guided tour · 12 minutes</button><button class="btn o" id="w-free">Explore on my own</button></div>
     <div class="motto">Built on the level. Checked on the square.</div></div></div></div>`;
   $('#w-tour').onclick = () => { closeModal(); startTour(); };
   $('#w-free').onclick = closeModal;
