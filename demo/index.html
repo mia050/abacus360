@@ -5,6 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>ABACUS360 · 360 Practice demo</title>
+<meta name="description" content="Try the 360 Practice demo: compliance radar, VAT jobs, audit sign-off, forensic cases and My 360 for clients. Sample data. Prepared by MIA Technology.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="ABACUS360 · 360 Practice demo">
+<meta property="og:description" content="Try the 360 Practice demo: compliance radar, VAT jobs, audit sign-off, forensic cases and My 360 for clients. Sample data. Prepared by MIA Technology.">
+<meta property="og:image" content="https://mia050.github.io/abacus360/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://mia050.github.io/abacus360/demo/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%23182750'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%23B8933E' stroke-width='3'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Cormorant+Garamond:ital,wght@1,500&display=swap" rel="stylesheet">
 <style>
@@ -13,8 +23,8 @@
    PICTURE: the live screens: radar, client ring, VAT job, forensic case.
    COLOUR and TYPE: ABACUS360 navy #182750 and royal blue #133ABE on white, status colours, a thread of gold; Roboto.
    LAYOUT: app shell, sidebar on desktop, top scroller on phones, tour card bottom right. */
-:root{color-scheme:light;--navy:#182750;--blue:#133ABE;--bl:#E8EDFB;--ink:#1d2230;--tx:#33373D;--mut:#6b7280;--line:#E3E6EE;--bg:#F4F5F9;--card:#fff;
---ok:#1E8E5A;--okl:#E3F4EC;--rev:#133ABE;--revl:#E6ECFC;--wait:#B26F06;--waitl:#FCF1DE;--risk:#C8372D;--riskl:#FBE6E4;--na:#EEF0F4;--gold:#B8933E;--goldl:#F4ECDA}
+:root{color-scheme:light;--navy:#182750;--blue:#133ABE;--bl:#E8EDFB;--ink:#1d2230;--tx:#33373D;--mut:#5b6170;--line:#E3E6EE;--bg:#F4F5F9;--card:#fff;
+--ok:#187A4D;--okl:#E3F4EC;--rev:#133ABE;--revl:#E6ECFC;--wait:#935C05;--waitl:#FCF1DE;--risk:#B0302A;--riskl:#FBE6E4;--na:#EEF0F4;--gold:#B8933E;--goldl:#F4ECDA}
 *{box-sizing:border-box;min-width:0}
 html,body{margin:0;height:100%}html{scroll-padding-top:70px}
 body{background:var(--bg);color:var(--tx);font:15px/1.5 Roboto,system-ui,-apple-system,"Segoe UI",sans-serif;overflow-x:clip;-webkit-font-smoothing:antialiased}
@@ -102,7 +112,7 @@ td.n,th.n{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
 .tabs button{border:0;background:none;padding:10px 0;color:var(--mut);font-size:14px;white-space:nowrap;border-bottom:2px solid transparent;min-height:42px}
 .tabs button.on{color:var(--blue);border-bottom-color:var(--blue);font-weight:500}
 .steps{display:flex;gap:6px}
-.steps .s{flex:1;text-align:center;font-size:11.5px;color:#9aa0ad}
+.steps .s{flex:1;text-align:center;font-size:11.5px;color:var(--mut)}
 .steps .s i{display:block;height:6px;border-radius:3px;background:#E3E6EE;margin-bottom:6px}
 .steps .s.done i{background:var(--ok)}.steps .s.done{color:var(--ink)}
 .steps .s.cur i{background:var(--blue)}.steps .s.cur{color:var(--ink);font-weight:500}
@@ -150,7 +160,7 @@ td.n,th.n{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
 .welcome{background:#fff;border-radius:18px;max-width:560px;width:100%;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.35)}
 .welcome .hdr{background:var(--navy);color:#fff;padding:26px 28px;display:flex;gap:16px;align-items:center}
 .welcome .bd{padding:22px 28px 26px}
-.motto{font-family:"Cormorant Garamond",serif;font-style:italic;color:var(--gold);font-size:19px;text-align:center;margin-top:18px}
+.motto{font-family:"Cormorant Garamond",serif;font-style:italic;color:#8C6B24;font-size:19px;text-align:center;margin-top:18px}
 .modal{background:#fff;border-radius:16px;max-width:520px;width:100%;padding:22px;box-shadow:0 30px 80px rgba(0,0,0,.35)}
 .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:11px 18px;border-radius:10px;font-size:14px;z-index:60;max-width:calc(100vw - 32px);box-shadow:0 10px 30px rgba(0,0,0,.25)}
 .foot{position:fixed;left:236px;right:0;bottom:0;background:rgba(255,255,255,.94);border-top:1px solid var(--line);font-size:12px;color:var(--mut);padding:7px 24px;z-index:4;display:flex;justify-content:space-between;gap:12px}
@@ -166,6 +176,8 @@ td.n,th.n{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
 .sugg button:hover,.sugg button:focus{background:var(--bg);outline:none}
 .role{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--mut);white-space:nowrap}
 .role select{font:inherit;font-size:13.5px;border:1px solid var(--line);border-radius:8px;padding:6px 8px;background:#fff;color:var(--ink);min-height:38px}
+.langpick{display:flex;align-items:center;gap:6px;color:var(--mut);white-space:nowrap}
+.ph-lang{margin-left:8px;color:#cfd6ea}.ph-lang svg{display:none}.ph-lang select{font:inherit;font-size:12px;border:1px solid #3a4c80;border-radius:7px;padding:3px 4px;background:#22356a;color:#fff;min-height:30px}
 .modal.wide{max-width:720px;max-height:calc(100vh - 40px);overflow:auto}
 .think{display:flex;flex-direction:column;gap:8px;margin:14px 0}.think div{font-size:13.5px;color:var(--mut);display:flex;gap:8px;align-items:center}
 .think i{width:8px;height:8px;border-radius:50%;background:var(--gold);animation:blink 1s infinite}.think .dn i{animation:none;background:var(--ok)}
@@ -175,11 +187,11 @@ td.n,th.n{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
 .cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;min-width:760px}
 .cal .dh{font-size:11.5px;color:var(--mut);text-align:center;padding:4px 0}
 .cal .dc{background:#fff;border:1px solid var(--line);border-radius:10px;min-height:100px;padding:7px;display:flex;flex-direction:column;gap:4px}
-.cal .dc.we{background:#FAFBFC}.cal .dc.mute{background:#F6F7F9}.cal .dc.mute .dn{color:#a3a8b5}
+.cal .dc.we{background:#FAFBFC}.cal .dc.mute{background:#F6F7F9}.cal .dc.mute .dn{color:var(--mut)}
 .cal .dc.today{border:2px solid var(--blue)}
 .cal .dn{font-size:12.5px;font-weight:500;color:var(--ink);display:flex;justify-content:space-between}
 .ev{font-size:11.5px;line-height:1.3;border-radius:6px;padding:4px 6px}
-.nav button.lock{opacity:.5}
+.nav button.lock{opacity:.7}
 .kpis.k4{grid-template-columns:repeat(4,minmax(0,1fr))}
 .meter{display:flex;align-items:center;gap:12px;padding:7px 0}.meter .nm{width:150px;font-size:13.5px;color:var(--ink)}.meter .bar{flex:1;height:10px}.meter .vl{width:76px;text-align:right;font-size:13.5px;font-weight:500;white-space:nowrap}
 @media(max-width:1100px){.kpis{grid-template-columns:repeat(3,minmax(0,1fr))}.agents{grid-template-columns:repeat(2,minmax(0,1fr))}.g2,.g2b{grid-template-columns:minmax(0,1fr)}}
@@ -199,7 +211,7 @@ td.n,th.n{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
   </aside>
   <div class="main">
     <header class="top"><div class="ask" id="ask"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B8933E" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/></svg><input id="askIn" type="text" placeholder="Ask 360 anything about your firm" aria-label="Ask 360" autocomplete="off"><button class="go" id="askGo">Ask</button><div class="sugg" id="sugg"></div></div>
-      <label class="role" id="roleBox"><span>View as</span><select id="roleSel"><option value="partner">Partner</option><option value="manager">Client manager</option><option value="senior">Tax manager</option><option value="junior">Junior accountant</option><option value="secretary">Secretary</option><option value="billing">Billing officer</option><option value="admin">Office admin and IT</option><option value="trainee">Trainee</option></select></label>
+      <label class="role" id="roleBox"><span>View as</span><select id="roleSel" aria-label="View as"><option value="partner">Partner</option><option value="manager">Client manager</option><option value="senior">Tax manager</option><option value="junior">Junior accountant</option><option value="secretary">Secretary</option><option value="billing">Billing officer</option><option value="admin">Office admin and IT</option><option value="trainee">Trainee</option></select></label>
       <div class="r"><span class="date">Monday 14 December 2026</span><button class="bell" id="bell" aria-label="Notifications"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg><span class="dotn" id="ncount">4</span></button><button class="tourbtn" id="tourStart">Guided tour</button></div><div class="npanel" id="npanel"></div></header>
     <main class="content" id="view"></main>
   </div>
@@ -208,6 +220,288 @@ td.n,th.n{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
 <div class="tour" id="tour" role="dialog" aria-live="polite"></div>
 <div id="layer"></div>
 
+<script>
+/* I18N:BEGIN */
+/* ------------------------------------------------------------ Chinyanja (Nyanja) dictionary
+   English on screen → Chinyanja. To be checked by a native speaker before go-live. */
+const LANG_KEY = 'a360.demo.lang';
+const LANG_USERS = { staff: 'staff:partner', client: 'client:mutale' };
+const LANG_NY = {
+  /* navigation */
+  'Today': 'Lero', 'Updates': 'Zatsopano', 'Clients': 'Makasitomala', 'Calendar': 'Kalendala', 'Work board': 'Bolodi la ntchito',
+  'VAT job': 'Ntchito ya VAT', 'Accounts': 'Maakaunti', 'Audit': 'Audit', 'Forensic': 'Forensic', 'Training': 'Maphunziro',
+  'Billing': 'Kulipiritsa', 'Front desk': 'Polandirira', 'Team': 'Gulu', 'Quality': 'Ubwino wa ntchito', 'Insights': 'Kuunika',
+  'Security': 'Chitetezo', 'AI agents': 'Othandizira a AI', 'Automation': 'Zochita zokha', 'For clients': 'Kwa makasitomala',
+  'Verify': 'Kutsimikizira', 'Practice': 'Ofesi', 'Firm': 'Kampani', 'People': 'Anthu', 'Work': 'Ntchito',
+  /* top bar, welcome and tour controls */
+  'View as': 'Onani ngati', 'Ask': 'Funsani', 'Ask 360': 'Funsani 360', 'Notifications': 'Zidziwitso', 'Guided tour': 'Ulendo wowonetsera',
+  'Ask 360 anything about your firm': 'Funsani 360 chilichonse chokhudza kampani yanu', 'for any screen': 'pa sikirini iliyonse',
+  'Try asking': 'Yesani kufunsa', 'Search screens and actions': 'Fufuzani masikirini ndi zochita',
+  'Take the guided tour': 'Yambani ulendo wowonetsera', 'Explore on my own': 'Ndifufuza ndekha', 'Next': 'Kenako', 'Back': 'Bwererani', 'Close': 'Tsekani',
+  'Demonstration with sample data': 'Chiwonetsero ndi zitsanzo', 'No real client data is used': 'Palibe deta yeniyeni ya makasitomala',
+  'confidential': 'chinsinsi', 'prepared for ABACUS360 by MIA Technology': 'chakonzedwera ABACUS360 ndi MIA Technology', 'demonstration': 'chiwonetsero', 'Good morning': 'Mwauka bwanji', 'Good afternoon': 'Mwaswera bwanji', 'Good evening': 'Madzulo abwino',
+  'Switch back to Partner': 'Bwererani ku Partner', 'Nothing here': 'Palibe kanthu pano',
+  /* buttons */
+  'Accept both suggestions': 'Vomerezani malingaliro onse awiri', 'Add a person': 'Onjezani munthu', 'Add to Outlook': 'Onjezani ku Outlook',
+  'Add to findings': 'Onjezani pa zopezeka', 'In findings': 'Zili pa zopezeka', 'Ask a new question': 'Funsani funso latsopano',
+  'Ask suppliers for Smart Invoices': 'Pemphani ogulitsa ma Smart Invoice', 'Suppliers asked': 'Ogulitsa afunsidwa',
+  'Back to the VAT job': 'Bwererani ku ntchito ya VAT', 'Book a meeting': 'Konzani msonkhano', 'Brief the team': 'Uzani gulu',
+  'Documents': 'Zikalata', 'Done': 'Zatha', 'about ten minutes': 'pafupifupi mphindi khumi', 'Draft a client notice': 'Lembani chidziwitso kwa makasitomala',
+  'Draft reminders to all three': 'Lembani zikumbutso kwa onse atatu', 'Draft requests to all suppliers': 'Lembani zopempha kwa ogulitsa onse',
+  'Evidence': 'Umboni', 'Expert report': 'Lipoti la katswiri', 'Export partner pack': 'Tulutsani lipoti la ma partner',
+  'Export the access log': 'Tulutsani mbiri ya olowa', 'Export the annual evaluation': 'Tulutsani kuunika kwa chaka', 'Export to Excel': 'Tulutsani ku Excel',
+  'Filed': 'Zatumizidwa', 'Home': 'Poyambira', 'Letters': 'Makalata', 'Map 2 accounts first': 'Ikani maakaunti 2 m\'malo awo choyamba',
+  'Message client': 'Tumizani uthenga kwa kasitomala', 'Messages': 'Mauthenga', 'My jobs': 'Ntchito zanga', 'New client': 'Kasitomala watsopano',
+  'Open': 'Tsegulani', 'Open a client': 'Tsegulani kasitomala', 'Open the jobs': 'Tsegulani ntchito', 'Open the radar': 'Tsegulani radar',
+  'Open the case': 'Tsegulani mlandu', 'Open the client file': 'Tsegulani fayilo ya kasitomala', 'Open partner insights': 'Tsegulani kuunika kwa ma partner',
+  'Overview': 'Chidule', 'Partner only': 'Partner yekha', 'Pause all agents': 'Imitsani kaye othandizira onse', 'Resume all agents': 'Yambitsaninso othandizira onse',
+  'Prepare the engagement': 'Konzani mgwirizano', 'Rebalance the work': 'Gawaninso ntchito', 'Related parties': 'Ogwirizana nawo', 'Remind': 'Kumbutsani',
+  'Return to preparer': 'Bwezerani kwa wokonza', 'Review': 'Kuwunika', 'Run the checks': 'Pangani macheke', 'Send 142 December invoices': 'Tumizani ma invoice 142 a December',
+  'December invoices sent': 'Ma invoice a December atumizidwa', 'Share': 'Gawani', 'Sign and set up': 'Sainani ndi kukonza', 'Sign off': 'Sainani', 'Signed': 'Zasainidwa',
+  'Sign off review': 'Sainani kuwunika', 'Sign out all other devices': 'Tulukani pa zipangizo zina zonse', 'Sign the audit report': 'Sainani lipoti la audit',
+  'Sign-off': 'Kusaina', 'Someone leaves': 'Wina akuchoka', 'Timeline': 'Ndandanda', 'Upload': 'Kwezani', 'Watch list': 'Zoyang\'anira',
+  'Whole firm': 'Kampani yonse', 'all agents': 'othandizira onse', 'front desk': 'polandirira', 'open': 'tsegulani', 'open case': 'tsegulani mlandu',
+  'open file': 'tsegulani fayilo', 'open job': 'tsegulani ntchito', 'review and send': 'unikani ndi kutumiza', 'team': 'gulu', 'work board': 'bolodi la ntchito',
+  'Approve': 'Vomerezani', 'Approved': 'Zavomerezedwa', 'Send for partner approval': 'Tumizani kuti partner avomereze', 'Send to review': 'Tumizani kuti ziwunikidwe',
+  'With the reviewer': 'Zili ndi wowunika', 'File with ZRA': 'Tumizani ku ZRA', 'Waiting for client approval': 'Kudikira kasitomala kuvomereza',
+  'Record payment proof': 'Lembani umboni wa malipiro', 'Closed with evidence': 'Zatsekedwa ndi umboni', 'See the client\'s app': 'Onani pulogalamu ya kasitomala',
+  'Custody': 'Custody', 'Send': 'Tumizani', 'Send to the suppliers': 'Tumizani kwa ogulitsa', 'Cancel': 'Letsani', 'Draft': 'Zolemba zoyamba',
+  'Propose the move': 'Pemphani kusintha', 'Book the live session on WhatsApp': 'Konzani msonkhano pa WhatsApp',
+  /* page titles, card headings and steps */
+  'AI agents, live': 'Othandizira a AI, pompano', 'Access log': 'Mbiri ya olowa', 'live': 'pompano', 'Activity log': 'Mbiri ya zochitika',
+  'Ask ABACUS360': 'Funsani ABACUS360', 'Ask the checklist': 'Funsani checklist', 'Billing and collections': 'Kulipiritsa ndi kusonkhanitsa ndalama',
+  'selected members': 'mamembala osankhidwa', 'Calls to return': 'Mafoni obwezera', 'Case timeline': 'Ndandanda ya mlandu', 'Checks': 'Macheke',
+  'Coming up': 'Zikubwera', 'Compliance radar': 'Radar yotsatira malamulo', 'Debtors over 90 days': 'Amangongole opitirira masiku 90',
+  'Did you file?': 'Kodi munatumiza?', 'Documents to collect': 'Zikalata zoyenera kutenga', 'Evidence register': 'Kaundula wa umboni', 'outline': 'ndondomeko',
+  'Fees by service line': 'Malipiro potengera mtundu wa ntchito', 'Filed this week': 'Zatumizidwa sabata ino', 'Fixed fees below cost': 'Malipiro okhazikika ochepera mtengo',
+  'How much do I pay?': 'Ndilipira zingati?', 'How the calendar works': 'Mmene kalendala imagwirira ntchito', 'Law and practice updates': 'Zatsopano za malamulo ndi ntchito',
+  'Ledger tests': 'Mayeso a ledger', 'Map 2 accounts': 'Ikani maakaunti 2 m\'malo awo', 'file inspections 2026': 'kuunika mafayilo 2026', 'Monitoring': 'Kuyang\'anira',
+  'your clients\' app': 'pulogalamu ya makasitomala anu', 'Needs you today': 'Zikufuna inu lero', 'New client': 'Kasitomala watsopano', 'in one sitting': 'nthawi imodzi',
+  'Open jobs': 'Ntchito zomwe sizinathe', 'Partner insights': 'Kuunika kwa ma partner', 'Partner sign-off': 'Kusaina kwa partner', 'Payments matched today': 'Malipiro ogwirizanitsidwa lero',
+  'Post received today': 'Makalata olandiridwa lero', 'Practical experience': 'Luso la ntchito', 'this week': 'sabata ino', 'Pre-check by Second Eyes': 'Cheke choyamba ndi Second Eyes',
+  'Preparing': 'Zikukonzedwa', 'Quality management': 'Kayang\'anira ubwino', 'Registers': 'Makaundula', 'Return summary': 'Chidule cha return', 'Review notes': 'Zolemba za kuwunika',
+  'Security and confidentiality': 'Chitetezo ndi chinsinsi', 'Smart Invoice check': 'Cheke cha Smart Invoice', 'purchases': 'zogula', 'Statutory calendar': 'Kalendala ya malamulo',
+  'Team and access': 'Gulu ndi zilolezo', 'Team capacity': 'Kuchuluka kwa ntchito', 'Three degrees of review': 'Magawo atatu a kuwunika',
+  'Trainee academy and mentoring': 'Sukulu ya ophunzira ndi uphungu', 'Verify financial statements': 'Tsimikizirani financial statements', 'Visitors and meetings': 'Alendo ndi misonkhano',
+  'Waiting on client': 'Kudikira kasitomala', 'We need from you': 'Tikufuna kuchokera kwa inu', 'Weekly training': 'Maphunziro a sabata iliyonse',
+  'Where is my letter?': 'Kalata yanga ili kuti?', 'Who can see what': 'Ndani angaone chiyani', 'Who is connected to whom': 'Ndani akugwirizana ndi ndani',
+  'With the client': 'Kwa kasitomala', 'Work papers': 'Mapepala a ntchito', 'Analytics': 'Kusanthula', 'People': 'Anthu', 'Materiality': 'Materiality',
+  'Misstatements': 'Misstatements', 'Weekly': 'Sabata iliyonse', 'Engagement': 'Mgwirizano', 'Ready': 'Zakonzeka', 'Not available to you': 'Sizololedwa kwa inu',
+  'Requested': 'Zapemphedwa', 'Collected': 'Zalandiridwa', 'Checked': 'Zachekedwa', 'Prepared': 'Zakonzedwa', 'Pre-checked': 'Cheke choyamba',
+  'Client approval': 'Kuvomereza kwa kasitomala', 'Paid': 'Zalipiridwa', 'Acceptance': 'Kuvomera', 'Planning': 'Kukonzekera', 'Risk assessment': 'Kuwunika zoopsa',
+  'Fieldwork': 'Ntchito yakumunda', 'Completion': 'Kumaliza', 'Mapped': 'Zayikidwa m\'malo', 'Notes': 'Zolemba', 'Client manager': 'Client manager',
+  'Chain of custody': 'Chain of custody', 'Request drafted by Front Desk': 'Pempho lolembedwa ndi Front Desk', 'Client notice': 'Chidziwitso kwa makasitomala', 'drafted': 'chalembedwa',
+  'Add a person': 'Onjezani munthu', 'Sign the audit report': 'Sainani lipoti la audit', 'Assisted filing': 'Kutumiza mothandizidwa',
+  /* status labels */
+  'In review': 'Zikuwunikidwa', 'Waiting': 'Zikudikira', 'At risk': 'Pangozi', 'Client': 'Kasitomala', 'Cleared': 'Zathetsedwa', 'Planned': 'Zakonzedwa',
+  'Reviewed': 'Zawunikidwa', 'verified': 'zatsimikizika', 'Acknowledged': 'Zalandiridwa ndi ZRA', 'All signed off': 'Onse asainidwa', 'Ready for partner sign-off': 'Zakonzeka kuti partner asaine',
+  'Signed · file locked': 'Zasainidwa · fayilo yatsekedwa', 'On': 'Yayatsidwa', 'Off': 'Yazimitsidwa', 'All': 'Zonse', 'Own clients': 'Makasitomala ake',
+  'Assigned jobs': 'Ntchito zomwe wapatsidwa', 'Contact details': 'Zolumikizirana', 'Billing only': 'Kulipiritsa kokha', 'Invoices and debtors': 'Ma invoice ndi amangongole',
+  'Case team only': 'Gulu la mlandu lokha', 'Sign': 'Kusaina', 'Prepare': 'Kukonza', 'Set up, partner approves': 'Kukonza, partner avomereza', 'Use, logged': 'Kugwiritsa, kumalembedwa',
+  'Drafts': 'Imalemba', 'a person approves': 'munthu amavomereza', 'Acts and reports': 'Imachita ndi kunena', 'Routine': 'Zachizolowezi', 'can be undone': 'zingathe kubwezedwa',
+  'Proof of payment missing': 'Umboni wa malipiro ulibe', 'Purchase invoices missing': 'Ma invoice ogula alibe', 'Bank statement requested': 'Statement ya banki yapemphedwa',
+  'Not on Smart Invoice': 'Sizili pa Smart Invoice', 'Partner option': 'Mwayi wa partner', 'In office': 'Ali ku ofesi', 'Remote': 'Akugwira kunyumba', 'At client': 'Ali kwa kasitomala',
+  'Example': 'Chitsanzo', 'flagged': 'zalembedwa chizindikiro', 'overdue': 'zachedwa', 'satisfactory': 'zili bwino', 'improvement needed': 'zikufunika kukonzedwa',
+  /* table headers */
+  'Date': 'Tsiku', 'Document': 'Chikalata', 'Folder': 'Foda', 'From': 'Kuchokera', 'Received': 'Tsiku lolandira', 'Status': 'Mmene zilili', 'Role': 'Udindo',
+  'Person': 'Munthu', 'Area': 'Gawo', 'Item': 'Chinthu', 'Size': 'Kukula', 'Load': 'Ntchito', 'Issue': 'Vuto', 'Supplier': 'Wogulitsa', 'Risk': 'Chiopsezo',
+  'Suggestion': 'Malangizo', 'Margin': 'Phindu', 'Monthly fee': 'Malipiro a mwezi', 'Time cost': 'Mtengo wa nthawi', 'Works on': 'Amagwira', 'Capacity': 'Kuchuluka kwa ntchito',
+  'Two-step': 'Njira ziwiri', 'Over 90': 'Kupitirira 90', 'manager': 'manager', 'Entity': 'Kampani', 'Period': 'Nthawi', 'Code': 'Khodi', 'Auditor': 'Auditor',
+  /* legends and short helper text */
+  'Not yet due': 'Tsiku lisanafike', 'In progress': 'Zikuchitika', 'Holiday': 'Tchuthi', 'Internal': 'Zamkati', 'This ledger': 'Ledger iyi', 'Expected (Benford)': 'Zoyembekezeka (Benford)',
+  'Filed on time': 'Zatumizidwa pa nthawi', 'November': 'November', 'December': 'December', 'Waiting on clients': 'Kudikira makasitomala', 'Input VAT at risk': 'Input VAT pangozi',
+  'Your jobs today': 'Ntchito zanu lero', 'Open forensic cases': 'Milandu ya forensic yotsegula', 'documents': 'zikalata', 'reminders sent': 'zikumbutso zatumizidwa',
+  'Smart Invoice gaps': 'zoperewera pa Smart Invoice', 'on the work board': 'pa bolodi la ntchito', 'Two-step sign-in': 'Kulowa kwa njira ziwiri', 'Data kept in': 'Deta imasungidwa ku',
+  'Encryption': 'Kubisa deta', 'Always on': 'Nthawi zonse', 'Backups': 'Zosunga', 'Daily': 'Tsiku lililonse', 'staff, every device': 'antchito, chipangizo chilichonse',
+  'or the region you choose': 'kapena dera limene mwasankha', 'Invoiced': 'Zalipiritsidwa', 'Over 90 days': 'Kupitirira masiku 90',
+  'Fees billed': 'Malipiro olipiritsidwa', 'Unbilled work': 'Ntchito yosalipiritsidwa', 'Independence confirmed': 'Kudziyimira kwatsimikizika', 'CPD on track': 'CPD ili bwino',
+  'Complaints open': 'Madandaulo otsegula', 'on track': 'zili bwino', 'monthly retainer': 'malipiro a mwezi uliwonse', 'margin on this client': 'phindu pa kasitomala uyu',
+  'time this month': 'nthawi ya mwezi uno', 'purchase invoices': 'ma invoice ogula', 'on Smart Invoice': 'pa Smart Invoice', 'input VAT at risk': 'input VAT pangozi',
+  'files inspected': 'mafayilo owunikidwa', 'retainer client': 'kasitomala wa mwezi uliwonse', 'draft': 'zolemba zoyamba', 'not yet filed': 'sizinatumizidwe',
+  'all accounts mapped': 'maakaunti onse ali m\'malo', '2 accounts unmapped': 'maakaunti 2 sali m\'malo', 'run on every change': 'zimayenda pa kusintha kulikonse',
+  'suggested from last year': 'malingaliro ochokera chaka chatha', 'set by the partners, per person': 'zokhazikitsidwa ndi ma partner, munthu aliyense',
+  'every action, with its source': 'chochita chilichonse, ndi kumene chachokera', 'every view and every use, kept for six years': 'kuona kulikonse, kusungidwa zaka zisanu ndi chimodzi',
+  'logged by Front Desk with the reason': 'zolembedwa ndi Front Desk ndi chifukwa chake', 'scanned, filed and routed': 'zasikanidwa, zasungidwa ndi kutumizidwa',
+  'from bank and mobile money statements': 'kuchokera ku ma statement a banki ndi mobile money', 'reminders drafted, a partner approves': 'zikumbutso zalembedwa, partner amavomereza',
+  'hours this year': 'maola a chaka chino', 'monthly fee against time cost': 'malipiro a mwezi poyerekeza ndi mtengo wa nthawi', 'chargeable hours against available': 'maola olipiritsidwa poyerekeza ndi omwe alipo',
+  'logged from timesheets on real jobs': 'zolembedwa kuchokera ku timesheet pa ntchito zenizeni', 'cold reviews by a partner not on the file': 'kuwunika kwa partner amene sali pa fayilo',
+  'Every section reviewed': 'Gawo lililonse lawunikidwa', 'Answered by a person at ABACUS360, usually the same day.': 'Ayankhidwa ndi munthu wa ABACUS360, nthawi zambiri tsiku lomwelo.',
+  'Being reviewed by your accountant': 'Akuwunikidwa ndi accountant wanu', 'Approved by you': 'Mwavomereza', 'being filed': 'zikutumizidwa',
+  'all returns on track': 'ma return onse ali bwino', 'December payroll changes': 'Zosintha za payroll ya December', 'Q4 profit estimate': 'Kuyerekeza phindu la Q4',
+  'For the provisional return': 'Za provisional return', 'Amounts to approve on 5 Jan': 'Ndalama zovomereza pa 5 Jan', 'You': 'Inu', 'just now': 'pompano',
+  'With N. Phiri. You will get an answer here today.': 'Ili ndi N. Phiri. Mulandira yankho pano lero.', 'receipts saved': 'ma risiti asungidwa', 'receipt saved': 'risiti yasungidwa',
+  'acknowledged': 'zalandiridwa', 'Valid to 31 Dec 2026': 'Ndi yovomerezeka mpaka 31 Dec 2026', 'with QR code': 'ndi QR code', 'Authentic document': 'Chikalata chenicheni',
+  'Issued by ABACUS360 and unchanged since it was signed.': 'Chaperekedwa ndi ABACUS360 ndipo sichinasinthidwe kuyambira pamene chinasainidwa.',
+  'The contents are not shown here.': 'Zomwe zili mkati sizikuwonetsedwa pano.',
+  /* more helper text */
+  'Net payable': 'Zoyenera kulipira', 'Corrected by management': 'Zakonzedwa ndi oyang\'anira', 'Uncorrected': 'Zosakonzedwa', 'of the checklist evidenced': 'ya checklist ili ndi umboni',
+  'Your review queue': 'Mzere wanu wowunika', 'second degree of every return': 'gawo lachiwiri la return iliyonse', 'Your work today': 'Ntchito yanu lero',
+  'jobs, checklists and learning': 'ntchito, ma checklist ndi kuphunzira', 'Your jobs today': 'Ntchito zanu lero', 'prepare, check, hand over for review': 'konzani, yang\'anani, perekani kuti ziwunikidwe',
+  'Your portfolio': 'Makasitomala anu', 'what needs you this week': 'zomwe zikufuna inu sabata ino', 'Firm overview': 'Chidule cha kampani',
+  'every client, every obligation, seen from 360°': 'kasitomala aliyense, udindo uliwonse, kuwonedwa kuchokera 360°', 'Front office': 'Ofesi yolandirira',
+  'calls, post, visitors and meetings': 'mafoni, makalata, alendo ndi misonkhano', 'Invoices, payments and debtors': 'Ma invoice, malipiro ndi amangongole',
+  'People, devices and access': 'Anthu, zipangizo ndi zilolezo', 'Accounts production': 'Kukonza maakaunti', 'People › Training': 'Anthu › Maphunziro',
+  'Every ZRA, NAPSA, NHIMA and PACRA date, for every client it applies to': 'Tsiku lililonse la ZRA, NAPSA, NHIMA ndi PACRA, kwa kasitomala aliyense amene zikumukhudza',
+  'Built for a firm that holds its clients\' tax affairs and forensic evidence': 'Zopangidwira kampani yosunga nkhani za msonkho za makasitomala ake ndi umboni wa forensic',
+  'They prepare and check. Your people decide. No agent files with ZRA, NAPSA, NHIMA or PACRA.': 'Amakonza ndi kuyang\'ana. Anthu anu ndi amene amasankha. Palibe agent amene amatumiza ku ZRA, NAPSA, NHIMA kapena PACRA.',
+  'each with their own role, their own day and only the access their work needs': 'aliyense ndi udindo wake, tsiku lake ndi zilolezo zofunikira pa ntchito yake zokha',
+  'visible to partners only': 'zimaonedwa ndi ma partner okha', 'sorted by risk': 'zasanjidwa potengera chiopsezo', 'click Kalimba\'s VAT': 'dinani VAT ya Kalimba',
+  'WhatsApp, email and My 360 in one thread': 'WhatsApp, imelo ndi My 360 pamodzi', 'K millions': 'K mamiliyoni', 'change on 2025': 'kusintha poyerekeza ndi 2025',
+  'at 30 September': 'pa 30 September', 'permanent file and 2026 file': 'fayilo yokhazikika ndi fayilo ya 2026', 'filed by Intake': 'zasungidwa ndi Intake',
+  'every item hashed on receipt': 'chinthu chilichonse chimapatsidwa hash chikalandiridwa', 'every access logged': 'kulowa kulikonse kumalembedwa',
+  'Bank reconciled': 'Banki yagwirizanitsidwa', 'Independence and conflicts': 'Kudziyimira pawokha ndi kusemphana kwa zofuna', 'Practice review readiness': 'Kukonzekera kuwunika kwa ofesi',
+  'Quality reviews before sign-off': 'Kuwunika ubwino musanasaine', 'billed against time recorded': 'zolipiritsidwa poyerekeza ndi nthawi yolembedwa',
+  'annual declarations 2026': 'zilengezo za pachaka 2026', 'against the firm\'s target': 'poyerekeza ndi cholinga cha kampani', 'engagements that need one': 'ma engagement omwe akufunika',
+  'in transit and at rest': 'potumiza ndi posungidwa', 'restore tested every month': 'kubwezeretsa kumayesedwa mwezi uliwonse',
+  'Access': 'Chilolezo', 'Budget': 'Bajeti', 'Lead': 'Wotsogolera', 'Our deadline': 'Tsiku lathu lomaliza', 'Prepared by': 'Wokonza', 'Reviewer': 'Wowunika',
+  'Registered': 'Zolembetsedwa', 'Watching': 'Tikuyang\'anira', 'Year end': 'Kumapeto kwa chaka', 'Year ended': 'Chaka chomwe chinatha', 'ZRA due': 'Tsiku la ZRA',
+  'Summary': 'Chidule', 'daily at 07:00, urgent items at once': 'tsiku lililonse 07:00, zachangu nthawi yomweyo',
+  'Draft section 4 with the Forensic Assistant': 'Lembani gawo 4 ndi Forensic Assistant'
+};
+const LANG_NY_RULES = [
+  [/^(Good morning|Good afternoon|Good evening), (.+)$/, (m, t) => t(m[1]) + ', ' + m[2]],
+  [/^Go to (.+)$/, (m, t) => 'Pitani ku ' + t(m[1])],
+  [/^Due (\d.*)$/, 'Tsiku lomaliza $1'],
+  [/^due (\d.*|Today)$/, (m) => 'tsiku lomaliza ' + (m[1] === 'Today' ? 'lero' : m[1])],
+  [/^by (\d+ \w+)$/, 'pofika $1'],
+  [/^Filed (\d.*)$/, 'Zatumizidwa $1'],
+  [/^Signed (\d.*)$/, 'Zasainidwa $1'],
+  [/^Issued (\w+ \d{4})$/, 'Zaperekedwa $1'],
+  [/^In progress$/, 'Zikuchitika'],
+  [/^Not available to an? (.+)$/, 'Sizololedwa kwa $1'],
+  [/^(\d+) clients$/, 'makasitomala $1'],
+  [/^(\d+) minutes$/, 'mphindi $1'],
+  [/^(\d+) new employees$/, 'antchito atsopano $1'],
+  [/^(\d+) of (\d+) returns$/, 'ma return $1 mwa $2'],
+  [/^(\d+) filed$/, '$1 zatumizidwa'],
+  [/^(\d+) in review$/, '$1 zikuwunikidwa'],
+  [/^(\d+) open$/, '$1 zotsegula'],
+  [/^Checklist (\d+) of (\d+)$/, 'Checklist $1 mwa $2'],
+  [/^Guided tour · (\d+) of (\d+)$/, 'Ulendo wowonetsera · $1 mwa $2'],
+  [/^Now viewing as ([^:]+): (.+)$/, 'Mukuona ngati $1: $2'],
+  [/^With ([A-Z]\. .+)$/, 'Ili ndi $1'],
+  [/^(\d+) sign-offs waiting$/, 'Kusaina $1 kukudikira'],
+  [/^VAT returns due (.+)$/, 'VAT returns, tsiku lomaliza $1'],
+  [/^(\d+) finding(s?) added from analytics$/, 'zopezeka $1 zowonjezedwa kuchokera ku kusanthula'],
+  [/^(K[\d,.]+) payable by (.+)$/, '$1 yolipira pofika $2'],
+  [/^Filed · pay (K[\d,.]+) by (\d+ \w+)$/, 'Zatumizidwa · lipirani $1 pofika $2'],
+  [/^(\d+) people$/, 'anthu $1'], [/^(\d+) obligations this year$/, 'maudindo $1 chaka chino'], [/^(\d+) of (\d+) clients$/, 'makasitomala $1 mwa $2'],
+  [/^(\d+) sections$/, 'magawo $1'], [/^(\d+) open review notes$/, 'zolemba zowunika $1 zotsegula'], [/^(\d+) cleared$/, '$1 zathetsedwa'],
+  [/^(\d+) new employees to confirm$/, 'antchito atsopano $1 oti atsimikizidwe'], [/^(\d+) members of staff$/, 'antchito $1'],
+  [/^(\d+) clients to check$/, 'makasitomala $1 oti ayang\'anidwe'], [/^(\d+) high-risk results$/, 'zotsatira $1 za chiopsezo chachikulu'],
+  [/^Turn (.+) off$/, 'Zimitsani $1'], [/^Turn (.+) on$/, 'Yatsani $1'], [/^across (\d+) jobs$/, 'pa ntchito $1'], [/^(\d+) invoices$/, 'ma invoice $1'],
+  [/^(\d+)% within (\d+) days$/, '$1% mkati mwa masiku $2'], [/^(\d+) closed in (\d{4})$/, '$1 zatsekedwa mu $2']
+];
+/* words whose Chinyanja depends on where they sit (status pills versus buttons) */
+const LANG_NY_CTX = [
+  ['.pill,.c', { 'Open': 'Sizinathe', 'Next': 'Zikubwera', 'Review': 'Kuwunika', 'Client': 'Kasitomala', 'Sign-off': 'Kusaina' }]
+];
+/* ------------------------------------------------------------ language
+   Every user chooses their own language (owner rule, 25 Nov 2026): staff in the
+   top bar, clients in their own area. The choice is saved in this browser for
+   each signed-in demo user. English is the default.
+   The English text on screen is the message id. LANG_NY holds the Chinyanja for
+   navigation, buttons, headings, tabs, status labels and short helper text;
+   LANG_NY_RULES covers text that carries a number or a name; LANG_NY_CTX holds
+   the few words whose Chinyanja depends on where they sit. Names, money, dates
+   and accounting terms normally said in English stay in English, and anything
+   not in the dictionary shows in English. */
+const I18N = (() => {
+  const NAMES = { en: 'English', ny: 'Chinyanja' };
+  const DICT = { ny: LANG_NY }, RULES = { ny: LANG_NY_RULES }, CTX = { ny: LANG_NY_CTX };
+  const SKIP = 'script,style,textarea,[data-i18n-skip]', ATTRS = ['placeholder', 'aria-label', 'title'];
+  let prefs = {};
+  try { prefs = JSON.parse(localStorage.getItem(LANG_KEY) || '{}') || {}; } catch (e) { prefs = {}; }
+  const who = Object.assign({}, LANG_USERS);
+  const lang = scope => (NAMES[prefs[who[scope]]] ? prefs[who[scope]] : 'en');
+  const save = () => { try { localStorage.setItem(LANG_KEY, JSON.stringify(prefs)); } catch (e) { /* storage off: keep for this visit */ } };
+  function one(s, L, el) {
+    if (el && CTX[L]) for (const [sel, map] of CTX[L]) if (map[s] != null && el.closest(sel)) return map[s];
+    if (DICT[L][s] != null) return DICT[L][s];
+    const multi = s.includes(' · ');   /* a rule only reads across ' · ' when it says so */
+    for (const [re, f] of RULES[L]) { if (multi && !re.source.includes(' · ')) continue; const m = s.match(re); if (m) return typeof f === 'function' ? f(m, x => tr(x, L, el)) : s.replace(re, f); }
+    return null;
+  }
+  function tr(text, L, el) {
+    if (L === 'en' || !DICT[L] || !text) return text;
+    const m = text.match(/^(\s*)([\s\S]*?)(\s*)$/), core = m[2].replace(/\s+/g, ' ');
+    if (!/[A-Za-z]/.test(core)) return text;
+    let out = one(core, L, el);
+    if (out == null) {
+      const a = core.match(/^([+←•\-\s]*)(.*?)([\s›✓▾▴→…:.]*)$/);
+      if (a && a[2] && (a[1] || a[3])) { const o = one(a[2], L, el); if (o != null) out = a[1] + o + a[3]; }
+    }
+    if (out == null && core.includes(' · ')) {
+      let hit = false;
+      const parts = core.split(' · ').map(p => { const o = tr(p, L, el); if (o !== p) hit = true; return o; });
+      if (hit) out = parts.join(' · ');
+    }
+    return out == null ? text : m[1] + out + m[3];
+  }
+  const seen = new WeakMap(), seenA = new WeakMap();
+  const scopeOf = el => { const s = el.closest('[data-i18n-scope]'); return s ? s.getAttribute('data-i18n-scope') : 'staff'; };
+  function text(n) {
+    const el = n.parentElement; if (!el || el.closest(SKIP)) return;
+    const r = seen.get(n), cur = n.nodeValue, src = r && cur === r[1] ? r[0] : cur;
+    const out = tr(src, lang(scopeOf(el)), el);
+    if (out !== cur) n.nodeValue = out;
+    seen.set(n, [src, out]);
+  }
+  function attrs(el) {
+    if (el.closest('[data-i18n-skip]')) return;
+    let rec = seenA.get(el);
+    for (const a of ATTRS) {
+      if (!el.hasAttribute(a)) continue;
+      const cur = el.getAttribute(a), r = rec && rec[a], src = r && cur === r[1] ? r[0] : cur;
+      const out = tr(src, lang(scopeOf(el)), el);
+      if (out !== cur) el.setAttribute(a, out);
+      if (!rec) seenA.set(el, rec = {});
+      rec[a] = [src, out];
+    }
+  }
+  function walk(root) {
+    if (root.nodeType === 3) return text(root);
+    if (root.nodeType !== 1) return;
+    const scopes = [...root.querySelectorAll('[data-i18n-scope]')];
+    if (root.hasAttribute('data-i18n-scope')) scopes.push(root);
+    scopes.forEach(e => e.setAttribute('lang', lang(e.getAttribute('data-i18n-scope'))));
+    root.querySelectorAll('select[data-lang-for]').forEach(s => { s.value = lang(s.getAttribute('data-lang-for')); });
+    attrs(root); root.querySelectorAll('[placeholder],[aria-label],[title]').forEach(attrs);
+    const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT); let n;
+    while ((n = w.nextNode())) text(n);
+  }
+  function apply() { document.documentElement.lang = lang('staff'); walk(document.body); }
+  const mo = new MutationObserver(list => {
+    for (const m of list) {
+      if (m.type === 'characterData') text(m.target);
+      else if (m.type === 'attributes') attrs(m.target);
+      else m.addedNodes.forEach(walk);
+    }
+  });
+  const api = {
+    lang,
+    t: (s, scope) => tr(s, lang(scope || 'staff')),
+    /* the signed-in demo user of a scope ('staff' or 'client'); a client who signs in
+       without a saved choice keeps the language already chosen on that screen */
+    user(scope, id, inherit) {
+      if (who[scope] === id) return;
+      if (inherit && prefs[id] == null && prefs[who[scope]] != null) { prefs[id] = prefs[who[scope]]; save(); }
+      who[scope] = id; apply();
+    },
+    set(scope, L) { prefs[who[scope]] = L; save(); apply(); if (api.onchange) api.onchange(scope, L); },
+    picker(scope, cls) {
+      return `<label class="langpick ${cls || ''}" data-i18n-skip title="Language · Chiyankhulo"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9s1.3-6.4 3.8-9z"/></svg><select data-lang-for="${scope}" aria-label="Language · Chiyankhulo">${Object.keys(NAMES).map(k => `<option value="${k}"${k === lang(scope) ? ' selected' : ''}>${NAMES[k]}</option>`).join('')}</select></label>`;
+    },
+    start() {
+      apply();
+      mo.observe(document.body, { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ATTRS });
+      document.addEventListener('change', e => { const s = e.target.closest && e.target.closest('select[data-lang-for]'); if (s) api.set(s.getAttribute('data-lang-for'), s.value); });
+    }
+  };
+  return api;
+})();
+/* I18N:END */
+</script>
 <script>
 {
 const $ = s => document.querySelector(s);
@@ -228,6 +522,7 @@ function logo(size) {
   return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" aria-hidden="true">${s}</svg>`;
 }
 $('#logo').innerHTML = logo(30);
+$('#roleBox').insertAdjacentHTML('afterend', I18N.picker('staff', 'role'));
 
 /* ------------------------------------------------------------ state */
 const S = {
@@ -380,7 +675,7 @@ V.clients = () => {
     <div class="it"><div class="av" style="background:var(--revl);color:var(--blue)">MK</div><div><div class="t">Mutale K. · 13 Dec 08:20</div><div class="d">“Yes please.”</div></div></div></div></div>`;
   if (S.ctab === 'billing') body = `<div class="card"><div class="hd"><h2>Billing</h2><small>retainer client</small></div><div class="mini"><div><div class="big">K9,500</div><div class="subt">monthly retainer</div></div><div><div class="big">K0</div><div class="subt">overdue</div></div><div><div class="big">31.5 h</div><div class="subt">time this month · budget 34 h</div></div><div><div class="big" style="color:var(--ok)">+24%</div><div class="subt">margin on this client</div></div></div></div>`;
   return `<div class="row"><div><div class="subt">Clients ›</div><h1>Kalimba Foods Ltd</h1>
-    <div class="chips"><span class="chip"><b>TPIN</b>100•••4821</span><span class="chip"><b>PACRA</b>1201•••773</span><span class="chip"><b>VAT</b>Registered</span><span class="chip"><b>Year end</b>31 Dec</span><span class="chip"><b>Framework</b>IFRS for SMEs</span><span class="chip"><b>Manager</b>N. Phiri</span><span class="chip"><b>Partner</b>J. M. Liswaniso</span></div></div>
+    <div class="chips"><span class="chip"><b>TPIN</b>100•••4821</span><span class="chip"><b>PACRA</b>1201•••773</span><span class="chip"><b>VAT</b>Registered</span><span class="chip"><b>Year end</b>31 Dec</span><span class="chip"><b>Framework</b>IFRS for SMEs</span><span class="chip"><b>Manager</b>N. Phiri</span><span class="chip"><b>Partner</b>D. M. Kalaba</span></div></div>
     <div class="btns"><button class="btn o" data-toast="Message drafted in the inbox (demo)">Message client</button><button class="btn" data-go="job">VAT job</button><button class="btn gd" id="newclient">New client</button></div></div>
     <div class="tabs">${tabs.map(t => `<button class="${S.ctab === t ? 'on' : ''}" data-ctab="${t}">${t[0].toUpperCase() + t.slice(1)}</button>`).join('')}</div>${body}`;
 };
@@ -436,7 +731,7 @@ V.forensic = () => {
     <div class="list">${['1 · Instructions and scope', '2 · Information relied on (EV-001 to EV-006)', '3 · Approach and tests performed', '4 · Findings' + (S.findings.length ? ': ' + S.findings.map(f => TESTS.find(t => t.id === f).name).join('; ') : ' (add from Analytics)'), '5 · Quantification of loss', '6 · Limitations', '7 · Expert declaration'].map(x => `<div class="it"><div class="ic na">§</div><div class="t" style="font-weight:400">${x}</div></div>`).join('')}</div>
     <div class="btns" style="margin-top:10px"><button class="btn gd" id="draft-btn">Draft section 4 with the Forensic Assistant</button></div><div id="draft-out" style="margin-top:12px"></div></div>`;
   return `<div class="row"><div><div class="subt">Forensic and investigations › FX-2026-014</div><h1>Mwembeshi Haulage Ltd · procurement review</h1>
-    <div class="chips"><span class="chip"><b>Client</b>Board audit committee, through counsel</span><span class="chip"><b>Engagement</b>Fraud investigation and expert report</span><span class="chip"><b>Lead</b>J. M. Liswaniso</span><span class="chip"><b>Access</b>3 people · privileged</span></div></div>
+    <div class="chips"><span class="chip"><b>Client</b>Board audit committee, through counsel</span><span class="chip"><b>Engagement</b>Fraud investigation and expert report</span><span class="chip"><b>Lead</b>D. M. Kalaba</span><span class="chip"><b>Access</b>3 people · privileged</span></div></div>
     <span class="pill risk">3 high-risk results</span></div>
     <div class="tabs">${tabs.map(([k, l]) => `<button class="${S.ftab === k ? 'on' : ''}" data-ftab="${k}">${l}</button>`).join('')}</div>${body}`;
 };
@@ -482,8 +777,8 @@ V['client-app'] = () => {
     ${S.asked2 ? `<div style="background:var(--revl);border-radius:10px;padding:9px 11px;font-size:13px;margin-top:8px"><b style="font-weight:500">You · just now</b><br>Can you send our tax clearance certificate to Zanaco?</div><div style="background:var(--goldl);border-radius:10px;padding:9px 11px;font-size:13px;margin-top:8px">With N. Phiri. You will get an answer here today.</div>` : `<button class="btn" id="ask2" style="width:100%;justify-content:center;margin-top:10px">Ask a new question</button>`}</div>`;
   const tabs = [['home', 'Home'], ['filed', 'Filed'], ['letters', 'Letters'], ['ask', 'Ask']];
   return `<div class="row"><div><h1>My 360 · your clients' app</h1><div class="subt">What Mutale K., the finance lead at Kalimba Foods, sees on her phone. It answers the four questions clients ask most: how much do I pay, did you file, where is my letter, and a question for you. ${S.stage < 6 ? 'Sign off the VAT review first, then approve here.' : ''}</div></div><button class="btn o" data-go="job">Back to the VAT job</button></div>
-  <div style="margin-top:18px"><div class="phone" id="phone"><div class="scr">
-    <div class="ph-h"><div style="display:flex;align-items:center;gap:8px">${logo(24)}<span style="letter-spacing:2px;font-weight:300">ABACUS360</span><span style="margin-left:auto;font-size:11px;color:#9fb0dc">My 360</span></div><div style="font-size:19px;margin-top:12px">${hello()}, Mutale</div><div style="font-size:12px;color:#b9c4e6">Kalimba Foods Ltd · all returns on track</div></div>
+  <div style="margin-top:18px"><div class="phone" id="phone" data-i18n-scope="client"><div class="scr">
+    <div class="ph-h"><div style="display:flex;align-items:center;gap:8px">${logo(24)}<span style="letter-spacing:2px;font-weight:300">ABACUS360</span><span style="margin-left:auto;font-size:11px;color:#9fb0dc;white-space:nowrap">My 360</span>${I18N.picker('client', 'ph-lang')}</div><div style="font-size:19px;margin-top:12px">${hello()}, Mutale</div><div style="font-size:12px;color:#b9c4e6">Kalimba Foods Ltd · all returns on track</div></div>
     <div style="flex:1;overflow:auto;padding-bottom:10px">${body}</div>
     <div class="tb">${tabs.map(([k, l]) => `<button data-ph="${k}" style="border:0;background:none;min-height:44px;font-size:12px;color:${S.ph === k ? 'var(--blue)' : 'var(--mut)'};font-weight:${S.ph === k ? 500 : 400}">${l}</button>`).join('')}</div></div></div>
     <p class="d" style="text-align:center;margin-top:10px">Clients do not need to install anything: it opens from a WhatsApp link, in ABACUS360's name.</p></div>`;
@@ -493,13 +788,13 @@ V.verify = () => `<div class="row"><div><h1>Verify financial statements</h1><div
   <div style="margin-top:18px"><div class="phone"><div class="scr" style="background:#fff"><div style="padding:14px;text-align:center;font-size:11.5px;color:var(--mut)">🔒 abacus360.co/verify</div>
     <div class="ph-h" style="display:flex;gap:10px;align-items:center">${logo(24)}<span style="letter-spacing:2px;font-weight:300">ABACUS360</span></div>
     <div style="padding:26px 22px;text-align:center"><div style="width:72px;height:72px;border-radius:50%;background:var(--okl);color:var(--ok);display:grid;place-items:center;margin:0 auto;font-size:36px">✓</div><div style="font-size:21px;font-weight:500;color:var(--ink);margin-top:12px">Authentic document</div><div class="d" style="font-size:13px">Issued by ABACUS360 and unchanged since it was signed.</div></div>
-    <div class="mc">${(S.auditSigned ? [['Entity', 'Copperline Engineering Ltd'], ['Document', 'Audited financial statements'], ['Period', 'Year to 30 Jun 2026'], ['Signed', '14 Dec 2026'], ['Auditor', 'J. M. Liswaniso, FZICA'], ['Code', 'A360-FS-26-0431']] : [['Entity', 'Kalimba Foods Ltd'], ['Document', 'Financial statements'], ['Period', 'Year to 31 Dec 2025'], ['Signed', '28 Mar 2026'], ['Code', 'A360-FS-25-0418']]).map(([a, b]) => `<div class="mr"><span class="d">${a}</span><span class="t" style="text-align:right">${b}</span></div>`).join('')}</div>
+    <div class="mc">${(S.auditSigned ? [['Entity', 'Copperline Engineering Ltd'], ['Document', 'Audited financial statements'], ['Period', 'Year to 30 Jun 2026'], ['Signed', '14 Dec 2026'], ['Auditor', 'D. M. Kalaba, FZICA'], ['Code', 'A360-FS-26-0431']] : [['Entity', 'Kalimba Foods Ltd'], ['Document', 'Financial statements'], ['Period', 'Year to 31 Dec 2025'], ['Signed', '28 Mar 2026'], ['Code', 'A360-FS-25-0418']]).map(([a, b]) => `<div class="mr"><span class="d">${a}</span><span class="t" style="text-align:right">${b}</span></div>`).join('')}</div>
     <div class="d" style="text-align:center;padding:16px 20px">The contents are not shown here.</div></div></div></div>`;
 
 
 /* ------------------------------------------------------------ roles */
 const ROLES = {
-  partner: { name: 'Mr Liswaniso', who: 'J. M. Liswaniso', title: 'Partner · FZICA', init: 'JL', label: 'Partner', sub: 'Firm overview · December 2026 · every client, every obligation, seen from 360°' },
+  partner: { name: 'Mr Kalaba', who: 'D. M. Kalaba', title: 'Partner · FZICA', init: 'DK', label: 'Partner', sub: 'Firm overview · December 2026 · every client, every obligation, seen from 360°' },
   manager: { name: 'Natasha', who: 'N. Phiri', title: 'Client manager', init: 'NP', label: 'Client manager', sub: 'Your portfolio · 46 clients · what needs you this week' },
   senior: { name: 'Chanda', who: 'C. Mulenga', title: 'Tax manager · reviewer', init: 'CM', label: 'Tax manager', sub: 'Your review queue · second degree of every return' },
   junior: { name: 'Thandiwe', who: 'T. Banda', title: 'Junior accountant', init: 'TB', label: 'Junior accountant', sub: 'Your jobs today · prepare, check, hand over for review' },
@@ -547,7 +842,7 @@ function needs() {
     ['ok', 'M', 'Book the Copperline closing meeting', 'Partner free Wed 16 Dec 10:00 or Thu 17 Dec 14:00 · <a href="#frontdesk">front desk</a>']];
   if (S.role === 'trainee') return [
     ['rev', 'P', 'Prepare payroll Dec · Lilayi Farms', 'Checklist and last month\'s file are inside the task'],
-    ['wait', '6h', 'Log waiting for your mentor', '6 h on the Copperline audit · sent to J. M. Liswaniso'],
+    ['wait', '6h', 'Log waiting for your mentor', '6 h on the Copperline audit · sent to D. M. Kalaba'],
     ['na', 'W', 'Training · Wednesday 16:00', 'Smart Invoice and input VAT: three real cases']];
   return [
     S.auditSigned ? ['ok', '✓', 'Copperline audit report signed', 'Verification code A360-FS-26-0431 issued · <a href="#verify">see it</a>']
@@ -670,10 +965,10 @@ V.audit = () => {
   const signed = S.auditSigned, canSign = S.role === 'partner';
   const PH = ['Acceptance', 'Planning', 'Risk assessment', 'Fieldwork', 'Completion', 'Partner sign-off'];
   const cur = signed ? 6 : 5;
-  const WP = [['A', 'Acceptance and planning', '—', 'C. Mulenga', 'J. M. Liswaniso'], ['B', 'Risk assessment (ISA 315)', '—', 'C. Mulenga', 'J. M. Liswaniso'], ['C', 'Revenue', 'Significant', 'K. Mwale', 'C. Mulenga'], ['D', 'Inventory and work in progress', 'Higher', 'P. Chanda', 'C. Mulenga'], ['E', 'Trade payables', 'Normal', 'K. Mwale', 'C. Mulenga'], ['F', 'Cash and bank', 'Normal', 'P. Chanda', 'C. Mulenga'], ['G', 'Payroll', 'Normal', 'B. Lungu', 'C. Mulenga'], ['H', 'Taxation', 'Higher', 'T. Banda', 'C. Mulenga'], ['J', 'Going concern (ISA 570)', '—', 'C. Mulenga', 'J. M. Liswaniso'], ['K', 'Subsequent events (ISA 560)', '—', 'C. Mulenga', 'J. M. Liswaniso']];
+  const WP = [['A', 'Acceptance and planning', '—', 'C. Mulenga', 'D. M. Kalaba'], ['B', 'Risk assessment (ISA 315)', '—', 'C. Mulenga', 'D. M. Kalaba'], ['C', 'Revenue', 'Significant', 'K. Mwale', 'C. Mulenga'], ['D', 'Inventory and work in progress', 'Higher', 'P. Chanda', 'C. Mulenga'], ['E', 'Trade payables', 'Normal', 'K. Mwale', 'C. Mulenga'], ['F', 'Cash and bank', 'Normal', 'P. Chanda', 'C. Mulenga'], ['G', 'Payroll', 'Normal', 'B. Lungu', 'C. Mulenga'], ['H', 'Taxation', 'Higher', 'T. Banda', 'C. Mulenga'], ['J', 'Going concern (ISA 570)', '—', 'C. Mulenga', 'D. M. Kalaba'], ['K', 'Subsequent events (ISA 560)', '—', 'C. Mulenga', 'D. M. Kalaba']];
   const rk = { Significant: 'risk', Higher: 'wait', Normal: 'na', '—': '' };
   return `<div class="row"><div><div class="subt">Audit and assurance ›</div><h1>Copperline Engineering Ltd · statutory audit</h1>
-    <div class="chips"><span class="chip"><b>Year ended</b>30 June 2026</span><span class="chip"><b>Framework</b>IFRS</span><span class="chip"><b>Standards</b>ISAs</span><span class="chip"><b>Engagement partner</b>J. M. Liswaniso</span><span class="chip"><b>Manager</b>C. Mulenga</span></div></div>
+    <div class="chips"><span class="chip"><b>Year ended</b>30 June 2026</span><span class="chip"><b>Framework</b>IFRS</span><span class="chip"><b>Standards</b>ISAs</span><span class="chip"><b>Engagement partner</b>D. M. Kalaba</span><span class="chip"><b>Manager</b>C. Mulenga</span></div></div>
     <span class="pill ${signed ? 'ok' : 'rev'}">${signed ? 'Signed · file locked' : 'Ready for partner sign-off'}</span></div>
   <div class="card steps" style="padding:14px 16px;margin-top:14px">${PH.map((n, i) => `<div class="s ${i < cur ? 'done' : i === cur ? 'cur' : ''}"><i></i>${n}</div>`).join('')}</div>
   <div class="grid g2" style="margin-top:14px"><div class="grid" style="align-content:start">
@@ -687,7 +982,7 @@ V.audit = () => {
       <div class="it"><div style="flex:1"><div class="t">Performance materiality</div><div class="d">75% of overall</div></div><div class="t">K631,500</div></div>
       <div class="it"><div style="flex:1"><div class="t">Clearly trivial</div><div class="d">5% of overall</div></div><div class="t">K42,100</div></div></div></div>
     <div class="card" id="asign" style="${signed ? 'border-color:#bfe3cf' : ''}"><div class="hd"><h2>Partner sign-off</h2></div>
-      ${signed ? `<div class="list"><div class="it"><div class="ic ok">✓</div><div><div class="t">Signed by J. M. Liswaniso, FZICA</div><div class="d">14 December 2026 · unmodified opinion</div></div></div><div class="it"><div class="ic ok">✓</div><div><div class="t">Verification code A360-FS-26-0431</div><div class="d">Printed on the report as a QR code</div></div></div><div class="it"><div class="ic ok">✓</div><div><div class="t">File locked</div><div class="d">Any change now needs a partner to reopen it, with a reason</div></div></div></div><div class="btns" style="margin-top:10px"><button class="btn o" data-go="verify">See what a bank sees</button></div>`
+      ${signed ? `<div class="list"><div class="it"><div class="ic ok">✓</div><div><div class="t">Signed by D. M. Kalaba, FZICA</div><div class="d">14 December 2026 · unmodified opinion</div></div></div><div class="it"><div class="ic ok">✓</div><div><div class="t">Verification code A360-FS-26-0431</div><div class="d">Printed on the report as a QR code</div></div></div><div class="it"><div class="ic ok">✓</div><div><div class="t">File locked</div><div class="d">Any change now needs a partner to reopen it, with a reason</div></div></div></div><div class="btns" style="margin-top:10px"><button class="btn o" data-go="verify">See what a bank sees</button></div>`
       : `<div class="list">${['Every section reviewed', '0 open review notes', 'Uncorrected misstatements below materiality', 'Representation letter signed', 'Going concern and subsequent events concluded'].map(x => `<div class="it" style="padding:7px 0"><div class="ic ok" style="width:24px;height:24px;font-size:12px">✓</div><div class="t" style="font-weight:400">${x}</div></div>`).join('')}</div>
       <div class="btns" style="margin-top:10px"><button class="btn gd" id="audit-sign" ${canSign ? '' : 'disabled'}>${canSign ? 'Sign the audit report' : 'Partner only'}</button></div>`}</div></div></div>`;
 };
@@ -761,7 +1056,7 @@ function ncStep() {
 
 /* ------------------------------------------------------------ work board */
 const PEOPLE = [
-  ['J. M. Liswaniso', 'Partner', 'Audit, forensic and advisory', '38 clients', 86, 'In office'],
+  ['D. M. Kalaba', 'Partner', 'Audit, forensic and advisory', '38 clients', 86, 'In office'],
   ['A. Nkhoma', 'Partner', 'Tax and accounting', '52 clients', 91, 'In office'],
   ['N. Phiri', 'Client manager', 'Tax compliance portfolio', '46 clients', 104, 'In office'],
   ['C. Mulenga', 'Tax manager', 'Review and sign-off', '61 clients', 92, 'In office'],
@@ -837,12 +1132,12 @@ V.billing = () => `<div class="row"><div><h1>Billing and collections</h1><div cl
 V.frontdesk = () => `<div class="row"><div><h1>Front desk · Monday 14 December</h1><div class="subt">Calls, post, visitors and meetings, with every item filed to the right client and the right person</div></div></div>
   <div class="grid g2b" id="fdesk" style="margin-top:14px"><div class="grid" style="align-content:start">
   <div class="card"><div class="hd"><h2>Calls to return</h2><small>logged by Front Desk with the reason</small></div><div class="list">
-    ${[['Lilayi Farms · Mr Hamoonga', 'About the payroll changes for December', 'For F. Daka'], ['Chongwe Builders · Director', 'Wants to discuss the PACRA annual return', 'For N. Phiri'], ['Kafue Lodge · Accounts', 'Asked for a copy of the November invoice', 'For L. Tembo'], ['Prospect · Chisamba Agro', 'New client enquiry, referred by Kalimba Foods', 'For J. M. Liswaniso']].map(c => `<div class="it"><div class="ic rev">☎</div><div style="flex:1"><div class="t">${c[0]}</div><div class="d">${c[1]} · ${c[2]}</div></div><button class="btn o" style="min-height:32px;padding:4px 10px" data-toast="Marked as called back. The note is saved to the client file (demo)">Done</button></div>`).join('')}</div></div>
+    ${[['Lilayi Farms · Mr Hamoonga', 'About the payroll changes for December', 'For F. Daka'], ['Chongwe Builders · Director', 'Wants to discuss the PACRA annual return', 'For N. Phiri'], ['Kafue Lodge · Accounts', 'Asked for a copy of the November invoice', 'For L. Tembo'], ['Prospect · Chisamba Agro', 'New client enquiry, referred by Kalimba Foods', 'For D. M. Kalaba']].map(c => `<div class="it"><div class="ic rev">☎</div><div style="flex:1"><div class="t">${c[0]}</div><div class="d">${c[1]} · ${c[2]}</div></div><button class="btn o" style="min-height:32px;padding:4px 10px" data-toast="Marked as called back. The note is saved to the client file (demo)">Done</button></div>`).join('')}</div></div>
   <div class="card"><div class="hd"><h2>Post received today</h2><small>scanned, filed and routed</small></div><div class="list">
     ${[['ZRA letter · Mutende Logistics', 'Additional assessment, WHT on rent', 'Filed · sent to N. Phiri · reply by 13 Jan'], ['PACRA notice · Chongwe Builders', 'Annual return reminder', 'Filed · sent to N. Phiri'], ['Stanbic statement · Kalimba Foods', 'November', 'Filed to VAT Nov · Intake read it']].map(c => `<div class="it"><div class="ic na">✉</div><div><div class="t">${c[0]}</div><div class="d">${c[1]} · ${c[2]}</div></div></div>`).join('')}</div></div></div>
   <div class="grid" style="align-content:start">
   <div class="card"><div class="hd"><h2>Visitors and meetings</h2></div><div class="list">
-    ${[['10:00', 'Copperline Engineering · two directors', 'Meeting room 1 · with J. M. Liswaniso · audit closing'], ['11:30', 'ZRA officer · Mutende Logistics file', 'Meeting room 2 · with N. Phiri'], ['14:30', 'Chisamba Agro · new client', 'Meeting room 1 · with J. M. Liswaniso · documents checklist sent']].map(v => `<div class="it"><div class="ic ok" style="font-size:11px">${v[0]}</div><div><div class="t">${v[1]}</div><div class="d">${v[2]}</div></div></div>`).join('')}</div>
+    ${[['10:00', 'Copperline Engineering · two directors', 'Meeting room 1 · with D. M. Kalaba · audit closing'], ['11:30', 'ZRA officer · Mutende Logistics file', 'Meeting room 2 · with N. Phiri'], ['14:30', 'Chisamba Agro · new client', 'Meeting room 1 · with D. M. Kalaba · documents checklist sent']].map(v => `<div class="it"><div class="ic ok" style="font-size:11px">${v[0]}</div><div><div class="t">${v[1]}</div><div class="d">${v[2]}</div></div></div>`).join('')}</div>
     <div class="btns" style="margin-top:8px"><button class="btn o" data-toast="Meeting booked and confirmed to the client on WhatsApp (demo)">Book a meeting</button></div></div>
   <div class="card"><div class="hd"><h2>Documents to collect</h2></div><div class="list">
     <div class="it"><div class="ic wait">2</div><div><div class="t">Lilayi Farms · signed payroll changes</div><div class="d">Driver collects Tuesday · client reminded on WhatsApp</div></div></div>
@@ -885,7 +1180,7 @@ V.quality = () => `<div class="row"><div><h1>Quality management · ISQM 1</h1><d
       <div class="mini"><div><div class="big">8</div><div class="subt">files inspected</div></div><div><div class="big" style="color:var(--ok)">7</div><div class="subt">satisfactory</div></div><div><div class="big" style="color:var(--wait)">1</div><div class="subt">improvement needed</div></div></div>
       <div class="d">Finding: stock count attendance not fully documented on one audit. Root cause recorded, checklist updated, training given on 18 November. Closed.</div></div>
     <div class="card"><div class="hd"><h2>CPD · selected members</h2><small>hours this year</small></div>
-      ${[['J. M. Liswaniso', 46], ['A. Nkhoma', 41], ['C. Mulenga', 38], ['N. Phiri', 29], ['W. Simwanza', 24]].map(([n, h]) => `<div class="meter"><div class="nm">${n}</div><div class="bar"><i style="width:${Math.min(100, Math.round(h / 46 * 100))}%;background:var(--${h >= 40 ? 'ok' : h >= 30 ? 'blue' : 'wait'})"></i></div><div class="vl">${h} h</div></div>`).join('')}
+      ${[['D. M. Kalaba', 46], ['A. Nkhoma', 41], ['C. Mulenga', 38], ['N. Phiri', 29], ['W. Simwanza', 24]].map(([n, h]) => `<div class="meter"><div class="nm">${n}</div><div class="bar"><i style="width:${Math.min(100, Math.round(h / 46 * 100))}%;background:var(--${h >= 40 ? 'ok' : h >= 30 ? 'blue' : 'wait'})"></i></div><div class="vl">${h} h</div></div>`).join('')}
       <div class="d" style="margin-top:6px">Hours are logged from the weekly training and from courses, with the certificates attached.</div></div></div>
   <div class="grid" style="align-content:start">
     <div class="card"><div class="hd"><h2>Practice review readiness</h2></div><div class="mini"><div><div class="big" style="color:var(--ok)">92%</div><div class="subt">of the checklist evidenced</div></div></div><div class="list">
@@ -933,7 +1228,7 @@ S.log = [
   ['06:58', 'Second Eyes (agent)', 'Read VAT job · Zed Solar Systems', 'Automatic, within its task'],
   ['07:41', 'C. Mulenga', 'Used TaxOnline login · Bwalya Pharmacy', 'Reason: file PAYE Nov · vault'],
   ['08:12', 'G. Mwansa', 'Tried to open case FX-2026-014', 'Refused · not on the case team'],
-  ['08:40', 'J. M. Liswaniso', 'Viewed evidence EV-001', 'Case team · hash checked']
+  ['08:40', 'D. M. Kalaba', 'Viewed evidence EV-001', 'Case team · hash checked']
 ];
 let lastRoute = '';
 function nowT() { const d = new Date(); return String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0'); }
@@ -978,7 +1273,7 @@ function renderNav(r) {
 }
 function lockedView(r) { return `<div class="card" style="max-width:560px;margin:48px auto;text-align:center;padding:30px"><div style="width:52px;height:52px;border-radius:50%;background:var(--na);display:grid;place-items:center;margin:0 auto;color:var(--mut)">${LOCK.replace(/12/g, '22')}</div><h2 style="margin-top:12px;font-size:18px">Not available to a ${ROLES[S.role].label.toLowerCase()}</h2><div class="d" style="font-size:14px;margin-top:6px">The partners decide who sees what. Fees, forensic cases and partner insights stay with the people who need them.</div><div class="btns" style="justify-content:center;margin-top:16px"><button class="btn" data-role="partner">Switch back to Partner</button></div></div>`; }
 function route() { const h = location.hash.slice(1); return V[h] ? h : 'today'; }
-function render() { const r = route(); if (r !== lastRoute) { lastRoute = r; if (allowed(r)) S.log.push([nowT(), ROLES[S.role].who, PAGE_NAMES[r] || r, 'This browser · just now']); else S.log.push([nowT(), ROLES[S.role].who, 'Tried to open ' + (PAGE_NAMES[r] || r).replace(/^Opened /, ''), 'Refused · not allowed for this role']); } renderNav(r); $('#view').innerHTML = allowed(r) ? V[r]() : lockedView(r); }
+function render() { I18N.user('staff', 'staff:' + S.role); const r = route(); if (r !== lastRoute) { lastRoute = r; if (allowed(r)) S.log.push([nowT(), ROLES[S.role].who, PAGE_NAMES[r] || r, 'This browser · just now']); else S.log.push([nowT(), ROLES[S.role].who, 'Tried to open ' + (PAGE_NAMES[r] || r).replace(/^Opened /, ''), 'Refused · not allowed for this role']); } renderNav(r); $('#view').innerHTML = allowed(r) ? V[r]() : lockedView(r); requestAnimationFrame(() => document.querySelectorAll('#view .scroll').forEach(x => { if (x.scrollWidth > x.clientWidth + 1) x.tabIndex = 0; })); }
 window.addEventListener('hashchange', () => { render(); window.scrollTo(0, 0); if (S.tourI >= 0) highlight(); });
 function go(r) { if (location.hash.slice(1) === r) render(); else location.hash = r; }
 
@@ -1000,7 +1295,7 @@ document.addEventListener('click', e => {
   if (t.dataset.test) { S.test = t.dataset.test; render(); return; }
   if (t.dataset.sign) { S.signed[t.dataset.sign] = true; render(); toast('Signed off as mentor: ' + t.dataset.sign); return; }
   if (t.dataset.agent) { if (S.paused) { toast('All agents are paused. Resume them first.'); return; } S.agents[t.dataset.agent] = !S.agents[t.dataset.agent]; render(); toast(t.dataset.agent + (S.agents[t.dataset.agent] ? ' is on' : ' is off')); return; }
-  if (t.dataset.coc) { const ev = EVIDENCE.find(x => x[0] === t.dataset.coc); modal(`<h2 style="font-size:18px">Chain of custody · ${ev[0]}</h2><div class="d" style="margin-bottom:10px">${ev[1]}</div><div class="list">${[[ev[4] + ' 09:12', 'Received from ' + ev[3] + ' · hashed ' + ev[5]], [ev[4] + ' 09:14', 'Stored read-only · copy for analysis made'], [ev[4] + ' 09:20', 'Working copy opened for analysis · hash re-checked'], ['14 Dec 08:40', 'Viewed by J. M. Liswaniso']].map(r => `<div class="it"><div class="ic ok" style="font-size:11px">✓</div><div><div class="t">${r[0]}</div><div class="d">${r[1]}</div></div></div>`).join('')}</div><div class="btns" style="margin-top:12px;justify-content:flex-end"><button class="btn" data-close>Close</button></div>`); return; }
+  if (t.dataset.coc) { const ev = EVIDENCE.find(x => x[0] === t.dataset.coc); modal(`<h2 style="font-size:18px">Chain of custody · ${ev[0]}</h2><div class="d" style="margin-bottom:10px">${ev[1]}</div><div class="list">${[[ev[4] + ' 09:12', 'Received from ' + ev[3] + ' · hashed ' + ev[5]], [ev[4] + ' 09:14', 'Stored read-only · copy for analysis made'], [ev[4] + ' 09:20', 'Working copy opened for analysis · hash re-checked'], ['14 Dec 08:40', 'Viewed by D. M. Kalaba']].map(r => `<div class="it"><div class="ic ok" style="font-size:11px">✓</div><div><div class="t">${r[0]}</div><div class="d">${r[1]}</div></div></div>`).join('')}</div><div class="btns" style="margin-top:12px;justify-content:flex-end"><button class="btn" data-close>Close</button></div>`); return; }
   switch (t.id) {
     case 'ask-btn': modal(`<h2 style="font-size:18px">Request drafted by Front Desk</h2><div class="d" style="margin-bottom:12px">To Lusaka Packaging Co. and Zed Fuel Station, on WhatsApp, from ABACUS360's number</div><div class="draft">Good morning. On behalf of our client Kalimba Foods Ltd, may we ask you to issue invoices INV-2291 and 88713 through ZRA Smart Invoice? Without a Smart Invoice our client cannot claim the VAT. Thank you, ABACUS360.</div><div class="d" style="margin-top:10px">Nothing is sent until a person approves it.</div><div class="btns" style="margin-top:14px;justify-content:flex-end"><button class="btn o" data-close>Cancel</button><button class="btn" id="send-ask">Approve and send</button></div>`); break;
     case 'send-ask': S.asked = true; closeModal(); render(); toast('Sent to both suppliers. The client was told in My 360.'); break;
@@ -1024,7 +1319,7 @@ document.addEventListener('click', e => {
     case 'sendinv': S.invSent = true; render(); S.log.push([nowT(), ROLES[S.role].who, 'Sent 142 December invoices', 'From the engagement letters']); toast('142 invoices sent by email and WhatsApp, in ABACUS360\'s name (demo).'); break;
     case 'nc-next': S.nc++; ncStep(); if (S.nc === 3) S.log.push([nowT(), ROLES[S.role].who, 'Opened new client · Chisamba Agro Ltd', 'Due diligence and conflict check recorded']); break;
     case 'askGo': { const v = $('#askIn').value.trim(); if (v) runAsk(matchQ(v), v); else $('#sugg').classList.toggle('on'); break; }
-    case 'audit-sign': modal(`<h2 style="font-size:18px">Sign the audit report</h2><div class="d" style="margin:6px 0 12px">Copperline Engineering Ltd · year ended 30 June 2026</div><div class="list"><div class="it"><div class="ic rev">1</div><div><div class="t">You sign as J. M. Liswaniso, FZICA, engagement partner</div><div class="d">Unmodified opinion</div></div></div><div class="it"><div class="ic rev">2</div><div><div class="t">The report, the statements and the work papers are locked</div></div></div><div class="it"><div class="ic rev">3</div><div><div class="t">A verification code goes on the report as a QR code</div></div></div></div><div class="btns" style="margin-top:14px;justify-content:flex-end"><button class="btn o" data-close>Cancel</button><button class="btn gd" id="do-audit-sign">Sign</button></div>`); break;
+    case 'audit-sign': modal(`<h2 style="font-size:18px">Sign the audit report</h2><div class="d" style="margin:6px 0 12px">Copperline Engineering Ltd · year ended 30 June 2026</div><div class="list"><div class="it"><div class="ic rev">1</div><div><div class="t">You sign as D. M. Kalaba, FZICA, engagement partner</div><div class="d">Unmodified opinion</div></div></div><div class="it"><div class="ic rev">2</div><div><div class="t">The report, the statements and the work papers are locked</div></div></div><div class="it"><div class="ic rev">3</div><div><div class="t">A verification code goes on the report as a QR code</div></div></div></div><div class="btns" style="margin-top:14px;justify-content:flex-end"><button class="btn o" data-close>Cancel</button><button class="btn gd" id="do-audit-sign">Sign</button></div>`); break;
     case 'do-audit-sign': S.auditSigned = true; S.log.push([nowT(), ROLES[S.role].who, 'Signed audit report · Copperline Engineering', 'File locked']); closeModal(); render(); toast('Signed. File locked and verification code A360-FS-26-0431 issued.'); break;
   }
 });
@@ -1100,15 +1395,17 @@ function endTour() { S.tourI = -1; $('#tour').classList.remove('on'); highlight(
 /* ------------------------------------------------------------ welcome */
 function welcome() {
   $('#layer').innerHTML = `<div class="veil" id="veil"><div class="welcome"><div class="hdr">${logo(44)}<div><div style="letter-spacing:3px;font-weight:300;font-size:20px">ABACUS360</div><div style="font-size:12px;letter-spacing:1.6px;color:#9fb0dc;text-transform:uppercase">360 Practice · demonstration</div></div></div>
-    <div class="bd"><div style="font-size:22px;color:var(--ink);font-weight:500;line-height:1.25">${hello()}, Mr Liswaniso</div>
+    <div class="bd"><div style="font-size:22px;color:var(--ink);font-weight:500;line-height:1.25">${hello()}</div>
     <p style="margin:10px 0 0">This is a working demonstration of the system we would build for ABACUS360, with a sample firm and sample clients. Click anything. Nothing you do here leaves this page.</p>
-    <p class="d" style="margin:8px 0 18px">Prepared for J. M. Liswaniso, FZICA · by MIA Technology</p>
+    <p class="d" style="margin:8px 0 18px">Prepared for ABACUS360 · by MIA Technology · you enter as D. M. Kalaba, a fictional partner</p>
     <div class="btns"><button class="btn gd" id="w-tour">Take the guided tour · 15 minutes</button><button class="btn o" id="w-free">Explore on my own</button></div>
     <div class="motto">Built on the level. Checked on the square.</div></div></div></div>`;
   $('#w-tour').onclick = () => { closeModal(); startTour(); };
   $('#w-free').onclick = closeModal;
 }
 
+I18N.onchange = () => render();
+I18N.start();
 render();
 welcome();
 }
